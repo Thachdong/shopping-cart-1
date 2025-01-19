@@ -1,3 +1,3 @@
-export function joinClass(...rest: string[]): string {
-  return rest.filter((cls: string) => !!cls).join(" ");
+export function joinClass(...rest: (string | undefined)[]): string {
+  return rest.filter((cls): cls is string => !!cls).join(" ");
 }
