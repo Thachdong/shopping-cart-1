@@ -5,11 +5,12 @@ export default {
   title: "Menu",
   args: {
     items: [
-      { id: 1, label: "Home", url: "/" },
-      { id: 2, label: "About", url: "/about" },
-      { id: 3, label: "Contact", url: "/contact" },
+      { id: "1", label: "Home", url: "/" },
+      { id: "2", label: "About", url: "/about" },
+      { id: "3", label: "Contact", url: "/contact" },
     ],
     direction: "horizontal",
+    activeId: "1",
   },
 };
 
