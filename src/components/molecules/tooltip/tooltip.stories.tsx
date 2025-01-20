@@ -17,7 +17,8 @@ export const Default = {
 
 export const LongContentTooltip = {
   args: {
-    position: "bottom",
-    content: "Long long long long long content",
+    position: "bottom-left",
+    content:
+      "Long long long long long content Long long long long long content Long long long long long content Long long long long long content Long long long long long content Long long long long long content Long long long long long content Long long long long long content Long long long long long content ",
   },
 };
