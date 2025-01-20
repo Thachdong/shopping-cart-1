@@ -3,11 +3,9 @@ import { useBgImage } from "@/libs/hooks/useBgImage";
 import { TBanner } from "@/types/banner";
 import React from "react";
 
-export const HeroBanner: React.FC<Readonly<TBanner>> = ({
+export const SubBanner: React.FC<Readonly<TBanner>> = ({
   url,
   header,
-  description,
-  buttons,
   height,
   width,
 }) => {
@@ -26,17 +24,9 @@ export const HeroBanner: React.FC<Readonly<TBanner>> = ({
   return (
     <div
       style={{ ...bgImageStyle, ...containerStyle }}
-      className="flex flex-col items-center justify-center text-white gap-4"
+      className="flex flex-col justify-end text-white p-4"
     >
-      <Header level={1}>{header}</Header>
-
-      {description && <p>{description}</p>}
-
-      {buttons && buttons.length > 0 && (
-        <div className="flex gap-2 items-center">
-          {buttons.map((btn) => btn)}
-        </div>
-      )}
+      <Header level={2}>{header}</Header>
     </div>
   );
 };
