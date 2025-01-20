@@ -2,7 +2,7 @@ import { Link } from ".";
 
 export default {
   component: Link,
-  title: "Link",
+  title: "Atoms/Link",
   args: {
     children: "link",
     href: "/home",

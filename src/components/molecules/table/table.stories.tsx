@@ -23,7 +23,7 @@ const columns = [
 
 export default {
   component: Table,
-  title: "Table",
+  title: "Molecules/Table",
   args: {
     data: MOCK_USERS,
     columns,
@@ -31,10 +31,10 @@ export default {
   },
 };
 
-export const Default = {}
+export const Default = {};
 
 export const Borderless = {
-    args: {
-        borderless: true,
-    },
-}
+  args: {
+    borderless: true,
+  },
+};

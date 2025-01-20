@@ -2,7 +2,7 @@ import { Menu } from ".";
 
 export default {
   component: Menu,
-  title: "Menu",
+  title: "Molecules/Menu",
   args: {
     items: [
       { id: "1", label: "Home", url: "/" },

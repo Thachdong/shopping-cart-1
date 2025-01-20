@@ -3,7 +3,7 @@ import { HeaderWithButton } from ".";
 
 export default {
   component: HeaderWithButton,
-  title: "Header With Button",
+  title: "Molecules/Header With Button",
   args: {
     children: "Header",
     level: 1,

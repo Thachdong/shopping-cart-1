@@ -2,7 +2,7 @@ import { Tooltip } from ".";
 
 export default {
   component: Tooltip,
-  title: "Tooltip",
+  title: "Molecules/Tooltip",
   args: {
     buttonText: "tooltip",
     content: "tooltip content",

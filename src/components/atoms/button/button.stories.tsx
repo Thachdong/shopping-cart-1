@@ -2,7 +2,7 @@ import { Button } from ".";
 
 export default {
   component: Button,
-  title: "Button",
+  title: "Atoms/Button",
   args: {
     children: "click me",
   },

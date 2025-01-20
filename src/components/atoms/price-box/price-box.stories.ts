@@ -2,7 +2,7 @@ import { PriceBox } from ".";
 
 export default {
   component: PriceBox,
-  title: "Price Box",
+  title: "Atoms/Price Box",
   args: {
     price: 99,
   },

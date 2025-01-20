@@ -2,7 +2,7 @@ import { Tag } from ".";
 
 export default {
   component: Tag,
-  title: "Tag",
+  title: "Atoms/Tag",
 };
 
 export const Default = {
