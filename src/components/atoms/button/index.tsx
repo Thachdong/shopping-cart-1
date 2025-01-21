@@ -3,7 +3,7 @@ import { TButtonProps } from "@/types/button";
 import React from "react";
 
 const DEFAULT_STYLE =
-  "h-9 px-4 border border-white rounded-lg font-semibold transition duration-200 ease-in-out";
+  "h-9 px-4 border border-white rounded-lg transition duration-200 ease-in-out";
 
 const VARIANT_STYLE = {
   normal: "",
