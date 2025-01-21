@@ -4,4 +4,6 @@ export enum EIconName {
   "right-arrow" = "right-arrow",
   "star-outline" = "star-outline",
   "star-fill" = "star-fill",
+  plus = "plus",
+  minus = "minus",
 }
