@@ -8,7 +8,7 @@ export default {
     children: "Header",
     level: 1,
     // @ts-ignore
-    button: <Button type="primary">Button</Button>,
+    button: <Button variant="primary">Button</Button>,
   },
 };
 

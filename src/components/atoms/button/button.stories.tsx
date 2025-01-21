@@ -14,18 +14,18 @@ export const Default = {
 
 export const Primary = {
   args: {
-    type: "primary",
+    variant: "primary",
   },
 };
 
 export const Secondary = {
   args: {
-    type: "secondary",
+    variant: "secondary",
   },
 };
 
 export const Tertiary = {
   args: {
-    type: "tertiary",
+    variant: "tertiary",
   },
 };

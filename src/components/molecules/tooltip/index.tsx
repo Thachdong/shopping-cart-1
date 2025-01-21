@@ -34,14 +34,14 @@ export const Tooltip: React.FC<Readonly<TTooltip>> = ({
 
     const contentClass = joinClass(
       baseClassName,
-      classNameBaseOnPosition[position]
+      classNameBaseOnPosition[position],
     );
 
-    return <div className={contentClass}>
-      <div className="max-w-xs">
-      {content}
+    return (
+      <div className={contentClass}>
+        <div className="max-w-xs">{content}</div>
       </div>
-    </div>;
+    );
   }, [visible, content, position]);
 
   return (

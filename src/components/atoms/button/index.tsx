@@ -18,7 +18,7 @@ const VARIANT_STYLE = {
 export const Button: React.FC<TButtonProps> = ({
   children,
   className,
-  type = "normal",
+  variant = "normal",
   ...buttonProps
 }) => {
   return (
@@ -26,7 +26,7 @@ export const Button: React.FC<TButtonProps> = ({
       className={joinClass(
         DEFAULT_STYLE,
         className,
-        VARIANT_STYLE[type as keyof typeof VARIANT_STYLE],
+        VARIANT_STYLE[variant as keyof typeof VARIANT_STYLE],
       )}
       {...buttonProps}
     >
