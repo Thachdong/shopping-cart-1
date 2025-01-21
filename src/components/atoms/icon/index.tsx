@@ -24,7 +24,7 @@ export const Icon: React.FC<Readonly<TSvgIconProps>> = ({
           `width: ${svgWidth}; height: ${svgHeight}; cursor: pointer; user-select: none`,
         );
 
-        svg.setAttribute("class", className || "");
+        svg.setAttribute("class", className ?? "");
 
         if (fill) {
           svg.setAttribute("fill", fill);

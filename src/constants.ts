@@ -6,4 +6,14 @@ export enum EIconName {
   "star-fill" = "star-fill",
   plus = "plus",
   minus = "minus",
+  close = "close",
 }
+
+export enum EToastType {
+  success = "success",
+  info = "info",
+  warning = "warning",
+  error = "error",
+}
+
+export const DEFAULT_TOAST_DURATION = 3000; // 3 seconds
