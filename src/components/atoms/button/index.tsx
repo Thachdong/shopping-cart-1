@@ -1,4 +1,5 @@
 import { joinClass } from "@/helpers/style";
+import { TButtonProps } from "@/types/button";
 import React from "react";
 
 const DEFAULT_STYLE =
