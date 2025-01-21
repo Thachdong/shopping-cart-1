@@ -1,4 +1,3 @@
-import { title } from "process";
 import { SaleBox } from ".";
 
 export default {

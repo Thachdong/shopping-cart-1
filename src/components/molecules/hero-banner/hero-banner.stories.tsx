@@ -1,4 +1,3 @@
-import { Button } from "@/components/atoms/button";
 import { HeroBanner } from ".";
 import { LinkAsButton } from "../link-as-button";
 
@@ -12,11 +11,11 @@ export default {
     description: "Home page description",
     buttons: [
       // @ts-ignore
-      <LinkAsButton buttonProps={{ type: "primary" }} href={""}>
+      <LinkAsButton key="1" buttonProps={{ type: "primary" }} href={""}>
         Collections
       </LinkAsButton>,
       // @ts-ignore
-      <LinkAsButton buttonProps={{ type: "secondary" }} href={""}>
+      <LinkAsButton key="2" buttonProps={{ type: "secondary" }} href={""}>
         About Us
       </LinkAsButton>,
     ],
