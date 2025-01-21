@@ -7,6 +7,6 @@ export default {
 
 export const Default = {
   args: {
-    children: "new tag",
+    content: "new tag",
   },
 };
