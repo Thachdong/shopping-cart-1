@@ -7,8 +7,8 @@ export enum EIconName {
   plus = "plus",
   minus = "minus",
   close = "close",
-  'close-circle' = "close-circle",
-  'add-circle' = "add-circle",
+  "close-circle" = "close-circle",
+  "add-circle" = "add-circle",
 }
 
 export enum EToastType {
@@ -19,10 +19,15 @@ export enum EToastType {
 }
 
 export enum EButtonType {
-  normal = 'normal',
-  primary = 'primary',
-  secondary = 'secondary',
-  tertiary = 'tertiary',
+  normal = "normal",
+  primary = "primary",
+  secondary = "secondary",
+  tertiary = "tertiary",
 }
 
 export const DEFAULT_TOAST_DURATION = 3000; // 3 seconds
+
+export enum ECurrency {
+  "VND" = "VND",
+  "USD" = "$",
+}

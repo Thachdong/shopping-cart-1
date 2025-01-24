@@ -12,8 +12,9 @@ const thumbnails = [
 
 const MOCK_PRODUCT = {
   id: "1",
-  name: "Product Name",
-  description: "Product description",
+  name: "So long Product Name So long Product Name So long Product Name So long Product Name So long Product Name So long Product Name ",
+  description:
+    "So long Product description So long Product description So long Product description So long Product description So long Product description So long Product description ",
   price: 99,
   discountPercent: 25,
   discountPrice: 69,

@@ -1,9 +1,10 @@
-import { Button } from "@/components/atoms/button";
-import { EButtonType } from "@/constants";
+import { EButtonType, ECurrency } from "@/constants";
 import React from "react";
 import { CardThumbnails } from "../card-thumbnails";
 import { Header } from "@/components/atoms/header";
 import { joinClass } from "@/helpers/style";
+import { LinkAsButton } from "../link-as-button";
+import { SaleBox } from "../sale-box";
 
 const DEFAULT_CLASSNAME = {
   card: "border rounded-lg",
@@ -23,14 +24,25 @@ export const ProductCard: React.FC<Readonly<TProductCard>> = ({
 
       {/* product infomation */}
       <div className={joinClass(DEFAULT_CLASSNAME.body)}>
-        <Header level={6}>{product.name}</Header>
-        <p>{product.description}</p>
+        <Header className="truncate" level={6}>
+          {product.name}
+        </Header>
+        <p className="truncate">{product.description}</p>
+        <SaleBox price={0} sale={0} currency={ECurrency.VND} />
       </div>
 
       {/* call to action buttons */}
       <div className={DEFAULT_CLASSNAME.footer}>
-        <Button variant={EButtonType.secondary}>DETAIL</Button>
-        <Button variant={EButtonType.primary}>ADD TO CART</Button>
+        <LinkAsButton
+          href={"/"}
+          buttonProps={{ variant: EButtonType.secondary }}
+        >
+          DETAIL
+        </LinkAsButton>
+
+        <LinkAsButton href={"/"} buttonProps={{ variant: EButtonType.primary }}>
+          ADD TO CART
+        </LinkAsButton>
       </div>
     </div>
   );

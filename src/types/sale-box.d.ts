@@ -1,3 +1,5 @@
+import { ECurrency } from "@/constants";
+
 type TSaleBox = {
   price: number;
   sale: number;
