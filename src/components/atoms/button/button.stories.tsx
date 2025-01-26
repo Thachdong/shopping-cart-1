@@ -29,3 +29,9 @@ export const Tertiary = {
     variant: "tertiary",
   },
 };
+
+export const Outline = {
+  args: {
+    variant: "outline",
+  },
+};

@@ -13,6 +13,8 @@ const VARIANT_STYLE = {
     "bg-secondary-100 text-white hover:border-secondary-100 hover:bg-white hover:text-secondary-100",
   tertiary:
     "bg-yellow-200 text-white hover:border-yellow-200 hover:bg-white hover:text-yellow-200",
+  outline:
+    "!border-primary-100 text-primary-100 hover:text-secondary-100 hover:!border-secondary-100 !rounded",
 };
 
 export const Button: React.FC<TButtonProps> = ({

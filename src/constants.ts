@@ -23,6 +23,7 @@ export enum EButtonType {
   primary = "primary",
   secondary = "secondary",
   tertiary = "tertiary",
+  outline = "outline",
 }
 
 export const DEFAULT_TOAST_DURATION = 3000; // 3 seconds
