@@ -1,5 +1,14 @@
 import { joinClass } from "@/helpers/style";
-import React, { useMemo } from "react";
+import React from "react";
+
+const headerLevels: { [key: number]: string } = {
+  1: "text-4xl",
+  2: "text-3xl",
+  3: "text-2xl",
+  4: "text-xl",
+  5: "text-lg",
+  6: "text-base",
+};
 
 export const Header: React.FC<Readonly<THeader>> = ({
   level,
@@ -7,46 +16,16 @@ export const Header: React.FC<Readonly<THeader>> = ({
   className,
   ...headerProps
 }) => {
-  const content = useMemo(() => {
-    switch (level) {
-      case 1:
-        return (
-          <h1 className={joinClass("text-4xl", className)} {...headerProps}>
-            {children}
-          </h1>
-        );
-      case 2:
-        return (
-          <h2 className={joinClass("text-3xl", className)} {...headerProps}>
-            {children}
-          </h2>
-        );
-      case 3:
-        return (
-          <h3 className={joinClass("text-2xl", className)} {...headerProps}>
-            {children}
-          </h3>
-        );
-      case 4:
-        return (
-          <h4 className={joinClass("text-xl", className)} {...headerProps}>
-            {children}
-          </h4>
-        );
-      case 5:
-        return (
-          <h5 className={joinClass("text-lg", className)} {...headerProps}>
-            {children}
-          </h5>
-        );
-      default:
-        return (
-          <h6 className={joinClass("text-base", className)} {...headerProps}>
-            {children}
-          </h6>
-        );
-    }
-  }, [level, children, className, headerProps]);
+  const Tag = `h${level}` as keyof JSX.IntrinsicElements as React.ElementType;
+  const classes = joinClass(
+    headerLevels[level] || headerLevels[6],
+    "text-primary-100",
+    className,
+  );
 
-  return content;
+  return (
+    <Tag className={classes} {...headerProps}>
+      {children}
+    </Tag>
+  );
 };
