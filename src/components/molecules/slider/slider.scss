@@ -1,0 +1,8 @@
+.swiper-button-prev,
+.swiper-button-next {
+  @apply text-primary-100 text-xl;
+
+  &::after {
+    @apply text-xl;
+  }
+}
