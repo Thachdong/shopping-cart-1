@@ -1,4 +1,5 @@
 import { Props as SelectProps } from "react-select";
+import { UploadProps } from "rc-upload";
 
 type TBaseInput = Omit<
   React.DetailedHTMLProps<
@@ -26,3 +27,5 @@ type TBaseSelect = Omit<SelectProps, "options" | "isMulti"> & {
   options: TSelectOption[];
   error?: string;
 };
+
+type TBaseUpload = UploadProps;
