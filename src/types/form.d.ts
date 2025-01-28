@@ -37,3 +37,9 @@ type TBaseEditor = {
   initialValue?: string;
   init: InitOptions;
 };
+
+type TUploadAvatar = TBaseUpload & {
+  width: number;
+  height?: number;
+  className?: string;
+};

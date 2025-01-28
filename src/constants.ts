@@ -9,6 +9,7 @@ export enum EIconName {
   close = "close",
   "close-circle" = "close-circle",
   "add-circle" = "add-circle",
+  "upload-img" = "upload-img",
 }
 
 export enum EToastType {
