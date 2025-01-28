@@ -1,5 +1,6 @@
 import { Props as SelectProps } from "react-select";
 import { UploadProps } from "rc-upload";
+import { InitOptions } from "@tinymce/tinymce-react/lib/cjs/main/ts/components/Editor";
 
 type TBaseInput = Omit<
   React.DetailedHTMLProps<
@@ -29,3 +30,10 @@ type TBaseSelect = Omit<SelectProps, "options" | "isMulti"> & {
 };
 
 type TBaseUpload = UploadProps;
+
+type TBaseEditor = {
+  label?: string;
+  error?: string;
+  initialValue?: string;
+  init: InitOptions;
+};
