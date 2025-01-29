@@ -39,7 +39,13 @@ type TBaseEditor = {
 };
 
 type TUploadAvatar = TBaseUpload & {
-  width: number;
+  width?: number;
   height?: number;
   avatarClassName?: string;
+};
+
+type TUploadDisplayImg = TBaseUpload & {
+  width?: number;
+  height?: number;
+  displayClassName?: string;
 };

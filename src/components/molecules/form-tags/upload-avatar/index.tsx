@@ -9,7 +9,7 @@ import { useBgImage } from "@/libs/hooks/useBgImage";
 import styles from "./upload-avatar.module.scss";
 
 const DEFAULT_CLASSNAME =
-  "rounded-full flex items-center justify-center border border-gray-300";
+  "rounded-full flex items-center justify-center border border-gray-300 align-middle";
 
 export const UploadAvatar: React.FC<Readonly<TUploadAvatar>> = ({
   width,
