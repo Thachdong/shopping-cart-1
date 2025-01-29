@@ -41,5 +41,5 @@ type TBaseEditor = {
 type TUploadAvatar = TBaseUpload & {
   width: number;
   height?: number;
-  className?: string;
+  avatarClassName?: string;
 };
