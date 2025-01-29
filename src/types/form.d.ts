@@ -55,3 +55,12 @@ type TUploadBanner = TBaseUpload & {
   height?: number;
   bannerClassName?: string;
 };
+
+type TUploadThumbnails = Omit<TBaseUpload, "value"> & {
+  value?: string[];
+  width?: number;
+  height?: number;
+  imgClassName?: string;
+  thumbnailsClassName?: string;
+  onDelete?: (img: string) => void;
+};
