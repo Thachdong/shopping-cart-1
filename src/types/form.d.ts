@@ -42,18 +42,21 @@ type TUploadAvatar = TBaseUpload & {
   width?: number;
   height?: number;
   avatarClassName?: string;
+  onDelete?: () => void;
 };
 
 type TUploadDisplayImg = TBaseUpload & {
   width?: number;
   height?: number;
   displayClassName?: string;
+  onDelete?: () => void;
 };
 
 type TUploadBanner = TBaseUpload & {
   width?: number;
   height?: number;
   bannerClassName?: string;
+  onDelete?: () => void;
 };
 
 type TUploadThumbnails = Omit<TBaseUpload, "value"> & {

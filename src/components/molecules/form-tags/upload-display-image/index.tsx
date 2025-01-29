@@ -18,6 +18,7 @@ export const UploadDisplayImage: React.FC<Readonly<TUploadDisplayImg>> = ({
   displayClassName,
   className,
   value,
+  onDelete,
   ...uploadProps
 }) => {
   const style = useBgImage(value as string);
@@ -35,6 +36,7 @@ export const UploadDisplayImage: React.FC<Readonly<TUploadDisplayImg>> = ({
       )}
       style={style}
     >
+      {/* UPLOADER */}
       <BaseUpload
         className={joinClass(styles["base-upload"], className)}
         value={value}
@@ -42,6 +44,15 @@ export const UploadDisplayImage: React.FC<Readonly<TUploadDisplayImg>> = ({
       >
         <Icon name={EIconName["upload-img"]} />
       </BaseUpload>
+
+      {/* TRASH ICON */}
+      {value && (
+        <Icon
+          onClick={onDelete}
+          className={styles["delete-icon"]}
+          name={EIconName.trash}
+        />
+      )}
     </div>
   );
 };

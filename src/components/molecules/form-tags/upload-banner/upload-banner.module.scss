@@ -5,9 +5,17 @@
     @apply hidden;
   }
 
+  .delete-icon {
+    @apply absolute text-secondary-200 z-20 cursor-pointer top-1 right-1;
+  }
+
   &:hover {
     .base-upload {
       @apply block z-20 text-white;
+    }
+
+    .delete-icon {
+      @apply text-red-500;
     }
 
     &::before {

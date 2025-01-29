@@ -18,6 +18,7 @@ export const UploadBanner: React.FC<Readonly<TUploadBanner>> = ({
   children,
   value,
   className,
+  onDelete,
   ...uploadProps
 }) => {
   const style = useBgImage(value as string);
@@ -42,6 +43,15 @@ export const UploadBanner: React.FC<Readonly<TUploadBanner>> = ({
       >
         {children || <Icon name={EIconName["upload-img"]} />}
       </BaseUpload>
+
+      {/* TRASH ICON */}
+      {value && (
+        <Icon
+          className={styles["delete-icon"]}
+          name={EIconName.trash}
+          onClick={onDelete}
+        />
+      )}
     </div>
   );
 };

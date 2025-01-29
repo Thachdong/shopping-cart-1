@@ -51,7 +51,7 @@ export const UploadThumbnails: React.FC<Readonly<TUploadThumbnails>> = ({
 
         <Icon
           className={DEFAULT_CLASSNAME.deleteIcon}
-          name={EIconName["close-circle"]}
+          name={EIconName.trash}
           onClick={() => onDelete?.(img)}
         />
       </div>
