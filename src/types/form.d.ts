@@ -49,3 +49,9 @@ type TUploadDisplayImg = TBaseUpload & {
   height?: number;
   displayClassName?: string;
 };
+
+type TUploadBanner = TBaseUpload & {
+  width?: number;
+  height?: number;
+  bannerClassName?: string;
+};
