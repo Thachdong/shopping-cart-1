@@ -1,6 +1,7 @@
 import { Props as SelectProps } from "react-select";
 import { UploadProps } from "rc-upload";
 import { InitOptions } from "@tinymce/tinymce-react/lib/cjs/main/ts/components/Editor";
+import { Control, FieldValues, Path } from "react-hook-form";
 
 type TBaseInput = Omit<
   React.DetailedHTMLProps<
@@ -67,3 +68,10 @@ type TUploadThumbnails = Omit<TBaseUpload, "value"> & {
   thumbnailsClassName?: string;
   onDelete?: (img: string) => void;
 };
+
+interface IWithHookFormProps<T extends FieldValues> {
+  control: Control<T>;
+  name: Path<T>;
+  rules?: object;
+  defaultValue?: T[keyof T];
+}
