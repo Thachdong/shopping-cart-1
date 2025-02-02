@@ -1,6 +1,8 @@
 "use client";
 
+import { ECurrency } from "@/constants";
 import { joinClass } from "@/helpers/style";
+import { TPriceBox } from "@/types/price-box";
 import React, { useMemo } from "react";
 
 const DEFAULT_STYLE = "text-primary-100 inline-block font-bold text-lg";

@@ -2,7 +2,7 @@ import { Icon } from ".";
 
 export default {
   component: Icon,
-  title: "Icon",
+  title: "Atoms/Icon",
 };
 
 export const Edit = {

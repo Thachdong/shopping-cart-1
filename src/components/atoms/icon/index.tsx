@@ -1,3 +1,4 @@
+import { TSvgIconProps } from "@/types/icon";
 import React from "react";
 import { ReactSVG } from "react-svg";
 
@@ -20,10 +21,10 @@ export const Icon: React.FC<Readonly<TSvgIconProps>> = ({
 
         svg.setAttribute(
           "style",
-          `width: ${svgWidth}; height: ${svgHeight}; cursor: pointer; user-select: none`,
+          `width: ${svgWidth}; height: ${svgHeight}; user-select: none`,
         );
 
-        svg.setAttribute("class", className || "");
+        svg.setAttribute("class", className ?? "");
 
         if (fill) {
           svg.setAttribute("fill", fill);

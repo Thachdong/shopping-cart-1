@@ -1,0 +1,14 @@
+.my-image-gallery {
+  .image-gallery-icon,
+  .image-gallery-svg {
+    height: 32px !important;
+    padding: 0;
+  }
+
+  .image-gallery-thumbnails-container {
+    .image-gallery-thumbnail:hover,
+    .active {
+      border-width: 2px !important;
+    }
+  }
+}

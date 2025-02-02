@@ -2,7 +2,7 @@ import { Header } from ".";
 
 export default {
   component: Header,
-  title: "Header",
+  title: "Atoms/Header",
   args: {
     children: "Header",
   },

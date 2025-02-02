@@ -3,7 +3,7 @@ import { IconButton } from ".";
 
 export default {
   component: IconButton,
-  title: "Icon Button",
+  title: "Molecules/Icon Button",
   args: {
     children: "Click Me",
   },

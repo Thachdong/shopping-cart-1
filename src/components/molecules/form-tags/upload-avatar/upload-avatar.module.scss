@@ -1,0 +1,26 @@
+.avatar-uploaded {
+  @apply relative;
+
+  .base-upload {
+    @apply hidden;
+  }
+
+  .delete-icon {
+    @apply text-secondary-200 z-20 relative cursor-pointer;
+  }
+
+  &:hover {
+    .base-upload {
+      @apply block z-20 text-white;
+    }
+
+    .delete-icon {
+      @apply text-red-500;
+    }
+
+    &::before {
+      content: "";
+      @apply absolute top-0 left-0 w-full h-full bg-black bg-opacity-30 z-10 rounded-full;
+    }
+  }
+}

@@ -1,7 +1,4 @@
-enum ECurrency {
-  "VND" = "VND",
-  "USD" = "$",
-}
+import { ECurrency } from "@/constants";
 
 type TPriceBox = {
   price: number;

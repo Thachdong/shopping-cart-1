@@ -2,7 +2,7 @@ import { ErrorMessage } from ".";
 
 export default {
   component: ErrorMessage,
-  title: "Error Message",
+  title: "Atoms/Error Message",
 };
 
 export const Default = {

@@ -2,7 +2,7 @@ import { Avatar } from ".";
 
 export default {
   component: Avatar,
-  title: "Avatar",
+  title: "Atoms/Avatar",
 };
 
 export const Default = {

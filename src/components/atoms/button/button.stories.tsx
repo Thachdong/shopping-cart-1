@@ -2,7 +2,7 @@ import { Button } from ".";
 
 export default {
   component: Button,
-  title: "Button",
+  title: "Atoms/Button",
   args: {
     children: "click me",
   },
@@ -14,18 +14,24 @@ export const Default = {
 
 export const Primary = {
   args: {
-    type: "primary",
+    variant: "primary",
   },
 };
 
 export const Secondary = {
   args: {
-    type: "secondary",
+    variant: "secondary",
   },
 };
 
 export const Tertiary = {
   args: {
-    type: "tertiary",
+    variant: "tertiary",
+  },
+};
+
+export const Outline = {
+  args: {
+    variant: "outline",
   },
 };

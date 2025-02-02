@@ -2,7 +2,7 @@ import { LinkAsButton } from ".";
 
 export default {
   component: LinkAsButton,
-  title: "Link As Button",
+  title: "Molecules/Link As Button",
   args: {
     children: "link as button",
     href: "/home",

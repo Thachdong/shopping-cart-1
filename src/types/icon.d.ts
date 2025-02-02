@@ -1,7 +1,4 @@
-enum EIconName {
-  edit = "edit",
-  "square-plus" = "square-plus",
-}
+import { EIconName } from "../constants";
 
 type TSvgIconProps = {
   name: EIconName;
@@ -9,4 +6,5 @@ type TSvgIconProps = {
   width?: number;
   height?: number;
   fill?: string;
+  onClick?: () => void;
 };
