@@ -1,0 +1,27 @@
+model Product {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name        String
+    description String
+
+    // RELASHIONSHIP:
+    // DISPLAY_IMAGE
+    displayImage   Asset                @relation(fields: [displayImageId], references: [id])
+    displayImageId Int
+    // COMMENT
+    comments       Comment[]
+    // REVIEW
+    reviews        Review[]
+    // VARIANT
+    variants       Variant[]
+    // BLOGPOST
+    blogposts      Blogpost_Product[]
+    // COLLECTION
+    collections    Product_Collection[]
+    // CART
+    carts          Product_Cart[]
+    // ORDER
+    orders         Product_Order[]
+}

@@ -1,0 +1,20 @@
+model Order {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    discount       Int
+    address        String
+    shippingVender String
+    shippingFee    Int
+    total          Int
+    isComplete     Boolean
+    completeDate   DateTime
+
+    // RELATIONSHIP:
+    // USER
+    userId   Int
+    user     User            @relation(fields: [userId], references: [id])
+    // PRODUCTS
+    products Product_Order[]
+}

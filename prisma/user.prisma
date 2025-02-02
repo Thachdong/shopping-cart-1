@@ -1,0 +1,26 @@
+model User {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    username    String
+    phoneNumber String
+    email       String?
+    birthday    DateTime?
+
+    // RELATIONSHIP:
+    // Comment
+    comments  Comment[]
+    // REVIEW
+    reviews   Review[]
+    // CART
+    cartId    Int
+    cart      Cart?
+    // ORDERS
+    orders    Order[]
+    // ADDRESS
+    addresses Address[]
+    // AVATAR
+    avatarId  Int?      @unique
+    avatar    Asset?    @relation(fields: [avatarId], references: [id])
+}

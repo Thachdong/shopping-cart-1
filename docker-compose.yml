@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: shopping-cart-db-1
+    environment:
+      POSTGRES_USER: dongt
+      POSTGRES_PASSWORD: dongt
+      POSTGRES_DB: shopping-cart-db-1
+    ports:
+      - "5431:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
