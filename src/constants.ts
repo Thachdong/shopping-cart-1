@@ -34,3 +34,6 @@ export enum ECurrency {
   "VND" = "VND",
   "USD" = "$",
 }
+
+export const PAGE_SIZE = 30;
+export const CURRENT_PAGE = 1;

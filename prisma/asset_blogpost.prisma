@@ -1,0 +1,10 @@
+model Asset_Blogpost {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    blogpostId Int
+    blogpost   Blogpost @relation(fields: [blogpostId], references: [id])
+    assetId    Int
+    asset      Asset    @relation(fields: [assetId], references: [id])
+}

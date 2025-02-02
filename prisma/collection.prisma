@@ -1,0 +1,19 @@
+model Collection {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name        String
+    description String
+
+    // RELATIONSHIP: 
+    // BANNER
+    banner    Asset                 @relation(fields: [bannerId], references: [id])
+    bannerId  Int
+    // COMMENT
+    comments  Comment[]
+    // PRODUCTS
+    products  Product_Collection[]
+    // BLOGPOSTS
+    blogposts Collection_Blogpost[]
+}

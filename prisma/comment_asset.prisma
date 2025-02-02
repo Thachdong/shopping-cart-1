@@ -1,0 +1,10 @@
+model Comment_Asset {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    commentId Int
+    comment   Comment @relation(fields: [commentId], references: [id])
+    assetId   Int
+    asset     Asset   @relation(fields: [assetId], references: [id])
+}
