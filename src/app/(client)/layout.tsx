@@ -1,7 +1,14 @@
-export default function ShopLayout({
+export default async function ClientLayout({
   children,
+  modals,
 }: {
   children: React.ReactNode;
+  modals: React.ReactNode;
 }) {
-  return <section>{children}</section>;
+  return (
+    <section>
+      {children}
+      {modals}
+    </section>
+  );
 }
