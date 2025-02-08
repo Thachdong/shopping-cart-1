@@ -9,6 +9,7 @@ export const Icon: React.FC<Readonly<TSvgIconProps>> = ({
   width = 24,
   height = 24,
   fill,
+  onClick,
 }) => {
   return (
     <ReactSVG
@@ -32,6 +33,7 @@ export const Icon: React.FC<Readonly<TSvgIconProps>> = ({
           svg.setAttribute("fill", fill);
         }
       }}
+      onClick={onClick}
     />
   );
 };

@@ -1,0 +1,13 @@
+@keyframes progressBarAnimation {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.progress-bar {
+  @apply absolute h-1 bottom-0 left-1 right-1 w-full;
+  animation: progressBarAnimation var(--duration, 3s) linear forwards;
+}

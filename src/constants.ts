@@ -28,8 +28,6 @@ export enum EButtonType {
   outline = "outline",
 }
 
-export const DEFAULT_TOAST_DURATION = 3000; // 3 seconds
-
 export enum ECurrency {
   "VND" = "VND",
   "USD" = "$",
@@ -37,3 +35,12 @@ export enum ECurrency {
 
 export const PAGE_SIZE = 30;
 export const CURRENT_PAGE = 1;
+export const TOAST_TIMEOUT = 5000; // 5S
+export enum EToastPositions {
+  "bottom-left",
+  "bottom-right",
+  "bottom-center",
+  "top-left",
+  "top-right",
+  "top-center",
+}
