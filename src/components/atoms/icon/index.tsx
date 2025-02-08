@@ -5,6 +5,7 @@ import { ReactSVG } from "react-svg";
 export const Icon: React.FC<Readonly<TSvgIconProps>> = ({
   name,
   className,
+  iconClassName,
   width = 24,
   height = 24,
   fill,
@@ -14,6 +15,7 @@ export const Icon: React.FC<Readonly<TSvgIconProps>> = ({
       fill={fill}
       src={`/icons/${name}.svg`}
       wrapper="span"
+      className={iconClassName}
       beforeInjection={(svg) => {
         const svgWidth = width ? `${width}px` : "auto";
 

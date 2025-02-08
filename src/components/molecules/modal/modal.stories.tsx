@@ -10,3 +10,11 @@ export default {
 };
 
 export const Default = {};
+
+export const WithHeader = {
+  args: {
+    open: true,
+    children: "This is modal content",
+    header: <h1>Title header</h1>,
+  },
+};
