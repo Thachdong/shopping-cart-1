@@ -10,7 +10,9 @@ export default async function ClientLayout({
 }) {
   return (
     <section className="max-w-[1366px] mx-auto min-h-screen grid grid-cols-1 grid-rows-[auto_1fr_auto]">
-      <ClientHeader />
+      <div className="sticky top-0 z-50 bg-white hover:shadow-xl">
+        <ClientHeader />
+      </div>
 
       {children}
 
