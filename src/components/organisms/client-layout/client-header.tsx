@@ -8,6 +8,7 @@ const ITEMS = [
   { id: "1", label: "Home", url: "/" },
   { id: "2", label: "Blogs", url: "/blogs" },
   { id: "3", label: "Collections", url: "/collections" },
+  { id: "4", label: "Products", url: "/products" },
 ];
 
 const CLASS_NAMES = {

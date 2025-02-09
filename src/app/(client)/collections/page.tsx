@@ -1,3 +1,10 @@
+import { CollectionList } from "@/components/organisms/collection-list";
+import { popularCollections } from "../data";
+
 export default async function CollectionsPage() {
-  return <div>Collections page</div>;
+  return (
+    <div className="py-4">
+      <CollectionList collections={popularCollections} />
+    </div>
+  );
 }

@@ -218,36 +218,42 @@ export const popularCollections: TCollectionCard[] = [
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
+    products: bestProducts.slice(8),
   },
   {
     id: "2",
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
+    products: bestProducts.slice(8, 16),
   },
   {
     id: "3",
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
+    products: bestProducts.slice(8, 16),
   },
   {
     id: "4",
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
+    products: bestProducts.slice(9, 17),
   },
   {
     id: "5",
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
+    products: bestProducts.slice(9, 17),
   },
   {
     id: "6",
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
+    products: bestProducts.slice(9, 17),
   },
 ];
 
