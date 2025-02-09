@@ -13,7 +13,7 @@ const DEFAULT_CLASSNAME = {
   footer: "flex items-center justify-between p-2",
 };
 
-export const ProductCard: React.FC<Readonly<TProductCard>> = ({
+export const ProductCard: React.FC<Readonly<TProductCardProps>> = ({
   product,
   className,
 }) => {

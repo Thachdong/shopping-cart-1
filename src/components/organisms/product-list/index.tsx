@@ -1,5 +1,6 @@
 import { Button } from "@/components/atoms/button";
-import { Header } from "@/components/atoms/header";
+import { HeaderWithButton } from "@/components/molecules/header-with-button";
+import { LinkAsButton } from "@/components/molecules/link-as-button";
 import { ProductCard } from "@/components/molecules/product-card";
 import { EButtonType } from "@/constants";
 import { joinClass } from "@/helpers/style";
@@ -21,11 +22,23 @@ export const ProductList: React.FC<Readonly<TProductList>> = ({
 }) => {
   return (
     <div className={joinClass(CONTAINER_CLASSNAME, className)}>
-      <Header level={3}>{title}</Header>
+      <HeaderWithButton
+        level={3}
+        button={
+          <LinkAsButton
+            buttonProps={{ variant: EButtonType.outline }}
+            href={"/"}
+          >
+            View all
+          </LinkAsButton>
+        }
+      >
+        {title}
+      </HeaderWithButton>
 
       <div className={joinClass(LIST_CLASSNAME, listClassName)}>
         {products.map((product) => (
-          <ProductCard key={product.product.id} product={product.product} />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
 

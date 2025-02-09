@@ -1,5 +1,5 @@
 type TProductList = {
-  products: Pick<TProductCard, "product">[];
+  products: TProductCard[];
   title: string;
   className?: string;
   listClassName?: string;

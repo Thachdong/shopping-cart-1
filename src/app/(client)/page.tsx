@@ -1,22 +1,70 @@
-"use client";
-import { Link } from "@/components/atoms/link";
-import { EToastType } from "@/constants";
-import { useToast } from "@/libs/contexts/toast-context";
+import { HeroBanner } from "@/components/molecules/hero-banner";
+import { ProductList } from "@/components/organisms/product-list";
+import {
+  bestProducts,
+  MOCK_DATA,
+  popularBlogposts,
+  popularCollections,
+} from "./data";
+import { CollectionList } from "@/components/organisms/collection-list";
+import { HeaderWithButton } from "@/components/molecules/header-with-button";
+import { LinkAsButton } from "@/components/molecules/link-as-button";
+import { EButtonType } from "@/constants";
+import { BlogPostList } from "@/components/organisms/blogpost-list";
 
-export default function Home() {
-  const { addToast } = useToast();
-
+export default async function Home() {
   return (
-    <div>
-      <Link href="/auth/login">Login</Link>
-      <br />
-      <button
-        onClick={() =>
-          addToast({ message: "success", type: EToastType.success })
+    <div className="flex flex-col gap-4">
+      {/* herro banner */}
+      <HeroBanner
+        url={MOCK_DATA.herroBanner}
+        header="MONI FASHION"
+        description="Moni fashion description"
+        height={275}
+      />
+      {/* most popular products -- product list */}
+      <ProductList title="Most popular products" products={bestProducts} />
+
+      {/* most popular collections -- collections slide */}
+      <hr className="border-gray-300" />
+
+      <HeaderWithButton
+        level={2}
+        button={
+          <LinkAsButton
+            buttonProps={{ variant: EButtonType.outline }}
+            href={"/"}
+          >
+            View all
+          </LinkAsButton>
         }
       >
-        toast
-      </button>
+        Most popular collections
+      </HeaderWithButton>
+
+      <CollectionList
+        className="grid grid-cols-2 gap-4"
+        collections={popularCollections}
+      />
+
+      {/* most popular blogposts -- blogpost slide */}
+      <hr className="border-gray-300" />
+
+      <HeaderWithButton
+        level={2}
+        button={
+          <LinkAsButton
+            buttonProps={{ variant: EButtonType.outline }}
+            href={"/"}
+          >
+            View all
+          </LinkAsButton>
+        }
+      >
+        Lastest posts
+      </HeaderWithButton>
+
+      <BlogPostList className="mb-4" blogposts={popularBlogposts} />
     </div>
   );
 }
