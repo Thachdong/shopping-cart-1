@@ -11,6 +11,12 @@ export enum EIconName {
   "add-circle" = "add-circle",
   "upload-img" = "upload-img",
   trash = "trash",
+  facebook = "facebook",
+  instagram = "instagram",
+  tiktok = "tiktok",
+  youtube = "youtube",
+  shopee = "shopee",
+  cart = "cart",
 }
 
 export enum EToastType {

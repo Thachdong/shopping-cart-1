@@ -16,6 +16,8 @@ export const ToastProvider: React.FC<Readonly<TToastProvider>> = ({
 }) => {
   const [toasts, setToasts] = useState<TToast[]>([]);
 
+  console.log(toasts);
+
   const closeToast = useCallback((id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
@@ -51,8 +53,8 @@ export const ToastProvider: React.FC<Readonly<TToastProvider>> = ({
     <ToastContext.Provider value={{ toasts, addToast, closeToast }}>
       {children}
       <div
-        className="fixed w-full max-w-md flex flex-col gap-y-2"
-        style={{ bottom: "1rem", left: "1rem" }}
+        className="fixed w-full max-w-md sm:w-full grid grid-cols-1 gap-y-2 px-2"
+        style={{ bottom: 1 }}
       >
         {toasts.map(renderToast)}
       </div>

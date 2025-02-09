@@ -1,3 +1,4 @@
+"use client";
 import { TSvgIconProps } from "@/types/icon";
 import React from "react";
 import { ReactSVG } from "react-svg";

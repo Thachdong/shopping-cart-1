@@ -10,8 +10,19 @@ type TBaseInput = Omit<
   >,
   "value"
 > & {
-  value: string | number;
-  id: string;
+  value?: string | number;
+  id?: string;
+  error?: string;
+  className?: string;
+  label?: React.ReactNode;
+  validate?: (value: string | number) => boolean;
+};
+
+type TBaseTextarea = React.DetailedHTMLProps<
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  HTMLTextAreaElement
+> & {
+  id?: string;
   error?: string;
   className?: string;
   label?: React.ReactNode;
