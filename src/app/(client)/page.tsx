@@ -46,10 +46,7 @@ export default async function Home() {
         Most popular collections
       </HeaderWithButton>
 
-      <CollectionList
-        className="grid grid-cols-2 gap-4"
-        collections={popularCollections}
-      />
+      <CollectionList collections={popularCollections} />
 
       {/* most popular blogposts -- blogpost slide */}
       <hr className="border-gray-300" />

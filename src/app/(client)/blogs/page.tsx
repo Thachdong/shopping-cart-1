@@ -1,3 +1,6 @@
+import { BlogPostList } from "@/components/organisms/blogpost-list";
+import { popularBlogposts } from "../data";
+
 export default async function BlogsPage() {
-  return <div>Blogs page</div>;
+  return <BlogPostList className="mb-4" blogposts={popularBlogposts} />;
 }
