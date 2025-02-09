@@ -23,7 +23,11 @@ export default async function Home() {
         height={275}
       />
       {/* most popular products -- product list */}
-      <ProductList title="Most popular products" products={bestProducts} />
+      <ProductList
+        title="Most popular products"
+        products={bestProducts}
+        viewAllPath="/products"
+      />
 
       {/* most popular collections -- collections slide */}
       <hr className="border-gray-300" />
@@ -33,7 +37,7 @@ export default async function Home() {
         button={
           <LinkAsButton
             buttonProps={{ variant: EButtonType.outline }}
-            href={"/"}
+            href={"/collections"}
           >
             View all
           </LinkAsButton>
@@ -55,7 +59,7 @@ export default async function Home() {
         button={
           <LinkAsButton
             buttonProps={{ variant: EButtonType.outline }}
-            href={"/"}
+            href={"/posts"}
           >
             View all
           </LinkAsButton>

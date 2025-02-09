@@ -19,20 +19,22 @@ export const ProductList: React.FC<Readonly<TProductList>> = ({
   listClassName,
   products,
   loadMoreAction,
+  viewAllPath,
 }) => {
+  const button = viewAllPath ? (
+    <LinkAsButton
+      buttonProps={{ variant: EButtonType.outline }}
+      href={viewAllPath}
+    >
+      View all
+    </LinkAsButton>
+  ) : (
+    ""
+  );
+
   return (
     <div className={joinClass(CONTAINER_CLASSNAME, className)}>
-      <HeaderWithButton
-        level={3}
-        button={
-          <LinkAsButton
-            buttonProps={{ variant: EButtonType.outline }}
-            href={"/"}
-          >
-            View all
-          </LinkAsButton>
-        }
-      >
+      <HeaderWithButton level={3} button={button}>
         {title}
       </HeaderWithButton>
 

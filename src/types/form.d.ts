@@ -14,9 +14,9 @@ type TBaseInput = Omit<
   value?: string | number;
   id?: string;
   error?: string;
-  className?: string;
   label?: React.ReactNode;
   validate?: (value: string | number) => boolean;
+  inputClassName?: string;
 };
 
 type TBaseTextarea = React.DetailedHTMLProps<
@@ -25,9 +25,9 @@ type TBaseTextarea = React.DetailedHTMLProps<
 > & {
   id?: string;
   error?: string;
-  className?: string;
   label?: React.ReactNode;
   validate?: (value: string | number) => boolean;
+  inputClassName?: string;
 };
 
 type TSelectOption = {
@@ -36,7 +36,6 @@ type TSelectOption = {
 };
 
 type TBaseSelect = Omit<SelectProps, "options" | "isMulti"> & {
-  id: string;
   label: string;
   options: TSelectOption[];
   error?: string;

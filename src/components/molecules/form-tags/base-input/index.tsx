@@ -10,13 +10,18 @@ export const BaseInput: React.FC<Readonly<TBaseInput>> = ({
   label,
   id,
   className,
+  inputClassName,
   error,
   ...inputProps
 }) => {
   return (
     <label className={joinClass(DEFAULT_CLASSNAME, className)} htmlFor={id}>
       {label}
-      <input className={DEFAULT_INPUT_CLASSNAME} id={id} {...inputProps} />
+      <input
+        className={joinClass(DEFAULT_INPUT_CLASSNAME, inputClassName)}
+        id={id}
+        {...inputProps}
+      />
       {error && <ErrorMessage className="-mt-1" message={error} />}
     </label>
   );

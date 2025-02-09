@@ -4,4 +4,5 @@ type TProductList = {
   className?: string;
   listClassName?: string;
   loadMoreAction?: () => void;
+  viewAllPath?: string;
 };

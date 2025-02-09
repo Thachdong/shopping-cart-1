@@ -1,3 +1,4 @@
+"use client";
 import { ErrorMessage } from "@/components/atoms/error-message";
 import { joinClass } from "@/helpers/style";
 import { TBaseSelect } from "@/types/form";
@@ -5,16 +6,17 @@ import React from "react";
 import Select from "react-select";
 
 const DEFAULT_CLASSNAME = "flex flex-col gap-2 h-9 px-2";
-const DEFAULT_INPUT_CLASSNAME = "rounded h-9";
+const DEFAULT_INPUT_CLASSNAME = "rounded h-9 z-50";
 
 export const BaseSelect: React.FC<Readonly<TBaseSelect>> = ({
   id,
   label,
   error,
+  className,
   ...selectProps
 }) => {
   return (
-    <label className={joinClass(DEFAULT_CLASSNAME)} htmlFor={id}>
+    <label className={joinClass(DEFAULT_CLASSNAME, className)} htmlFor={id}>
       {label}
       <Select
         inputId={id}
