@@ -17,6 +17,8 @@ export enum EIconName {
   youtube = "youtube",
   shopee = "shopee",
   cart = "cart",
+  eyes = "eyes",
+  "eyes-slash" = "eyes-slash",
 }
 
 export enum EToastType {

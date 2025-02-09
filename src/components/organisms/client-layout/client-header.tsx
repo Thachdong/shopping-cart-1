@@ -5,10 +5,9 @@ import { EIconName } from "@/constants";
 import { LinkAsButton } from "@/components/molecules/link-as-button";
 
 const ITEMS = [
-  { id: "1", label: "Home", url: "" },
-  { id: "2", label: "About", url: "" },
-  { id: "3", label: "Blogs", url: "" },
-  { id: "4", label: "Collections", url: "" },
+  { id: "1", label: "Home", url: "/" },
+  { id: "2", label: "Blogs", url: "/blogs" },
+  { id: "3", label: "Collections", url: "/collections" },
 ];
 
 const CLASS_NAMES = {
@@ -34,11 +33,19 @@ export const ClientHeader: React.FC = () => {
           <Icon name={EIconName.cart} />
         </div>
         {/* profile */}
-        <LinkAsButton buttonProps={{ className: "!p-0" }} href={"/login"}>
+        <LinkAsButton
+          id="login-button"
+          buttonProps={{ className: "!p-0" }}
+          href={"/auth/login#login-button"}
+        >
           Login
         </LinkAsButton>
         <span>/</span>
-        <LinkAsButton buttonProps={{ className: "!p-0" }} href={"/register"}>
+        <LinkAsButton
+          id="register-button"
+          buttonProps={{ className: "!p-0" }}
+          href={"/auth/register#register-button"}
+        >
           Register
         </LinkAsButton>
       </div>

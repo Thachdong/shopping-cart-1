@@ -2,6 +2,7 @@ import { Props as SelectProps } from "react-select";
 import { UploadProps } from "rc-upload";
 import { InitOptions } from "@tinymce/tinymce-react/lib/cjs/main/ts/components/Editor";
 import { Control, FieldValues, Path } from "react-hook-form";
+import { ReactNode } from "react";
 
 type TBaseInput = Omit<
   React.DetailedHTMLProps<
@@ -86,3 +87,9 @@ interface IWithHookFormProps<T extends FieldValues> {
   rules?: object;
   defaultValue?: T[keyof T];
 }
+
+type TFormPassword = {
+  inputTag: ReactNode;
+  type: "text" | "password";
+  setType: () => void;
+};

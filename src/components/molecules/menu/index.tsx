@@ -28,11 +28,15 @@ export const Menu: React.FC<TMenu> = ({
             : "";
 
         return (
-          <li
-            className={joinClass(BASE_ITEM_STYLE, activeClassName)}
-            key={item.id}
-          >
-            <Link href={item.url} className={joinClass(item.className)}>
+          <li key={item.id}>
+            <Link
+              href={item.url}
+              className={joinClass(
+                BASE_ITEM_STYLE,
+                activeClassName,
+                item.className,
+              )}
+            >
               {item.label}
             </Link>
           </li>
