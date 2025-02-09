@@ -1,7 +1,9 @@
+"use client";
 import { Link } from "@/components/atoms/link";
 import { joinClass } from "@/helpers/style";
 import { TMenu } from "@/types/menu";
-import React from "react";
+import { usePathname } from "next/navigation";
+import React, { useMemo } from "react";
 
 const DEFAULT_HORIZONTAL = "flex flex-col";
 
@@ -10,12 +12,19 @@ const DEFAULT_VERTICAL = "flex flex-row";
 const BASE_ITEM_STYLE =
   "py-2 px-4 cursor-pointer border-b-2 border-transparent hover:border-primary-100 hover:bg-gray-200 hover:text-primary-100";
 
-export const Menu: React.FC<TMenu> = ({
-  direction,
-  items,
-  className,
-  activeId,
-}) => {
+export const Menu: React.FC<TMenu> = ({ direction, items, className }) => {
+  const pathname = usePathname();
+
+  const activeId = useMemo(() => {
+    if (pathname === "/") {
+      return items.find((i) => i.url === "/")?.id || "";
+    }
+
+    return (
+      items.find((i) => i.url !== "/" && pathname.startsWith(i.url))?.id || ""
+    );
+  }, [items, pathname]);
+
   const directionStyle =
     direction === "horizontal" ? DEFAULT_HORIZONTAL : DEFAULT_VERTICAL;
 
