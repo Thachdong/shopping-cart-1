@@ -18,7 +18,7 @@ const colors = ["gray", "red", "green", "blue", "dark blue"];
 
 const tags = ["tag 1", "tag 2", "tag 3", "tag 4", "tag 5", "tag 6"];
 
-export default function FilterBox() {
+export const FilterBox: React.FC = () => {
   return (
     <div className="border-r border-gray-300 px-2 max-w-[175px]">
       <Header level={5}>Collections:</Header>
@@ -69,4 +69,4 @@ export default function FilterBox() {
       </div>
     </div>
   );
-}
+};

@@ -1,3 +1,6 @@
+import { ProductDetail } from "@/components/pages/product-detail";
+import { bestProducts } from "../../data";
+
 export default async function ProductDetailPage() {
-  return <div>Product detail page</div>;
+  return <ProductDetail product={bestProducts[0]} />;
 }

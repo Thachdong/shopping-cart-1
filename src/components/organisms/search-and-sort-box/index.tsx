@@ -23,7 +23,7 @@ const PRODUCT_ORDER_BY = [
   { value: "description", label: "Product Description" },
 ];
 
-export default function SearchBox() {
+export const SearchAndSortBox: React.FC = () => {
   return (
     <div className="flex gap-4 items-center px-2 py-4">
       <div className="flex gap-2 w-1/3">
@@ -51,4 +51,4 @@ export default function SearchBox() {
       </div>
     </div>
   );
-}
+};

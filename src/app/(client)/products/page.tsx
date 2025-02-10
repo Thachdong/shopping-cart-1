@@ -1,10 +1,6 @@
-import { ProductList } from "@/components/organisms/product-list";
 import { bestProducts } from "../data";
+import { ProductListPage } from "@/components/pages/product-list";
 
 export default async function ProductsPage() {
-  return (
-    <div className="p-2">
-      <ProductList title="" products={bestProducts} />
-    </div>
-  );
+  return <ProductListPage products={bestProducts} />;
 }

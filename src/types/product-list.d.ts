@@ -6,3 +6,11 @@ type TProductList = {
   loadMoreAction?: () => void;
   viewAllPath?: string;
 };
+
+type TProductListPageProps = {
+  products: TProductCard[];
+};
+
+type TProductDetailPageProps = {
+  product: TProductCard;
+};

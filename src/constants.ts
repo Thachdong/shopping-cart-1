@@ -52,3 +52,13 @@ export enum EToastPositions {
   "top-right",
   "top-center",
 }
+
+export const enum EPath {
+  products = "products",
+  collections = "collections",
+  blos = "blogs",
+  cart = "cart",
+  checkout = "checkout",
+  login = "auth/login",
+  register = "auth/register",
+}
