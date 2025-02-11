@@ -1,8 +1,10 @@
 import { Menu } from "@/components/molecules/menu";
 import { Header } from "@/components/atoms/header";
 import { Icon } from "@/components/atoms/icon";
-import { EIconName } from "@/constants";
+import { EIconName, EPath } from "@/constants";
 import { LinkAsButton } from "@/components/molecules/link-as-button";
+import Link from "next/link";
+import { genPath } from "@/helpers/router";
 
 const ITEMS = [
   { id: "1", label: "Home", url: "/" },
@@ -30,9 +32,9 @@ export const ClientHeader: React.FC = () => {
 
       <div className="flex gap-2 items-center">
         {/* cart */}
-        <div>
+        <Link href={genPath(EPath.cart)}>
           <Icon name={EIconName.cart} />
-        </div>
+        </Link>
         {/* profile */}
         <LinkAsButton
           id="login-button"
