@@ -116,7 +116,7 @@ export const Cart: React.FC = () => {
           <tr className="!border-0">
             <td className="!border-0" colSpan={3}></td>
             <td className="font-bold">Total Discount</td>
-            <td colSpan={2}>
+            <td colSpan={3}>
               <PriceBox price={0} />
             </td>
           </tr>
@@ -124,7 +124,7 @@ export const Cart: React.FC = () => {
           <tr className="!border-0">
             <td className="!border-0" colSpan={3}></td>
             <td className="font-bold">Total Before Discount</td>
-            <td colSpan={2}>
+            <td colSpan={3}>
               <PriceBox price={0} />
             </td>
           </tr>
@@ -132,14 +132,14 @@ export const Cart: React.FC = () => {
           <tr className="!border-0">
             <td className="!border-0" colSpan={3}></td>
             <td className="font-bold">Total</td>
-            <td colSpan={2}>
+            <td colSpan={3}>
               <PriceBox price={0} />
             </td>
           </tr>
 
           <tr className="!border-0">
             <td className="!border-0" colSpan={4}></td>
-            <td className="!border-0 text-center" colSpan={2}>
+            <td className="!border-0 text-center" colSpan={3}>
               <LinkAsButton
                 href={genPath(EPath.checkout)}
                 buttonProps={{
