@@ -2,6 +2,8 @@ import { Header } from "@/components/atoms/header";
 import { joinClass } from "@/helpers/style";
 import Image from "next/image";
 import { LinkAsButton } from "../link-as-button";
+import { genPath } from "@/helpers/router";
+import { EPath } from "@/constants";
 
 const DEFAULT_CLASSNAME = "border rounded";
 const DEFAULT_CARD_BODY = "flex flex-col gap-y-2 p-2";
@@ -23,7 +25,7 @@ export const BlogpostCard: React.FC<Readonly<TBlogpostCard>> = ({
         <Header level={3}>{blogpost.title}</Header>
         <p className="line-clamp-2">{blogpost.description}</p>
         <LinkAsButton
-          href={`/blog/${blogpost.id}`}
+          href={genPath(EPath.blogs, blogpost.id)}
           buttonProps={{
             variant: "outline",
           }}

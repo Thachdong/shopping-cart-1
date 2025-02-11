@@ -56,7 +56,7 @@ export enum EToastPositions {
 export const enum EPath {
   products = "products",
   collections = "collections",
-  blos = "blogs",
+  blogs = "blogs",
   cart = "cart",
   checkout = "checkout",
   login = "auth/login",
