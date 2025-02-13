@@ -72,4 +72,11 @@ export const enum EPath {
   checkout = "checkout",
   login = "auth/login",
   register = "auth/register",
+  adminCollections = "admin/collections",
+  adminProducts = "admin/products",
+  adminOrders = "admin/orders",
+  adminBlogposts = "admin/blogposts",
+  adminAssetManagement = "admin/asset-management",
+  adminSettings = "admin/settings",
+  adminUsers = "admin/users",
 }

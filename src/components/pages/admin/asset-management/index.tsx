@@ -8,7 +8,7 @@ import React from "react";
 
 export const AssetManagement: React.FC = () => {
   return (
-    <div className="p-2">
+    <>
       <Header className="mb-4" level={1}>
         Asset Management
       </Header>
@@ -39,6 +39,6 @@ export const AssetManagement: React.FC = () => {
       <Header className="mb-4" level={4}>
         S3 Assets
       </Header>
-    </div>
+    </>
   );
 };

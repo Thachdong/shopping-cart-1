@@ -13,7 +13,7 @@ export default async function AdminLayout({
       <div>
         <AdminHeader />
 
-        {children}
+        <div className="p-2">{children}</div>
       </div>
     </section>
   );

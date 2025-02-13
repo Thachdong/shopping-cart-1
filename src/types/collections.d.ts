@@ -21,3 +21,9 @@ type TCollectionListPageProps = {
 type TCollectionDetailPageProps = {
   collection: TCollectionCard;
 };
+
+type TCreateCollection = {
+  name: string;
+  description: string;
+  bannerId: number;
+};
