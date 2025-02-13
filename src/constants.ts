@@ -29,6 +29,7 @@ export enum EIconName {
   "asset-management" = "asset-management",
   settings = "settings",
   users = "users",
+  upload = "upload",
 }
 
 export enum EToastType {
