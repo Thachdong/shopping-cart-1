@@ -28,7 +28,7 @@ export const ClientHeader: React.FC = () => {
         moni.sh
       </Header>
       {/* menu */}
-      <Menu direction="vertical" items={ITEMS} activeId="1" />
+      <Menu direction="vertical" items={ITEMS} />
 
       <div className="flex gap-2 items-center">
         {/* cart */}

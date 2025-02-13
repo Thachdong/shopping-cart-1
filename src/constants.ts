@@ -19,6 +19,16 @@ export enum EIconName {
   cart = "cart",
   eyes = "eyes",
   "eyes-slash" = "eyes-slash",
+  "sign-out" = "sign-out",
+  "caret-circle-right" = "caret-circle-right",
+  "caret-circle-left" = "caret-circle-left",
+  collections = "collections",
+  products = "products",
+  blogposts = "blogposts",
+  orders = "orders",
+  "asset-management" = "asset-management",
+  settings = "settings",
+  users = "users",
 }
 
 export enum EToastType {
