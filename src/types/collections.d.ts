@@ -27,3 +27,10 @@ type TCreateCollection = {
   description: string;
   bannerId: number;
 };
+
+type TAdminCollection = {
+  id: number;
+  name: string;
+  description: string;
+  createdAt: string;
+};

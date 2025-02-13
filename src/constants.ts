@@ -30,6 +30,7 @@ export enum EIconName {
   settings = "settings",
   users = "users",
   upload = "upload",
+  enter = "enter",
 }
 
 export enum EToastType {
