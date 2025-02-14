@@ -42,7 +42,7 @@ export const Menu: React.FC<TMenu> = ({ direction, items, className }) => {
       {items.map((item) => {
         const activeClassName =
           item.id === activeId
-            ? "!border-primary-200 !bg-gray-300 !text-primary-100 font-medium"
+            ? "!border-primary-100 !bg-gray-300 !text-primary-100 font-medium"
             : "";
 
         return (

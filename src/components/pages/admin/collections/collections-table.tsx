@@ -4,10 +4,8 @@ import { LinkAsButton } from "@/components/molecules/link-as-button";
 import Table from "@/components/molecules/table";
 import { EIconName, EPath } from "@/constants";
 import { genPath } from "@/helpers/router";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
-
-const columnHelper = createColumnHelper<TAdminCollection>();
 
 const MOCK_COLLECTIONS: TAdminCollection[] = [
   {
@@ -43,13 +41,14 @@ const MOCK_COLLECTIONS: TAdminCollection[] = [
 ];
 
 export const CollectionsTable: React.FC = () => {
-  const columns = useMemo(
+  const columns: ColumnDef<TAdminCollection>[] = useMemo(
     () => [
-      columnHelper.accessor("name", { header: "Name" }),
-      columnHelper.accessor("description", { header: "Description" }),
-      columnHelper.accessor("createdAt", { header: "Created At" }),
-      columnHelper.accessor("id", {
-        header: "Detail",
+      { header: "Name", accessorKey: "name" },
+      { header: "Description", accessorKey: "description" },
+      { header: "createdAt", accessorKey: "createdAt" },
+      {
+        header: "",
+        accessorKey: "id",
         cell: ({ row }) => (
           <LinkAsButton
             href={genPath(EPath.adminCollections, row.original.id.toString())}
@@ -57,15 +56,10 @@ export const CollectionsTable: React.FC = () => {
             <Icon name={EIconName.enter} />
           </LinkAsButton>
         ),
-      }),
+      },
     ],
     [],
   );
 
-  return (
-    <Table
-      columns={columns as ColumnDef<TAdminCollection>[]}
-      data={MOCK_COLLECTIONS}
-    />
-  );
+  return <Table columns={columns} data={MOCK_COLLECTIONS} />;
 };

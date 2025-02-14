@@ -20,3 +20,12 @@ type TBlogpostCard = {
 type TBlogpostDetailPageProps = {
   post: TBlogpostCard;
 };
+
+type TAdminBlogpost = {
+  id: number;
+  title: string;
+  description: string;
+  publishDate: string;
+  relatedProducts: { id: number; name: string }[];
+  relatedCollections: { id: number; name: string }[];
+};
