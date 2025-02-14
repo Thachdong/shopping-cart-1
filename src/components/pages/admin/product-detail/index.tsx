@@ -3,6 +3,8 @@ import { DetailTable } from "@/components/molecules/detail-table";
 import { TDetailTableRow } from "@/types/table";
 import React from "react";
 import { VariantsTable } from "./variants-table";
+import { Button } from "@/components/atoms/button";
+import { EButtonType } from "@/constants";
 
 const MOCK_VARIANTS: TProductVariant[] = [];
 
@@ -67,11 +69,23 @@ export const ProductDetail: React.FC = () => {
     <>
       <Header level={1}>Product Detail</Header>
 
-      <Header level={4}>I. General</Header>
+      {/* General data */}
+      <div className="flex items-center gap-4 mb-4">
+        <Header className="!mb-0" level={4}>
+          I. General
+        </Header>
+        <Button variant={EButtonType.outline}>Edit</Button>
+      </div>
 
       <DetailTable rows={rows} headerClassName="!w-44" />
 
-      <Header level={4}>II. Variants</Header>
+      {/* Product variants */}
+      <div className="flex items-center gap-4 mb-4">
+        <Header className="!mb-0" level={4}>
+          II. Variants
+        </Header>
+        <Button variant={EButtonType.outline}>Add</Button>
+      </div>
 
       <VariantsTable variants={MOCK_VARIANTS} />
     </>
