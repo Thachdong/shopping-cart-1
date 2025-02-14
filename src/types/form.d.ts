@@ -47,7 +47,7 @@ type TBaseEditor = {
   label?: string;
   error?: string;
   initialValue?: string;
-  init: InitOptions;
+  init?: InitOptions;
 };
 
 type TUploadAvatar = TBaseUpload & {

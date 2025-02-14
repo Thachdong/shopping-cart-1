@@ -7,7 +7,7 @@ import { genPath } from "@/helpers/router";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-const MOCK_BLOGPOSTS: TAdminBlogpost[] = [
+const MOCK_BLOGPOSTS: TBlogpost[] = [
   {
     id: 1,
     title: "Blogposts title",
@@ -51,7 +51,7 @@ const MOCK_BLOGPOSTS: TAdminBlogpost[] = [
 ];
 
 export const BlogpostsTable: React.FC = () => {
-  const columns: ColumnDef<TAdminBlogpost>[] = useMemo(
+  const columns: ColumnDef<TBlogpost>[] = useMemo(
     () => [
       { header: "Title", accessorKey: "title" },
       { header: "Description", accessorKey: "description" },

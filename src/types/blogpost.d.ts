@@ -21,11 +21,20 @@ type TBlogpostDetailPageProps = {
   post: TBlogpostCard;
 };
 
-type TAdminBlogpost = {
+type TBlogpost = {
   id: number;
   title: string;
   description: string;
   publishDate: string;
   relatedProducts: { id: number; name: string }[];
   relatedCollections: { id: number; name: string }[];
+};
+
+type TCreateBlogpost = {
+  title: string;
+  description: string;
+  content: string;
+  publishDate: string;
+  productIds: number[];
+  collectionIds: number[];
 };
