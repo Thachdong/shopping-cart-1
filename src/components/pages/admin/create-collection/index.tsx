@@ -21,9 +21,7 @@ export const CreateCollection: React.FC = () => {
 
   return (
     <div>
-      <Header className="mb-4" level={1}>
-        Create Collection
-      </Header>
+      <Header level={1}>Create Collection</Header>
 
       <form className="flex flex-col gap-4">
         <FormInput control={control} name="name" label="Collection Name" />

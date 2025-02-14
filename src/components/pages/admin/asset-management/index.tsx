@@ -9,13 +9,9 @@ import React from "react";
 export const AssetManagement: React.FC = () => {
   return (
     <>
-      <Header className="mb-4" level={1}>
-        Asset Management
-      </Header>
+      <Header level={1}>Asset Management</Header>
 
-      <Header className="mb-4" level={4}>
-        Icons
-      </Header>
+      <Header level={4}>Icons</Header>
 
       {/* Create icon */}
       <div className="flex gap-2 items-center mb-4">
@@ -36,9 +32,7 @@ export const AssetManagement: React.FC = () => {
         ))}
       </div>
 
-      <Header className="mb-4" level={4}>
-        S3 Assets
-      </Header>
+      <Header level={4}>S3 Assets</Header>
     </>
   );
 };

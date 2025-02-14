@@ -1,3 +1,5 @@
+import { CollectionDetail } from "@/components/pages/admin/collection-detail";
+
 export default async function CollectionsPage() {
-  return <section>Collections page</section>;
+  return <CollectionDetail />;
 }

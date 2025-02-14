@@ -64,7 +64,7 @@ export const AdminSidebar: React.FC = () => {
     <div className="relative border-r border-gray-300">
       {/* logo */}
       <Header
-        className="uppercase tracking-widest !text-2xl select-none mr-4 text-center border-b border-gray-300 w-full py-2"
+        className="uppercase tracking-widest !text-2xl select-none mr-4 !mb-0 text-center border-b border-gray-300 w-full py-2"
         level={1}
       >
         moni.sh
