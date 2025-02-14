@@ -18,7 +18,7 @@ export const DetailTable: React.FC<TDetailTable> = ({
           <tr key={r.id}>
             <td
               className={joinClass(
-                "w-20 bg-gray-200 font-bold",
+                "bg-gray-200 font-bold w-fit",
                 headerClassName,
                 r.headerClassName,
               )}

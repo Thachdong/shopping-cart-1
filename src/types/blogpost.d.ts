@@ -38,3 +38,13 @@ type TCreateBlogpost = {
   productIds: number[];
   collectionIds: number[];
 };
+
+type TBlogpostDetail = {
+  id: number;
+  title: string;
+  description: string;
+  content: string;
+  publishDate: string;
+  products: { id: number; name: string }[];
+  collections: { id: number; name: string }[];
+};
