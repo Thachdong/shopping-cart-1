@@ -42,7 +42,7 @@ const MOCK_COLLECTIONS: TAdminCollection[] = [
   },
 ];
 
-export const CollectionTable: React.FC = () => {
+export const CollectionsTable: React.FC = () => {
   const columns = useMemo(
     () => [
       columnHelper.accessor("name", { header: "Name" }),

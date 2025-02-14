@@ -1,27 +1,21 @@
 "use client";
-import { Header } from "@/components/atoms/header";
-import { LinkAsButton } from "@/components/molecules/link-as-button";
-import { EButtonType, EPath } from "@/constants";
+import { EPath } from "@/constants";
 import { genPath } from "@/helpers/router";
 import React from "react";
-import { CollectionTable } from "./collection-table";
+import { CollectionsTable } from "./collections-table";
+import { AdminPageHeader } from "@/components/molecules/admin-page-header";
 
 export const Collections: React.FC = () => {
   return (
     <>
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <Header level={1}>Collections</Header>
-        <LinkAsButton
-          buttonProps={{ variant: EButtonType.outline }}
-          href={genPath(EPath.adminCollections, "create")}
-        >
-          Create
-        </LinkAsButton>
-      </div>
+      <AdminPageHeader
+        header="Collections"
+        pathName={genPath(EPath.adminCollections, "create")}
+      />
 
       {/* Collection table */}
-      <CollectionTable />
+      <CollectionsTable />
     </>
   );
 };

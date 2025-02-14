@@ -4,3 +4,9 @@ type THeader = React.DetailedHTMLProps<
 > & {
   level: number;
 };
+
+type TAdminPageHeader = {
+  header: React.ReactNode;
+  pathName?: string;
+  buttonText?: string;
+};
