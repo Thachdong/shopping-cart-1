@@ -22,7 +22,7 @@ export const ClientHeader: React.FC = () => {
     <div className={CLASS_NAMES.menu}>
       {/* logo */}
       <Header
-        className="uppercase tracking-widest !text-2xl select-none mr-4"
+        className="uppercase tracking-widest !text-2xl select-none mr-4 !mb-0"
         level={1}
       >
         moni.sh

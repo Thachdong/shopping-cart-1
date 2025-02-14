@@ -20,7 +20,7 @@ export const CreateCollection: React.FC = () => {
   });
 
   return (
-    <div>
+    <>
       <Header level={1}>Create Collection</Header>
 
       <form className="flex flex-col gap-4">
@@ -35,6 +35,6 @@ export const CreateCollection: React.FC = () => {
 
         <UploadBanner control={control} name="bannerId" />
       </form>
-    </div>
+    </>
   );
 };

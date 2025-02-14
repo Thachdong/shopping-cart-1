@@ -23,9 +23,11 @@ export const UploadDisplayImage: React.FC<Readonly<TUploadDisplayImg>> = ({
 }) => {
   const style = useBgImage(value as string);
 
-  style.width = (width || DEFAULT_WIDTH) + "px";
+  if (style) {
+    style.width = (width || DEFAULT_WIDTH) + "px";
 
-  style.height = (height || DEFAULT_HEIGHT) + "px";
+    style.height = (height || DEFAULT_HEIGHT) + "px";
+  }
 
   return (
     <div
@@ -38,11 +40,16 @@ export const UploadDisplayImage: React.FC<Readonly<TUploadDisplayImg>> = ({
     >
       {/* UPLOADER */}
       <BaseUpload
-        className={joinClass(styles["base-upload"], className)}
+        className={joinClass(
+          styles["base-upload"],
+          "flex flex-col justify-center items-center text-center",
+          className,
+        )}
         value={value}
         {...uploadProps}
       >
         <Icon name={EIconName["upload-img"]} />
+        Upload Display Image
       </BaseUpload>
 
       {/* TRASH ICON */}

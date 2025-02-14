@@ -49,3 +49,20 @@ type TAdminProduct = {
 type TAdminProductsPageProps = {
   products: TAdminProduct[];
 };
+
+type TCreateProductVariant = {
+  color: string;
+  size: string;
+  price: number;
+  stock: number;
+  percentOff: number;
+  thumbnails: number[];
+};
+
+type TCreateProductForm = TCreateProductVariant & {
+  name: string;
+  description: string;
+  displayImageId: number;
+  collectionIds: number[];
+  blogpostIds: number[];
+};
