@@ -17,7 +17,7 @@ const UploadDisplayImage = createFormUploadDisplayImage<TCreateProductForm>();
 const FormSelect = createFormSelect<TCreateProductForm>();
 const UploadThumbnails = createFormUploadThumbnails<TCreateProductForm>();
 
-export const CreateProductForm: React.FC<TCreateProductForm> = () => {
+export const CreateProductForm: React.FC = () => {
   const { control } = useForm<TCreateProductForm>({
     resolver: zodResolver(createProductSchema),
   });

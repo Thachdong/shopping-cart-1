@@ -16,7 +16,7 @@ type TTableProps<T> = {
 type TDetailTableRow = {
   id: string;
   header: ReactNode;
-  contend: ReactNode;
+  content: ReactNode;
   headerClassName?: string;
   contentClassName?: string;
 };

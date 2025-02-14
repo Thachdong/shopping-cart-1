@@ -13,10 +13,10 @@ const MOCK_COLLECTION: TAdminCollection = {
 
 export const CollectionDetail: React.FC = () => {
   const rows: TDetailTableRow[] = [
-    { id: "1", header: "Name", contend: MOCK_COLLECTION.name },
-    { id: "2", header: "Description", contend: MOCK_COLLECTION.description },
-    { id: "3", header: "Created At", contend: MOCK_COLLECTION.createdAt },
-    { id: "4", header: "Banner", contend: "MOCK_COLLECTION.banner" },
+    { id: "1", header: "Name", content: MOCK_COLLECTION.name },
+    { id: "2", header: "Description", content: MOCK_COLLECTION.description },
+    { id: "3", header: "Created At", content: MOCK_COLLECTION.createdAt },
+    { id: "4", header: "Banner", content: "MOCK_COLLECTION.banner" },
   ];
   return (
     <div>
@@ -25,7 +25,7 @@ export const CollectionDetail: React.FC = () => {
       {/* Infomations: name, description, banner */}
       <div className="flex items-center gap-4 mb-4">
         <Header className="!mb-0" level={4}>
-          Generals
+          I. Generals
         </Header>
         <Button variant={EButtonType.outline}>Edit</Button>
       </div>
@@ -35,7 +35,7 @@ export const CollectionDetail: React.FC = () => {
       {/* Products */}
       <div className="flex items-center gap-4 mb-4">
         <Header className="!mb-0" level={4}>
-          Products
+          II. Products
         </Header>
         <Button variant={EButtonType.outline}>Add Products</Button>
       </div>
@@ -43,7 +43,7 @@ export const CollectionDetail: React.FC = () => {
       {/* Blog posts */}
       <div className="flex items-center gap-4 mb-4">
         <Header className="!mb-0" level={4}>
-          Blog posts
+          III. Blog posts
         </Header>
         <Button variant={EButtonType.outline}>Add Posts</Button>
       </div>

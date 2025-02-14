@@ -66,3 +66,18 @@ type TCreateProductForm = TCreateProductVariant & {
   collectionIds: number[];
   blogpostIds: number[];
 };
+
+type TProductVariant = TCreateProductVariant & {
+  id: number;
+};
+
+type TProductDetail = {
+  id: number;
+  name: string;
+  description: string;
+  collectionIds: number[];
+  blogpostIds: number[];
+  variants: TProductVariant[];
+  createdAt: string;
+  updatedAt: string;
+};

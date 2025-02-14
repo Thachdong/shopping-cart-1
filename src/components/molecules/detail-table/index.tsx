@@ -26,7 +26,7 @@ export const DetailTable: React.FC<TDetailTable> = ({
               {r.header}
             </td>
             <td className={joinClass(contentClassName, r.contentClassName)}>
-              {r.contend}
+              {r.content}
             </td>
           </tr>
         ))}
