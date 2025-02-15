@@ -31,3 +31,8 @@ type TUserOrder = {
   items: string[];
   total: number;
 };
+
+type TUserDetail = Omit<TUser, "address"> & {
+  addresses: string[];
+  orders: TUserOrder[];
+};

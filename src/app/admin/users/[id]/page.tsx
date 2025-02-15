@@ -1,3 +1,5 @@
+import { UserDetail } from "@/components/pages/admin/user-detail";
+
 export default async function UserDetailPage() {
-  return <section>User detail page</section>;
+  return <UserDetail />;
 }

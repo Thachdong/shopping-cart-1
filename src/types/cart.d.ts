@@ -5,4 +5,9 @@ type TProductInCart = {
   discountPercent: number;
   discountPrice: number;
   quantity: number;
+  total: number;
+};
+
+type TProductCartProps = {
+  products: TProductInCart[];
 };
