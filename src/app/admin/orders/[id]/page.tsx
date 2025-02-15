@@ -1,3 +1,5 @@
+import { OrderDetail } from "@/components/pages/admin/order-detail";
+
 export default async function OrderDetailPage() {
-  return <section>Order detail page</section>;
+  return <OrderDetail />;
 }

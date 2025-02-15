@@ -1,7 +1,7 @@
 import { joinClass } from "@/helpers/style";
 import React from "react";
 
-const DEFAULT_STYLE = "inline-block text-xs border px-1 rounded";
+const DEFAULT_STYLE = "inline-block text-xs border px-1 rounded text-ellipsis";
 
 export const Tag: React.FC<Readonly<TTag>> = ({
   content,

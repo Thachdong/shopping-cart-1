@@ -27,7 +27,7 @@ for (let i = 1; i < 15; i++) {
     shippingFee: 5,
     shippingVender: "UPS",
     total: 100 + i * 10,
-    products: MOCK_PRODUCTS,
+    items: MOCK_PRODUCTS,
   });
 }
 

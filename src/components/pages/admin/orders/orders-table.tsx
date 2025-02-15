@@ -9,11 +9,11 @@ import { genPath } from "@/helpers/router";
 import { ColumnDef } from "@tanstack/react-table";
 import React, { useCallback, useMemo } from "react";
 
-type TProducts = TOrder["products"];
+type TOrderItems = TOrder["items"];
 
 export const OrdersTable: React.FC<OrderTableProps> = ({ orders }) => {
-  const renderProductTags = useCallback((products: TProducts) => {
-    const tags = products.map((pr) => ({
+  const renderProductTags = useCallback((items: TOrderItems) => {
+    const tags = items.map((pr) => ({
       content: pr.name,
       className: "text-center",
     }));
@@ -42,7 +42,7 @@ export const OrdersTable: React.FC<OrderTableProps> = ({ orders }) => {
       {
         header: "Products",
         accessorKey: "",
-        cell: ({ row }) => renderProductTags(row.original.products),
+        cell: ({ row }) => renderProductTags(row.original.items),
       },
       {
         header: "",

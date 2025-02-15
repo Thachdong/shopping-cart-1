@@ -12,9 +12,27 @@ type TOrder = {
   shippingFee: number;
   shippingVender: string;
   total: number;
-  products: { id: number; name: string }[];
+  items: { id: number; name: string }[];
 };
 
 type OrderTableProps = {
   orders: TOrder[];
+};
+
+type TOrderItem = {
+  id: number;
+  name: string;
+  description: string;
+  quantity: number;
+  discountPercent: number;
+  discountPrice: number;
+  total: number;
+};
+
+type TOrderDetail = Omit<TOrder, "items"> & {
+  items: TOrderItem[];
+};
+
+type TOrderItemsTableProps = {
+  items: TOrderItem[];
 };
