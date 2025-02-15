@@ -1,3 +1,4 @@
+import { EIconName } from "@/constants";
 import { ReactNode } from "react";
 
 type TMenuItem = {
@@ -5,6 +6,7 @@ type TMenuItem = {
   label: ReactNode;
   url: string;
   className?: string;
+  iconName?: EIconName;
 };
 
 type TMenu = {

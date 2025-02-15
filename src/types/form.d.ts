@@ -2,6 +2,7 @@ import { Props as SelectProps } from "react-select";
 import { UploadProps } from "rc-upload";
 import { InitOptions } from "@tinymce/tinymce-react/lib/cjs/main/ts/components/Editor";
 import { Control, FieldValues, Path } from "react-hook-form";
+import { ReactNode } from "react";
 
 type TBaseInput = Omit<
   React.DetailedHTMLProps<
@@ -10,12 +11,23 @@ type TBaseInput = Omit<
   >,
   "value"
 > & {
-  value: string | number;
-  id: string;
+  value?: string | number;
+  id?: string;
   error?: string;
-  className?: string;
   label?: React.ReactNode;
   validate?: (value: string | number) => boolean;
+  inputClassName?: string;
+};
+
+type TBaseTextarea = React.DetailedHTMLProps<
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  HTMLTextAreaElement
+> & {
+  id?: string;
+  error?: string;
+  label?: React.ReactNode;
+  validate?: (value: string | number) => boolean;
+  inputClassName?: string;
 };
 
 type TSelectOption = {
@@ -24,7 +36,6 @@ type TSelectOption = {
 };
 
 type TBaseSelect = Omit<SelectProps, "options" | "isMulti"> & {
-  id: string;
   label: string;
   options: TSelectOption[];
   error?: string;
@@ -36,7 +47,7 @@ type TBaseEditor = {
   label?: string;
   error?: string;
   initialValue?: string;
-  init: InitOptions;
+  init?: InitOptions;
 };
 
 type TUploadAvatar = TBaseUpload & {
@@ -75,3 +86,9 @@ interface IWithHookFormProps<T extends FieldValues> {
   rules?: object;
   defaultValue?: T[keyof T];
 }
+
+type TFormPassword = {
+  inputTag: ReactNode;
+  type: "text" | "password";
+  setType: () => void;
+};

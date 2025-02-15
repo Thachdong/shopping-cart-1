@@ -1,10 +1,11 @@
-import { EButtonType, ECurrency } from "@/constants";
+import { EButtonType, ECurrency, EPath } from "@/constants";
 import React from "react";
 import { CardThumbnails } from "../card-thumbnails";
 import { Header } from "@/components/atoms/header";
 import { joinClass } from "@/helpers/style";
 import { LinkAsButton } from "../link-as-button";
 import { SaleBox } from "../sale-box";
+import { genPath } from "@/helpers/router";
 
 const DEFAULT_CLASSNAME = {
   card: "border rounded-lg",
@@ -13,7 +14,7 @@ const DEFAULT_CLASSNAME = {
   footer: "flex items-center justify-between p-2",
 };
 
-export const ProductCard: React.FC<Readonly<TProductCard>> = ({
+export const ProductCard: React.FC<Readonly<TProductCardProps>> = ({
   product,
   className,
 }) => {
@@ -34,13 +35,16 @@ export const ProductCard: React.FC<Readonly<TProductCard>> = ({
       {/* call to action buttons */}
       <div className={DEFAULT_CLASSNAME.footer}>
         <LinkAsButton
-          href={"/"}
+          href={genPath(EPath.products, product.id)}
           buttonProps={{ variant: EButtonType.secondary }}
         >
           DETAIL
         </LinkAsButton>
 
-        <LinkAsButton href={"/"} buttonProps={{ variant: EButtonType.primary }}>
+        <LinkAsButton
+          href={genPath(EPath.cart)}
+          buttonProps={{ variant: EButtonType.primary }}
+        >
           ADD TO CART
         </LinkAsButton>
       </div>

@@ -1,3 +1,4 @@
+"use client";
 import React, { useMemo } from "react";
 import {
   useReactTable,
@@ -84,7 +85,7 @@ const Table = <T extends RowData>({
     <div
       className={joinClass(
         containerClassName,
-        !borderless ? style["table-border"] : ""
+        !borderless ? style["table-border"] : "",
       )}
     >
       <table className={joinClass(tableclassName, "w-full")}>

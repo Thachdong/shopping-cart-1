@@ -1,6 +1,8 @@
+"use client";
 import { BaseEditor } from "@/components/molecules/form-tags/base-editor";
 import { BaseInput } from "@/components/molecules/form-tags/base-input";
 import { BaseSelect } from "@/components/molecules/form-tags/base-select";
+import { BaseTextarea } from "@/components/molecules/form-tags/base-textarea";
 import { BaseUpload } from "@/components/molecules/form-tags/base-upload";
 import { UploadAvatar } from "@/components/molecules/form-tags/upload-avatar";
 import { UploadBanner } from "@/components/molecules/form-tags/upload-banner";
@@ -11,6 +13,7 @@ import {
   TBaseEditor,
   TBaseInput,
   TBaseSelect,
+  TBaseTextarea,
   TBaseUpload,
   TUploadAvatar,
   TUploadBanner,
@@ -27,7 +30,7 @@ export function withHookForm<T extends FieldValues, K>(
     const { control, name, defaultValue, rules, ...componentProps } = props;
 
     const {
-      field,
+      field: { value = "", ...restField },
       fieldState: { error },
     } = useController({
       control,
@@ -39,8 +42,9 @@ export function withHookForm<T extends FieldValues, K>(
     return (
       <Component
         id={name}
-        errorMessage={error?.message}
-        {...field}
+        error={error?.message}
+        value={value}
+        {...restField}
         {...(componentProps as unknown as K)}
       />
     );
@@ -49,6 +53,10 @@ export function withHookForm<T extends FieldValues, K>(
 
 export function createFormInput<T extends FieldValues>() {
   return withHookForm<T, TBaseInput>(BaseInput);
+}
+
+export function createFormTextarea<T extends FieldValues>() {
+  return withHookForm<T, TBaseTextarea>(BaseTextarea);
 }
 
 export function createFormEditor<T extends FieldValues>() {

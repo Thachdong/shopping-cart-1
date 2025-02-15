@@ -19,7 +19,7 @@ export const Header: React.FC<Readonly<THeader>> = ({
   const Tag = `h${level}` as keyof JSX.IntrinsicElements as React.ElementType;
   const classes = joinClass(
     headerLevels[level] || headerLevels[6],
-    "text-primary-100",
+    "text-primary-100 mb-4",
     className,
   );
 

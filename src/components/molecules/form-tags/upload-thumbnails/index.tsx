@@ -39,7 +39,7 @@ export const UploadThumbnails: React.FC<Readonly<TUploadThumbnails>> = ({
   }, [width, height]);
 
   const thumbnails = useMemo(() => {
-    return value.map((img) => (
+    return value?.map?.((img) => (
       <div className="relative" key={img}>
         <Image
           src={img}
@@ -62,7 +62,9 @@ export const UploadThumbnails: React.FC<Readonly<TUploadThumbnails>> = ({
       className={joinClass(DEFAULT_CLASSNAME.container, thumbnailsClassName)}
     >
       {/* uploaded images */}
-      <div className={DEFAULT_CLASSNAME.thumbnails}>{thumbnails}</div>
+      {thumbnails?.length > 0 && (
+        <div className={DEFAULT_CLASSNAME.thumbnails}>{thumbnails}</div>
+      )}
 
       {/* uploader */}
       <div
@@ -70,7 +72,12 @@ export const UploadThumbnails: React.FC<Readonly<TUploadThumbnails>> = ({
         style={style}
       >
         <BaseUpload {...uploadProps}>
-          {children || <Icon name={EIconName["upload-img"]} />}
+          {children || (
+            <div className="flex flex-col justify-center items-center">
+              <Icon name={EIconName["upload-img"]} />
+              <span className="text-center">Upload Thumbnails</span>
+            </div>
+          )}
         </BaseUpload>
       </div>
     </div>

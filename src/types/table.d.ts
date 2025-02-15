@@ -1,4 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
+import { ReactNode } from "react";
 
 type TTableProps<T> = {
   data: T[];
@@ -10,4 +11,19 @@ type TTableProps<T> = {
   theadClassName?: string;
   tbodyClassName?: string;
   tfootClassName?: string;
+};
+
+type TDetailTableRow = {
+  id: string;
+  header: ReactNode;
+  content: ReactNode;
+  headerClassName?: string;
+  contentClassName?: string;
+};
+
+type TDetailTable = {
+  rows: TDetailTableRow[];
+  className?: string;
+  headerClassName?: string;
+  contentClassName?: string;
 };

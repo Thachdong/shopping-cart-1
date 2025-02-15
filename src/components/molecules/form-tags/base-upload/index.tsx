@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import RcUpload from "rc-upload";
 import { TBaseUpload } from "@/types/form";
