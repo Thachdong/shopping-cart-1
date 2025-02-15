@@ -11,6 +11,9 @@ import styles from "./upload-avatar.module.scss";
 const DEFAULT_CLASSNAME =
   "rounded-full flex items-center justify-center border border-gray-300 align-middle";
 
+const DEFAULT_WIDTH = 75;
+const DEFAULT_HEIGHT = 75;
+
 export const UploadAvatar: React.FC<Readonly<TUploadAvatar>> = ({
   width,
   height,
@@ -23,13 +26,9 @@ export const UploadAvatar: React.FC<Readonly<TUploadAvatar>> = ({
 }) => {
   const bgStyles = useBgImage(value as string);
 
-  if (width) {
-    bgStyles.width = width + "px";
-  }
+  bgStyles.width = (width || DEFAULT_WIDTH) + "px";
 
-  if (height) {
-    bgStyles.height = height + "px";
-  }
+  bgStyles.height = (height || DEFAULT_HEIGHT) + "px";
 
   return (
     <div

@@ -1,3 +1,5 @@
+import { CreateUser } from "@/components/pages/admin/create-user";
+
 export default async function CreateUserPage() {
-  return <section>Create user page</section>;
+  return <CreateUser />;
 }
