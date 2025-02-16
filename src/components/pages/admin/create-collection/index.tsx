@@ -1,11 +1,12 @@
 "use client";
 import { Button } from "@/components/atoms/button";
 import { Header } from "@/components/atoms/header";
+import { UploadBanner } from "@/components/molecules/form-tags/upload-banner";
 import { EButtonType } from "@/constants";
+import { useRcUpload } from "@/libs/hocs/useRcUpload";
 import {
   createFormInput,
   createFormSelect,
-  createFormUploadBanner,
 } from "@/libs/hocs/with-react-hook-form";
 import { createCollectionSchema } from "@/validators/collection.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,10 +14,11 @@ import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
 const FormInput = createFormInput<TCreateCollection>();
-const UploadBanner = createFormUploadBanner<TCreateCollection>();
 const FormSelect = createFormSelect<TCreateCollection>();
 
 export const CreateCollection: React.FC = () => {
+  const { action } = useRcUpload(false);
+
   const { control, handleSubmit } = useForm<TCreateCollection>({
     resolver: zodResolver(createCollectionSchema),
   });
@@ -38,6 +40,7 @@ export const CreateCollection: React.FC = () => {
           <FormSelect
             control={control}
             name="productIds"
+            id="productIds"
             options={[]}
             label="Products"
           />
@@ -45,6 +48,7 @@ export const CreateCollection: React.FC = () => {
           <FormSelect
             control={control}
             name="blogpostIds"
+            id="blogpostIds"
             options={[]}
             label="Blogposts"
           />
@@ -52,7 +56,7 @@ export const CreateCollection: React.FC = () => {
 
         <div className="mb-2">Collection Banner</div>
 
-        <UploadBanner control={control} name="bannerId" />
+        <UploadBanner action={action} />
 
         <div className="text-center mt-4">
           <Button className="px-8" variant={EButtonType.primary}>

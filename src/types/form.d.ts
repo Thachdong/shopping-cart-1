@@ -3,6 +3,7 @@ import { UploadProps } from "rc-upload";
 import { InitOptions } from "@tinymce/tinymce-react/lib/cjs/main/ts/components/Editor";
 import { Control, FieldValues, Path } from "react-hook-form";
 import { ReactNode } from "react";
+import { RcFile } from "rc-upload/lib/interface";
 
 type TBaseInput = Omit<
   React.DetailedHTMLProps<
@@ -41,7 +42,10 @@ type TBaseSelect = Omit<SelectProps, "options" | "isMulti"> & {
   error?: string;
 };
 
-type TBaseUpload = UploadProps;
+type TBaseUpload = UploadProps & {
+  onChange?: (value: string | string[]) => void;
+  validate?: (file: RcFile) => boolean;
+};
 
 type TBaseEditor = {
   label?: string;
@@ -91,4 +95,9 @@ type TFormPassword = {
   inputTag: ReactNode;
   type: "text" | "password";
   setType: () => void;
+};
+
+type TUploadedFile = {
+  filename: string;
+  folder: string;
 };

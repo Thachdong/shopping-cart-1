@@ -81,3 +81,10 @@ export const enum EPath {
   adminSettings = "admin/settings",
   adminUsers = "admin/users",
 }
+
+export enum ES3Folder {
+  TMP = "tmp",
+  COLLECTION = "collection",
+  PRODUCT = "product",
+  SETTING = "setting",
+}

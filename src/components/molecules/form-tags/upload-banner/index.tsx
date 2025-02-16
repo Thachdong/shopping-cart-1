@@ -1,3 +1,4 @@
+"use client";
 import { joinClass } from "@/helpers/style";
 import { TUploadBanner } from "@/types/form";
 import React from "react";
@@ -23,10 +24,6 @@ export const UploadBanner: React.FC<Readonly<TUploadBanner>> = ({
 }) => {
   const style = useBgImage(value as string);
 
-  style.height = (height || DEFAULT_HEIGHT) + "px";
-
-  style.width = width ? width + "px" : "100%";
-
   return (
     <div
       className={joinClass(
@@ -34,7 +31,11 @@ export const UploadBanner: React.FC<Readonly<TUploadBanner>> = ({
         value ? styles["banner-uploaded"] : "",
         bannerClassName,
       )}
-      style={style}
+      style={{
+        ...style,
+        height: (height || DEFAULT_HEIGHT) + "px",
+        width: width ? width + "px" : "100%",
+      }}
     >
       <BaseUpload
         className={joinClass(styles["base-upload"], className)}
