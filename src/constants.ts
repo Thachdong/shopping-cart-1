@@ -53,7 +53,7 @@ export enum ECurrency {
   "USD" = "$",
 }
 
-export const PAGE_SIZE = 30;
+export const MAX_PAGE_SIZE = 30;
 export const CURRENT_PAGE = 1;
 export const TOAST_TIMEOUT = 5000; // 5S
 export enum EToastPositions {

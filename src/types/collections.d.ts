@@ -26,6 +26,8 @@ type TCreateCollection = {
   name: string;
   description: string;
   bannerId: number;
+  productIds: number[];
+  blogpostIds: number[];
 };
 
 type TAdminCollection = {

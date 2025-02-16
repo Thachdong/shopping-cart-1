@@ -1,11 +1,14 @@
-export const withServerAction = <TParams, TResult>(
-  action: (params: TParams) => Promise<TResult>,
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const withServerAction = <
+  TAction extends (...args: any[]) => Promise<any>,
+>(
+  action: TAction,
 ) => {
   return async function (
-    params: TParams,
-  ): Promise<IServerActionResponse<TResult>> {
+    ...params: Parameters<TAction>
+  ): Promise<IServerActionResponse<ReturnType<TAction>>> {
     try {
-      const result = await action(params);
+      const result = await action(...params);
 
       return {
         success: true,

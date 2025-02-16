@@ -1,4 +1,4 @@
-import { CURRENT_PAGE, PAGE_SIZE } from "@/constants";
+import { CURRENT_PAGE, MAX_PAGE_SIZE } from "@/constants";
 import { PrismaClient } from "@prisma/client/extension";
 
 export const generateBaseService = <T>(
@@ -12,12 +12,12 @@ export const generateBaseService = <T>(
     return result;
   };
 
-  const pagination = async function (
+  const pagination = async <K>(
     params?: TPaginationParams<T>,
-  ): Promise<TPaginationResponse<T>> {
+  ): Promise<TPaginationResponse<K>> => {
     const {
       pageNumber = CURRENT_PAGE,
-      pageSize = PAGE_SIZE,
+      pageSize = MAX_PAGE_SIZE,
       ...filterParams
     } = params || {};
 
@@ -25,7 +25,7 @@ export const generateBaseService = <T>(
 
     const skip = (pageNumber - 1) * pageSize;
 
-    const items: T[] = await source.findMany({
+    const items: K[] = await source.findMany({
       ...filterParams,
       take: pageSize,
       skip,
@@ -77,3 +77,41 @@ export const generateBaseService = <T>(
     remove,
   };
 };
+
+export async function createPagination<T>(
+  dataSource: PrismaClient,
+  pageNumber: number,
+  pageSize: number,
+): Promise<TPaginationResponse<T>> {
+  // TOTAL
+  const total: number = await dataSource.count();
+
+  // TAKE
+  let take = MAX_PAGE_SIZE;
+
+  if (pageSize > 0 && pageSize < MAX_PAGE_SIZE) {
+    take = pageSize;
+  }
+
+  // SKIP
+  const skip = (pageNumber - 1) * take;
+
+  // ITEMS
+  const items = await dataSource.findMany({
+    take,
+    skip,
+  });
+
+  // NEXT_PAGE
+  let nextPage = null;
+
+  if (items.length > 0) {
+    nextPage = pageNumber + 1;
+  }
+
+  return {
+    total,
+    nextPage,
+    items,
+  };
+}

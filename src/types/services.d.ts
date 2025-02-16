@@ -48,10 +48,10 @@ type TPaginationResponse<T> = {
 
 type TBaseService<T> = {
   getAll: (params?: TPrismaDelegateParams<T>) => Promise<T[]>;
-  pagination: (
+  pagination: <K>(
     params?: TPaginationParams<T>,
-  ) => Promise<TPaginationResponse<T>>;
-  findFirst: (params?: TPrismaDelegateParams<T>) => Promise<T | null>;
+  ) => Promise<TPaginationResponse<K>>;
+  findFirst: (params?: TPrismaDelegateParams<T>) => Promise<K | null>;
   create: (data: TPrismaCreateData<T>) => Promise<void>;
   update: (id: number, data: TPrismaUpdateData) => Promise<void>;
   remove: (id: number) => Promise<void>;
