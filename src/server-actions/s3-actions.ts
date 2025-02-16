@@ -2,11 +2,11 @@
 
 import { withServerAction } from "@/libs/hocs/with-server-action";
 import { getPresignedUrl } from "@/services/s3-services";
-import { GetObjectCommand, PutObjectAclCommand } from "@aws-sdk/client-s3";
+import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
 // GET PUT URL ACTION
 async function getUploadUrl(filename: string): Promise<string | void> {
-  const command = new PutObjectAclCommand({
+  const command = new PutObjectCommand({
     Bucket: process.env.AWS_S3_BUCKET_NAME,
     Key: [process.env.AWS_S3_TEMP_PATH, filename].join("/"),
   });

@@ -45,6 +45,7 @@ type TBaseSelect = Omit<SelectProps, "options" | "isMulti"> & {
 type TBaseUpload = UploadProps & {
   onChange?: (value: string | string[]) => void;
   validate?: (file: RcFile) => boolean;
+  uploadedFile?: TUploadedFile | TUploadedFile[];
 };
 
 type TBaseEditor = {
@@ -73,6 +74,7 @@ type TUploadBanner = TBaseUpload & {
   height?: number;
   bannerClassName?: string;
   onDelete?: () => void;
+  uploadedFile?: TUploadedFile;
 };
 
 type TUploadThumbnails = Omit<TBaseUpload, "value"> & {
@@ -100,4 +102,9 @@ type TFormPassword = {
 type TUploadedFile = {
   filename: string;
   folder: string;
+};
+
+type TUseRcUploadParams<T = TUploadedFile> = {
+  isMulti?: boolean;
+  defaultValue?: T;
 };

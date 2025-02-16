@@ -17,7 +17,7 @@ const FormInput = createFormInput<TCreateCollection>();
 const FormSelect = createFormSelect<TCreateCollection>();
 
 export const CreateCollection: React.FC = () => {
-  const { action } = useRcUpload(false);
+  const { action, uploadedFile } = useRcUpload();
 
   const { control, handleSubmit } = useForm<TCreateCollection>({
     resolver: zodResolver(createCollectionSchema),
@@ -56,7 +56,7 @@ export const CreateCollection: React.FC = () => {
 
         <div className="mb-2">Collection Banner</div>
 
-        <UploadBanner action={action} />
+        <UploadBanner action={action} uploadedFile={uploadedFile} />
 
         <div className="text-center mt-4">
           <Button className="px-8" variant={EButtonType.primary}>
