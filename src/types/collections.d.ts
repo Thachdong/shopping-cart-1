@@ -1,3 +1,5 @@
+import { TUploadedFile } from "./form";
+
 type TCollectionList = {
   collections: TCollectionCard[];
   className?: string;
@@ -25,7 +27,7 @@ type TCollectionDetailPageProps = {
 type TCreateCollection = {
   name: string;
   description: string;
-  bannerId: number;
+  banner?: TUploadedFile;
   productIds: number[];
   blogpostIds: number[];
 };

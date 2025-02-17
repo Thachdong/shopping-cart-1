@@ -69,7 +69,7 @@ type TUploadDisplayImg = TBaseUpload & {
   onDelete?: () => void;
 };
 
-type TUploadBanner = TBaseUpload & {
+type TUploadBanner = Omit<TBaseUpload, "uploadedFile"> & {
   width?: number;
   height?: number;
   bannerClassName?: string;
@@ -102,6 +102,7 @@ type TFormPassword = {
 type TUploadedFile = {
   filename: string;
   folder: string;
+  id: number;
 };
 
 type TUseRcUploadParams<T = TUploadedFile> = {

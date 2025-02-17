@@ -52,7 +52,7 @@ type TBaseService<T> = {
     params?: TPaginationParams<T>,
   ) => Promise<TPaginationResponse<K>>;
   findFirst: (params?: TPrismaDelegateParams<T>) => Promise<K | null>;
-  create: (data: TPrismaCreateData<T>) => Promise<void>;
+  create: (data: TPrismaCreateData<T>) => Promise<number>;
   update: (id: number, data: TPrismaUpdateData) => Promise<void>;
   remove: (id: number) => Promise<void>;
 };

@@ -16,8 +16,6 @@ export const ToastProvider: React.FC<Readonly<TToastProvider>> = ({
 }) => {
   const [toasts, setToasts] = useState<TToast[]>([]);
 
-  console.log(toasts);
-
   const closeToast = useCallback((id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);

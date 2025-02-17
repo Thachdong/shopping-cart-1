@@ -7,6 +7,7 @@ import { Icon } from "@/components/atoms/icon";
 import { EIconName } from "@/constants";
 import { useBgImage } from "@/libs/hooks/useBgImage";
 import styles from "./upload-banner.module.scss";
+import { useFetchPresignedUrlFromAsset } from "@/libs/hooks/useFetchPresignedUrlFromAsset";
 
 const DEFAULT_HEIGHT = 275;
 const DEFAULT_CLASSNAME =
@@ -17,18 +18,20 @@ export const UploadBanner: React.FC<Readonly<TUploadBanner>> = ({
   height,
   bannerClassName,
   children,
-  value,
   className,
   onDelete,
+  uploadedFile,
   ...uploadProps
 }) => {
-  const style = useBgImage(value as string);
+  const url = useFetchPresignedUrlFromAsset(uploadedFile);
+
+  const style = useBgImage(url);
 
   return (
     <div
       className={joinClass(
         DEFAULT_CLASSNAME,
-        value ? styles["banner-uploaded"] : "",
+        uploadedFile ? styles["banner-uploaded"] : "",
         bannerClassName,
       )}
       style={{
@@ -39,14 +42,13 @@ export const UploadBanner: React.FC<Readonly<TUploadBanner>> = ({
     >
       <BaseUpload
         className={joinClass(styles["base-upload"], className)}
-        value={value}
         {...uploadProps}
       >
         {children || <Icon name={EIconName["upload-img"]} />}
       </BaseUpload>
 
       {/* TRASH ICON */}
-      {value && (
+      {uploadedFile && (
         <Icon
           className={styles["delete-icon"]}
           name={EIconName.trash}

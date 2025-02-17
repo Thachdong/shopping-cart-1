@@ -2,7 +2,10 @@ import { prisma } from "@/database/prisma-client";
 import { createPagination } from "./base-service";
 import { Collection } from "@prisma/client";
 import { TSelectOption } from "@/types/form";
-import { MAX_PAGE_SIZE } from "@/constants";
+import { ES3Folder, MAX_PAGE_SIZE } from "@/constants";
+import { TCreateCollection } from "@/types/collections";
+import { assetServices } from "./asset";
+import { deleteS3File } from "./s3-services";
 
 const collectionRepository = prisma.collection;
 
@@ -48,7 +51,25 @@ export async function getCollectionById(
 export async function createCollectionService(
   data: TCreateCollection,
 ): Promise<void> {
-  await collectionRepository.create({ data });
+  const { banner, productIds, blogpostIds, ...rest } = data;
+
+  console.log(productIds, blogpostIds);
+
+  // CREATE BANNER ASSET
+  const bannerId = await assetServices.create({
+    filename: banner?.filename as string,
+    folder: ES3Folder.COLLECTION,
+    variantId: null,
+    userId: null,
+  });
+
+  // CREATE COLLECTION
+  const payload = { ...rest, bannerId };
+
+  await collectionRepository.create({ data: payload });
+
+  // REMOVE TEMP BANNER FILE
+  await deleteS3File(banner?.filename as string);
 }
 
 // update collection service

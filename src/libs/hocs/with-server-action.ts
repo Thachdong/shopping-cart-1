@@ -6,7 +6,7 @@ export const withServerAction = <
 ) => {
   return async function (
     ...params: Parameters<TAction>
-  ): Promise<IServerActionResponse<ReturnType<TAction>>> {
+  ): Promise<IServerActionResponse<ReturnType<TAction> | string>> {
     try {
       const result = await action(...params);
 
@@ -15,6 +15,7 @@ export const withServerAction = <
         data: result,
       };
     } catch (error) {
+      console.log(error);
       return {
         success: false,
         message: JSON.stringify(error),

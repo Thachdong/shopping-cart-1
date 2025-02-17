@@ -31,6 +31,13 @@ export const useRcUpload = <T = TUploadedFile,>(
   const [isProcessing, setIsProcessing] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<T>();
 
+  /**
+   * @param
+   * @returns UploadedFile || void
+   * @body:
+   * Toggle processing flag
+   * Processing queue
+   */
   const processQueue = useCallback(async () => {
     setIsProcessing(true);
 
@@ -38,7 +45,11 @@ export const useRcUpload = <T = TUploadedFile,>(
 
     if (filename) {
       setUploadedFile((prev) => {
-        const newFile = { folder: ES3Folder.TMP, filename } as unknown as T;
+        const newFile = {
+          folder: ES3Folder.TMP,
+          filename,
+          id: new Date().getTime(),
+        } as unknown as T;
 
         if (params?.isMulti && Array.isArray(prev)) {
           return [...prev, newFile] as unknown as T;
@@ -53,10 +64,44 @@ export const useRcUpload = <T = TUploadedFile,>(
     setIsProcessing(false);
   }, [params?.isMulti, queue]);
 
+  /**
+   * Adds a file to the upload queue.
+   *
+   * @param {RcFile} file - The file to be added to the queue.
+   * @returns {string} An empty string.
+   */
   const action = useCallback((file: RcFile) => {
     setQueue((prev) => [...prev, file]);
 
     return "";
+  }, []);
+
+  /**
+   * Removes the currently uploaded file by setting the uploaded file state to undefined.
+   * This function is memoized using `useCallback` to ensure that it does not get recreated
+   * on every render, which can help with performance optimizations.
+   *
+   * @function
+   * @name removeSingleFile
+   */
+  const removeSingleFile = useCallback(() => {
+    setUploadedFile(undefined);
+  }, []);
+
+  /**
+   * Removes a file from the uploaded files list by its ID.
+   *
+   * @param {number} id - The ID of the file to be removed.
+   * @returns {void}
+   */
+  const removeFileById = useCallback((id: number) => {
+    setUploadedFile((prev) => {
+      if (Array.isArray(prev)) {
+        return prev.filter((file) => file.id !== id) as T;
+      } else {
+        return prev;
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -75,5 +120,7 @@ export const useRcUpload = <T = TUploadedFile,>(
     isProcessing,
     uploadedFile,
     action,
+    removeFileById,
+    removeSingleFile,
   };
 };

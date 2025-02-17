@@ -48,8 +48,10 @@ export const generateBaseService = <T>(
     return item;
   };
 
-  const create = async function (data: TPrismaCreateData<T>): Promise<void> {
-    await source.create({ data });
+  const create = async function (data: TPrismaCreateData<T>): Promise<number> {
+    const result = await source.create({ data });
+
+    return result?.id;
   };
 
   const update = async function (

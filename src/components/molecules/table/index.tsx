@@ -30,8 +30,6 @@ const Table = <T extends RowData>({
   const tableHead = useMemo(() => {
     const headerGroups = reactTable.getHeaderGroups();
 
-    console.log(headerGroups, headerGroups.length);
-
     if (headerGroups.length === 0) return <></>;
 
     return headerGroups.map((headerGroup) => (
@@ -49,8 +47,6 @@ const Table = <T extends RowData>({
 
   const tableBody = useMemo(() => {
     const rows = reactTable.getRowModel().rows;
-
-    console.log(rows, rows.length);
 
     if (rows.length === 0) return <></>;
 
