@@ -1,7 +1,6 @@
 "use server";
-
 import { withServerAction } from "@/libs/hocs/with-server-action";
-import { getPresignedUrl } from "@/services/s3-services";
+import { deleteS3FileService, getPresignedUrl } from "@/services/s3-services";
 import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
 // GET PUT URL ACTION
@@ -29,3 +28,7 @@ async function getFetchUrl(Key: string) {
 
 export const getFetchUrlAction =
   withServerAction<typeof getFetchUrl>(getFetchUrl);
+
+// DELETE S3 FILE ACTION
+export const deleteS3FileAction =
+  withServerAction<typeof deleteS3FileService>(deleteS3FileService);

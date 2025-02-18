@@ -1,5 +1,8 @@
 import { ES3Folder } from "@/constants";
-import { getUploadUrlAction } from "@/server-actions/s3-actions";
+import {
+  deleteS3FileAction,
+  getUploadUrlAction,
+} from "@/server-actions/s3-actions";
 import { TUploadedFile, TUseRcUploadParams } from "@/types/form";
 import { RcFile } from "rc-upload/lib/interface";
 import { useCallback, useEffect, useState } from "react";
@@ -86,8 +89,20 @@ export const useRcUpload = <T = TUploadedFile,>(
    * @name removeSingleFile
    */
   const removeSingleFile = useCallback(() => {
-    setUploadedFile(undefined);
-  }, []);
+    if (!params?.isMulti) {
+      const file = uploadedFile as TUploadedFile;
+
+      console.log(file);
+
+      try {
+        if (file) {
+          deleteS3FileAction([file.folder, file.filename].join("/"));
+        }
+      } catch {}
+
+      setUploadedFile(undefined);
+    }
+  }, [params?.isMulti, uploadedFile]);
 
   /**
    * Removes a file from the uploaded files list by its ID.
@@ -95,15 +110,30 @@ export const useRcUpload = <T = TUploadedFile,>(
    * @param {number} id - The ID of the file to be removed.
    * @returns {void}
    */
-  const removeFileById = useCallback((id: number) => {
-    setUploadedFile((prev) => {
-      if (Array.isArray(prev)) {
-        return prev.filter((file) => file.id !== id) as T;
-      } else {
-        return prev;
-      }
-    });
-  }, []);
+  const removeFileById = useCallback(
+    (id: number) => {
+      const targetFile = Array.isArray(uploadedFile)
+        ? uploadedFile.find((f) => f.id === id)
+        : undefined;
+
+      setUploadedFile((prev) => {
+        if (Array.isArray(prev)) {
+          return prev.filter((file) => file.id !== id) as T;
+        } else {
+          return prev;
+        }
+      });
+
+      try {
+        if (targetFile) {
+          deleteS3FileAction(
+            [targetFile.folder, targetFile.filename].join("/"),
+          );
+        }
+      } catch {}
+    },
+    [uploadedFile],
+  );
 
   useEffect(() => {
     if (queue.length > 0 && !isProcessing) {
