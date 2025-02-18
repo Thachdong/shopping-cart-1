@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
+import { reFetchResource } from "@/server-actions/cache";
 
 const FormInput = createFormInput<TCreateCollection>();
 const FormSelect = createFormSelect<TCreateCollection>();
@@ -60,6 +61,8 @@ export const CreateCollection: React.FC = () => {
 
         router.back();
       } else {
+        reFetchResource("/admin/collections");
+
         addToast({ type: EToastType.error, message: result as string });
       }
     },

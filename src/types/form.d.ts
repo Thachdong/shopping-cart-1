@@ -62,11 +62,12 @@ type TUploadAvatar = TBaseUpload & {
   onDelete?: () => void;
 };
 
-type TUploadDisplayImg = TBaseUpload & {
+type TUploadDisplayImg = Omit<TBaseUpload, "uploadedFile"> & {
   width?: number;
   height?: number;
   displayClassName?: string;
   onDelete?: () => void;
+  uploadedFile?: TUploadedFile;
 };
 
 type TUploadBanner = Omit<TBaseUpload, "uploadedFile"> & {
@@ -77,13 +78,14 @@ type TUploadBanner = Omit<TBaseUpload, "uploadedFile"> & {
   uploadedFile?: TUploadedFile;
 };
 
-type TUploadThumbnails = Omit<TBaseUpload, "value"> & {
+type TUploadThumbnails = Omit<TBaseUpload, "uploadedFile"> & {
   value?: string[];
   width?: number;
   height?: number;
   imgClassName?: string;
   thumbnailsClassName?: string;
-  onDelete?: (img: string) => void;
+  onDelete?: (id: number) => void;
+  uploadedFile: TUploadedFile[];
 };
 
 interface IWithHookFormProps<T extends FieldValues> {

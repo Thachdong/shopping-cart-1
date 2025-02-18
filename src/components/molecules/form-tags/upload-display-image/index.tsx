@@ -1,3 +1,4 @@
+"use client";
 import { TUploadDisplayImg } from "@/types/form";
 import { BaseUpload } from "../base-upload";
 import { Icon } from "@/components/atoms/icon";
@@ -5,6 +6,8 @@ import { EIconName } from "@/constants";
 import { useBgImage } from "@/libs/hooks/useBgImage";
 import { joinClass } from "@/helpers/style";
 import styles from "./upload-display-image.module.scss";
+import { useFetchPresignedUrlFromAsset } from "@/libs/hooks/useFetchPresignedUrlFromAsset";
+import { CSSProperties, useMemo } from "react";
 
 const DEFAULT_CLASSNAME =
   "flex items-center justify-center border border-dashed border-gray-300 align-middle";
@@ -17,26 +20,32 @@ export const UploadDisplayImage: React.FC<Readonly<TUploadDisplayImg>> = ({
   height,
   displayClassName,
   className,
-  value,
   onDelete,
+  uploadedFile,
   ...uploadProps
 }) => {
-  const style = useBgImage(value as string);
+  const url = useFetchPresignedUrlFromAsset(uploadedFile);
 
-  if (style) {
-    style.width = (width || DEFAULT_WIDTH) + "px";
+  const bgImageStyle = useBgImage(url);
 
-    style.height = (height || DEFAULT_HEIGHT) + "px";
-  }
+  const style: CSSProperties = useMemo(() => {
+    const result: CSSProperties = {};
+
+    result.width = (width || DEFAULT_WIDTH) + "px";
+
+    result.height = (height || DEFAULT_HEIGHT) + "px";
+
+    return result;
+  }, [width, height]);
 
   return (
     <div
       className={joinClass(
         DEFAULT_CLASSNAME,
-        value ? styles["display-image-uploaded"] : "",
+        uploadedFile ? styles["display-image-uploaded"] : "",
         displayClassName,
       )}
-      style={style}
+      style={{ ...bgImageStyle, ...style }}
     >
       {/* UPLOADER */}
       <BaseUpload
@@ -45,7 +54,6 @@ export const UploadDisplayImage: React.FC<Readonly<TUploadDisplayImg>> = ({
           "flex flex-col justify-center items-center text-center",
           className,
         )}
-        value={value}
         {...uploadProps}
       >
         <Icon name={EIconName["upload-img"]} />
@@ -53,7 +61,7 @@ export const UploadDisplayImage: React.FC<Readonly<TUploadDisplayImg>> = ({
       </BaseUpload>
 
       {/* TRASH ICON */}
-      {value && (
+      {uploadedFile && (
         <Icon
           onClick={onDelete}
           className={styles["delete-icon"]}

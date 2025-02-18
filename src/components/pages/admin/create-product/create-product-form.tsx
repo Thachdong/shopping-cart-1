@@ -2,8 +2,6 @@
 import {
   createFormInput,
   createFormSelect,
-  createFormUploadDisplayImage,
-  createFormUploadThumbnails,
 } from "@/libs/hocs/with-react-hook-form";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -11,13 +9,27 @@ import { createProductSchema } from "@/validators/product.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/atoms/button";
 import { EButtonType } from "@/constants";
+import { useRcUpload } from "@/libs/hooks/useRcUpload";
+import { UploadDisplayImage } from "@/components/molecules/form-tags/upload-display-image";
+import { UploadThumbnails } from "@/components/molecules/form-tags/upload-thumbnails";
+import { TUploadedFile } from "@/types/form";
 
 const FormInput = createFormInput<TCreateProductForm>();
-const UploadDisplayImage = createFormUploadDisplayImage<TCreateProductForm>();
 const FormSelect = createFormSelect<TCreateProductForm>();
-const UploadThumbnails = createFormUploadThumbnails<TCreateProductForm>();
 
 export const CreateProductForm: React.FC = () => {
+  const {
+    action: displayImageAction,
+    uploadedFile: displayImage,
+    removeSingleFile: removeDisplayImage,
+  } = useRcUpload();
+
+  const {
+    action: thumbnailsAction,
+    uploadedFile: thumbnails = [],
+    removeFileById: removeThumbnailById,
+  } = useRcUpload<TUploadedFile[]>({ isMulti: true });
+
   const { control } = useForm<TCreateProductForm>({
     resolver: zodResolver(createProductSchema),
   });
@@ -90,12 +102,17 @@ export const CreateProductForm: React.FC = () => {
       </div>
 
       <UploadDisplayImage
-        control={control}
-        name="displayImageId"
+        action={displayImageAction}
+        uploadedFile={displayImage}
+        onDelete={removeDisplayImage}
         displayClassName="mb-4"
       />
 
-      <UploadThumbnails control={control} name="thumbnails" />
+      <UploadThumbnails
+        action={thumbnailsAction}
+        uploadedFile={thumbnails}
+        onDelete={removeThumbnailById}
+      />
 
       <div className="mt-4 text-center">
         <Button variant={EButtonType.primary} className="px-12">

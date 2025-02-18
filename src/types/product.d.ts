@@ -62,7 +62,7 @@ type TCreateProductVariant = {
 type TCreateProductForm = TCreateProductVariant & {
   name: string;
   description: string;
-  displayImageId: number;
+  displayImage?: number;
   collectionIds: number[];
   blogpostIds: number[];
 };

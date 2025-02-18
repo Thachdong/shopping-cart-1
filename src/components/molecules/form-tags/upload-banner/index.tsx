@@ -1,7 +1,7 @@
 "use client";
 import { joinClass } from "@/helpers/style";
 import { TUploadBanner } from "@/types/form";
-import React from "react";
+import React, { CSSProperties, useMemo } from "react";
 import { BaseUpload } from "../base-upload";
 import { Icon } from "@/components/atoms/icon";
 import { EIconName } from "@/constants";
@@ -25,7 +25,17 @@ export const UploadBanner: React.FC<Readonly<TUploadBanner>> = ({
 }) => {
   const url = useFetchPresignedUrlFromAsset(uploadedFile);
 
-  const style = useBgImage(url);
+  const bgImageStyle = useBgImage(url);
+
+  const style: CSSProperties = useMemo(() => {
+    const result: CSSProperties = {};
+
+    result.width = width ? width + "px" : "100%";
+
+    result.height = (height || DEFAULT_HEIGHT) + "px";
+
+    return result;
+  }, [width, height]);
 
   return (
     <div
@@ -34,11 +44,7 @@ export const UploadBanner: React.FC<Readonly<TUploadBanner>> = ({
         uploadedFile ? styles["banner-uploaded"] : "",
         bannerClassName,
       )}
-      style={{
-        ...style,
-        height: (height || DEFAULT_HEIGHT) + "px",
-        width: width ? width + "px" : "100%",
-      }}
+      style={{ ...bgImageStyle, ...style }}
     >
       <BaseUpload
         className={joinClass(styles["base-upload"], className)}

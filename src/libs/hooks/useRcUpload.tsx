@@ -51,8 +51,9 @@ export const useRcUpload = <T = TUploadedFile,>(
           id: new Date().getTime(),
         } as unknown as T;
 
-        if (params?.isMulti && Array.isArray(prev)) {
-          return [...prev, newFile] as unknown as T;
+        if (params?.isMulti) {
+          const files = Array.isArray(prev) ? [...prev] : [];
+          return [...files, newFile] as unknown as T;
         } else {
           return newFile;
         }
