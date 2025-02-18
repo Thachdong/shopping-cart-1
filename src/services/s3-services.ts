@@ -39,7 +39,7 @@ export async function getPresignedUrl(
   }
 }
 
-export async function copyS3File(
+export async function copyS3FileService(
   filename: string,
   sourceFolder: string,
   destinationFolder: string,
@@ -57,7 +57,7 @@ export async function copyS3File(
   await s3ClientInstance.send(copyCommand);
 }
 
-export async function deleteS3File(Key: string): Promise<void> {
+export async function deleteS3FileService(Key: string): Promise<void> {
   const command = new DeleteObjectCommand({
     Bucket: process.env.AWS_S3_BUCKET_NAME,
     Key,
@@ -66,7 +66,10 @@ export async function deleteS3File(Key: string): Promise<void> {
   await s3ClientInstance.send(command);
 }
 
-export async function createS3File(Key: string, Body: File): Promise<void> {
+export async function createS3FileService(
+  Key: string,
+  Body: File,
+): Promise<void> {
   const command = new PutObjectCommand({
     Bucket: process.env.AWS_S3_BUCKET_NAME as string,
     Key,

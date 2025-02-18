@@ -4,43 +4,17 @@ import { LinkAsButton } from "@/components/molecules/link-as-button";
 import Table from "@/components/molecules/table";
 import { EIconName, EPath } from "@/constants";
 import { genPath } from "@/helpers/router";
+import { TAdminCollection } from "@/types/collections";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-const MOCK_COLLECTIONS: TAdminCollection[] = [
-  {
-    id: 1,
-    name: "Best seller",
-    description: "Best sell products",
-    createdAt: "2025/02/13",
-  },
-  {
-    id: 2,
-    name: "Best seller",
-    description: "Best sell products",
-    createdAt: "2025/02/13",
-  },
-  {
-    id: 3,
-    name: "Best seller",
-    description: "Best sell products",
-    createdAt: "2025/02/13",
-  },
-  {
-    id: 4,
-    name: "Best seller",
-    description: "Best sell products",
-    createdAt: "2025/02/13",
-  },
-  {
-    id: 5,
-    name: "Best seller",
-    description: "Best sell products",
-    createdAt: "2025/02/13",
-  },
-];
+type TCollectionsTableProps = {
+  collections: TAdminCollection[];
+};
 
-export const CollectionsTable: React.FC = () => {
+export const CollectionsTable: React.FC<TCollectionsTableProps> = ({
+  collections,
+}) => {
   const columns: ColumnDef<TAdminCollection>[] = useMemo(
     () => [
       { header: "Name", accessorKey: "name" },
@@ -61,5 +35,5 @@ export const CollectionsTable: React.FC = () => {
     [],
   );
 
-  return <Table columns={columns} data={MOCK_COLLECTIONS} />;
+  return <Table columns={columns} data={collections} />;
 };

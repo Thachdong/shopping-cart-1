@@ -1,22 +1,32 @@
 import { Button } from "@/components/atoms/button";
 import { Header } from "@/components/atoms/header";
+import { S3Image } from "@/components/atoms/s3-image";
 import { DetailTable } from "@/components/molecules/detail-table";
 import { EButtonType } from "@/constants";
+import { TAdminCollectionDetailProps } from "@/types/collections";
 import { TDetailTableRow } from "@/types/table";
 
-const MOCK_COLLECTION: TAdminCollection = {
-  id: 1,
-  name: "Best seller",
-  description: "Best sale products",
-  createdAt: "2025/02/13",
-};
-
-export const CollectionDetail: React.FC = () => {
+export const CollectionDetail: React.FC<TAdminCollectionDetailProps> = ({
+  collection,
+}) => {
   const rows: TDetailTableRow[] = [
-    { id: "1", header: "Name", content: MOCK_COLLECTION.name },
-    { id: "2", header: "Description", content: MOCK_COLLECTION.description },
-    { id: "3", header: "Created At", content: MOCK_COLLECTION.createdAt },
-    { id: "4", header: "Banner", content: "MOCK_COLLECTION.banner" },
+    { id: "1", header: "Name", content: collection?.name },
+    { id: "2", header: "Description", content: collection?.description },
+    { id: "3", header: "Created At", content: collection?.createdAt },
+    {
+      id: "4",
+      header: "Banner",
+      content: collection?.banner ? (
+        <S3Image
+          image={collection?.banner}
+          width={175}
+          height={125}
+          alt="collection banner"
+        />
+      ) : (
+        ""
+      ),
+    },
   ];
   return (
     <div>

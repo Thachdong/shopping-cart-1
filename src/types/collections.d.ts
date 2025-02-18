@@ -38,3 +38,11 @@ type TAdminCollection = {
   description: string;
   createdAt: string;
 };
+
+type TAdminCollectionDetail = TAdminCollection & {
+  banner: TUploadedFile;
+};
+
+type TAdminCollectionDetailProps = {
+  collection: TAdminCollectionDetail | null;
+};

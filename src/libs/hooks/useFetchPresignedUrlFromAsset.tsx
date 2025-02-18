@@ -1,3 +1,4 @@
+"use client";
 import { getFetchUrlAction } from "@/server-actions/s3-actions";
 import { TUploadedFile } from "@/types/form";
 import { useCallback, useEffect, useState } from "react";
