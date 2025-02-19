@@ -3,22 +3,13 @@ import { EPath } from "@/constants";
 import { genPath } from "@/helpers/router";
 import React from "react";
 import { ProductTable } from "./products-table";
+import { TProductTable } from "@/types/product";
 
-const MOCK_PRODUCTS: TAdminProduct[] = [];
+type TAdminProductsProps = {
+  products: TProductTable[];
+};
 
-for (let i = 0; i < 15; i++) {
-  MOCK_PRODUCTS.push({
-    id: i,
-    name: "Product name " + i,
-    description: "Product description " + i,
-    price: 99,
-    stock: 99,
-    percentOff: 0,
-    createAt: "2025/02/1" + i,
-  });
-}
-
-export const AdminProducts: React.FC = () => {
+export const AdminProducts: React.FC<TAdminProductsProps> = ({ products }) => {
   return (
     <>
       <AdminPageHeader
@@ -26,7 +17,7 @@ export const AdminProducts: React.FC = () => {
         pathName={genPath(EPath.adminProducts, "create")}
       />
 
-      <ProductTable products={MOCK_PRODUCTS} />
+      <ProductTable products={products} />
     </>
   );
 };

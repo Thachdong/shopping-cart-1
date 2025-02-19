@@ -1,6 +1,6 @@
 import { prisma } from "@/database/prisma-client";
 import { TSelectOption } from "@/types/form";
-import { TCreateProduct } from "@/types/product";
+import { TCreateProduct, TProductTable } from "@/types/product";
 import { assetServices } from "./asset";
 import { ES3Folder } from "@/constants";
 import { copyS3FileService, deleteS3FileService } from "./s3-services";
@@ -33,9 +33,9 @@ export async function createProductService(
   data: TCreateProduct,
 ): Promise<void> {
   const {
-    collectionIds,
-    blogpostIds,
-    thumbnails,
+    collectionIds = [],
+    blogpostIds = [],
+    thumbnails = [],
     displayImage,
     name,
     description,
@@ -77,11 +77,12 @@ export async function createProductService(
   });
 
   // CREATE VARIANT
+  console.log(thumbnailIds);
   await variantRepository.create({
     data: {
       ...variant,
       thumbnails: {
-        connect: thumbnailIds?.map((fileId) => ({ id: fileId })),
+        connect: thumbnailIds.map((thumbId) => ({ id: thumbId })),
       },
       productId: product.id,
     },
@@ -132,4 +133,34 @@ export async function getProductOptionsService(): Promise<TSelectOption[]> {
   }));
 
   return options;
+}
+
+export async function getProductsTable(): Promise<TProductTable[]> {
+  const products = await productRepository.findMany({
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      createdAt: true,
+      variants: {
+        select: {
+          id: true,
+          variantName: true,
+          price: true,
+          stock: true,
+          percentOff: true,
+          createdAt: true,
+        },
+      },
+    },
+  });
+
+  return products.map((product) => ({
+    ...product,
+    createdAt: product.createdAt.toISOString(),
+    variants: product.variants.map((variant) => ({
+      ...variant,
+      createdAt: variant.createdAt.toISOString(),
+    })),
+  }));
 }
