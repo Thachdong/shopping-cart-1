@@ -1,11 +1,112 @@
 import { prisma } from "@/database/prisma-client";
 import { TSelectOption } from "@/types/form";
+import { TCreateProduct } from "@/types/product";
+import { assetServices } from "./asset";
+import { ES3Folder } from "@/constants";
+import { copyS3FileService, deleteS3FileService } from "./s3-services";
 
 const productRepository = prisma.product;
+const variantRepository = prisma.variant;
 
-// export async function createProductService(data: TCreateProductForm): Promise<void> {
-//     const { collectionIds, blogpostIds, } = data;
-// }
+/**
+ * Creates a new product along with its associated assets and variants.
+ *
+ * This function performs the following steps:
+ * 1. Creates assets for the display image and thumbnails.
+ * 2. Creates a new product in the product repository.
+ * 3. Creates a variant for the product with the associated thumbnails.
+ * 4. Copies the S3 files from the temporary folder to the product folder.
+ * 5. Removes the temporary S3 files.
+ *
+ * @param data - The data required to create a new product, including:
+ *   - collectionIds: The IDs of the collections the product belongs to.
+ *   - blogpostIds: The IDs of the blog posts associated with the product.
+ *   - thumbnails: An array of thumbnail files.
+ *   - displayImage: The display image file.
+ *   - name: The name of the product.
+ *   - description: The description of the product.
+ *   - variant: Additional variant data.
+ *
+ * @returns A promise that resolves when the product creation process is complete.
+ */
+export async function createProductService(
+  data: TCreateProduct,
+): Promise<void> {
+  const {
+    collectionIds,
+    blogpostIds,
+    thumbnails,
+    displayImage,
+    name,
+    description,
+    ...variant
+  } = data;
+
+  // CREATE ASSETS
+  const displayImageId = await assetServices.create({
+    filename: displayImage.filename,
+    folder: ES3Folder.PRODUCT,
+    variantId: null,
+    userId: null,
+  });
+
+  const thumbnailIds = await Promise.all(
+    thumbnails.map((file) =>
+      assetServices.create({
+        filename: file.filename,
+        folder: ES3Folder.PRODUCT,
+        variantId: null,
+        userId: null,
+      }),
+    ),
+  );
+
+  // CREATE PRODUCT
+  const product = await productRepository.create({
+    data: {
+      name,
+      description,
+      displayImageId,
+      collections: {
+        connect: collectionIds.map((collId) => ({ id: collId })),
+      },
+      blogposts: {
+        connect: blogpostIds.map((postId) => ({ id: postId })),
+      },
+    },
+  });
+
+  // CREATE VARIANT
+  await variantRepository.create({
+    data: {
+      ...variant,
+      thumbnails: {
+        connect: thumbnailIds?.map((fileId) => ({ id: fileId })),
+      },
+      productId: product.id,
+    },
+  });
+
+  // UPDATE S3 FILES
+  await copyS3FileService(
+    displayImage.filename,
+    ES3Folder.TMP,
+    ES3Folder.PRODUCT,
+  );
+
+  await Promise.all(
+    thumbnails.map((file) =>
+      copyS3FileService(file.filename, ES3Folder.TMP, ES3Folder.PRODUCT),
+    ),
+  );
+
+  // REMOVE TEMP FILE
+  deleteS3FileService([displayImage.folder, displayImage.filename].join("/"));
+
+  thumbnails.map((file) =>
+    deleteS3FileService([file.folder, file.filename].join("/")),
+  );
+}
 
 /**
  * Fetches product options from the product repository.

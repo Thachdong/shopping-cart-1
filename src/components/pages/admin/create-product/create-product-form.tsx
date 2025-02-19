@@ -3,21 +3,31 @@ import {
   createFormInput,
   createFormSelect,
 } from "@/libs/hocs/with-react-hook-form";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { createProductSchema } from "@/validators/product.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/atoms/button";
-import { EButtonType } from "@/constants";
+import { EButtonType, EToastType } from "@/constants";
 import { useRcUpload } from "@/libs/hooks/useRcUpload";
 import { UploadDisplayImage } from "@/components/molecules/form-tags/upload-display-image";
 import { UploadThumbnails } from "@/components/molecules/form-tags/upload-thumbnails";
 import { TUploadedFile } from "@/types/form";
+import { TCreateProductForm } from "@/types/product";
+import { createProductAction } from "@/server-actions/product";
+import { useToast } from "@/libs/contexts/toast-context";
+import { reFetchResource } from "@/server-actions/cache";
+import { useRouter } from "next/navigation";
+import { ErrorMessage } from "@/components/atoms/error-message";
 
 const FormInput = createFormInput<TCreateProductForm>();
 const FormSelect = createFormSelect<TCreateProductForm>();
 
 export const CreateProductForm: React.FC = () => {
+  const [error, setError] = useState("");
+  const { addToast } = useToast();
+  const router = useRouter();
+
   const {
     action: displayImageAction,
     uploadedFile: displayImage,
@@ -30,12 +40,44 @@ export const CreateProductForm: React.FC = () => {
     removeFileById: removeThumbnailById,
   } = useRcUpload<TUploadedFile[]>({ isMulti: true });
 
-  const { control } = useForm<TCreateProductForm>({
+  const { control, handleSubmit } = useForm<TCreateProductForm>({
     resolver: zodResolver(createProductSchema),
   });
 
+  const onSubmit = useCallback(
+    async (data: TCreateProductForm) => {
+      if (!displayImage) {
+        setError("Diplay image is required!");
+
+        return;
+      } else {
+        setError("");
+      }
+
+      const { data: result, success } = await createProductAction({
+        ...data,
+        displayImage,
+        thumbnails,
+      });
+
+      if (success) {
+        addToast({
+          type: EToastType.success,
+          message: "Create collection success!",
+        });
+
+        router.back();
+      } else {
+        reFetchResource("/admin/products");
+
+        addToast({ type: EToastType.error, message: result as string });
+      }
+    },
+    [thumbnails, displayImage, addToast, router],
+  );
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <FormInput
           control={control}
@@ -65,32 +107,36 @@ export const CreateProductForm: React.FC = () => {
         />
         <FormInput
           control={control}
+          name="variantName"
+          label="Variant name"
+          placeholder="Variant name ..."
+        />
+        <FormInput
+          control={control}
           name="color"
-          label="Product Color"
-          placeholder="Product color ..."
+          label="Variant Color"
+          placeholder="Variant color ..."
         />
         <FormInput
           control={control}
           name="size"
-          label="Product Size"
-          placeholder="Product size ..."
+          label="Variant Size"
+          placeholder="Variant size ..."
         />
-      </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-4">
         <FormInput
           control={control}
           name="price"
-          label="Product Price"
+          label="Variant Price"
           type="number"
-          placeholder="Product price ..."
+          placeholder="Variant price ..."
         />
         <FormInput
           control={control}
           name="stock"
-          label="Product Stock"
+          label="Variant Stock"
           type="number"
-          placeholder="Product stock ..."
+          placeholder="Variant stock ..."
         />
         <FormInput
           control={control}
@@ -108,6 +154,8 @@ export const CreateProductForm: React.FC = () => {
         displayClassName="mb-4"
       />
 
+      <ErrorMessage message={error} />
+
       <UploadThumbnails
         action={thumbnailsAction}
         uploadedFile={thumbnails}
@@ -115,7 +163,7 @@ export const CreateProductForm: React.FC = () => {
       />
 
       <div className="mt-4 text-center">
-        <Button variant={EButtonType.primary} className="px-12">
+        <Button type="submit" variant={EButtonType.primary} className="px-12">
           Create
         </Button>
       </div>

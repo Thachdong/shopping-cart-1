@@ -38,8 +38,6 @@ export const UploadThumbnails: React.FC<Readonly<TUploadThumbnails>> = ({
     return result;
   }, [width, height]);
 
-  console.log(uploadedFile);
-
   const thumbnails = useMemo(() => {
     return uploadedFile?.map?.((img) => (
       <div className="relative" key={img.id}>

@@ -11,7 +11,7 @@ import {
   createFormSelect,
 } from "@/libs/hocs/with-react-hook-form";
 import { createCollectionAction } from "@/server-actions/collection";
-import { TCreateCollection } from "@/types/collections";
+import { TCreateCollectionForm } from "@/types/collections";
 import { createCollectionSchema } from "@/validators/collection.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -19,9 +19,9 @@ import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { reFetchResource } from "@/server-actions/cache";
 
-const FormInput = createFormInput<TCreateCollection>();
-const FormSelect = createFormSelect<TCreateCollection>();
-const defaultValues: TCreateCollection = {
+const FormInput = createFormInput<TCreateCollectionForm>();
+const FormSelect = createFormSelect<TCreateCollectionForm>();
+const defaultValues: TCreateCollectionForm = {
   name: "",
   description: "",
   productIds: [],
@@ -29,18 +29,18 @@ const defaultValues: TCreateCollection = {
 };
 
 export const CreateCollection: React.FC = () => {
-  const { action, uploadedFile, removeSingleFile } = useRcUpload();
   const [error, setError] = useState("");
   const { addToast } = useToast();
   const router = useRouter();
+  const { action, uploadedFile, removeSingleFile } = useRcUpload();
 
-  const { control, handleSubmit } = useForm<TCreateCollection>({
+  const { control, handleSubmit } = useForm<TCreateCollectionForm>({
     resolver: zodResolver(createCollectionSchema),
     defaultValues,
   });
 
   const onSubmit = useCallback(
-    async (data: TCreateCollection) => {
+    async (data: TCreateCollectionForm) => {
       if (!uploadedFile) {
         setError("Banner is required!");
 
