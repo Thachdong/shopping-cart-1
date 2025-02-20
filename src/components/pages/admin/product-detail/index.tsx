@@ -5,63 +5,51 @@ import React from "react";
 import { VariantsTable } from "./variants-table";
 import { Button } from "@/components/atoms/button";
 import { EButtonType } from "@/constants";
+import { TProductDetail } from "@/types/product";
+import { TagList } from "@/components/molecules/tag-list";
 
-const MOCK_VARIANTS: TProductVariant[] = [];
-
-for (let i = 1; i < 10; i++) {
-  MOCK_VARIANTS.push({
-    id: i,
-    color: "Red",
-    size: "XXL",
-    price: 99,
-    stock: 100,
-    percentOff: 0,
-    thumbnails: [],
-  });
-}
-
-const MOCK_PRODUCT: TProductDetail = {
-  id: 1,
-  name: "Product name",
-  description: "Product description",
-  collectionIds: [],
-  blogpostIds: [],
-  variants: MOCK_VARIANTS,
-  createdAt: "2025/02/14",
-  updatedAt: "2025/02/14",
+type TProductDetailProps = {
+  product: TProductDetail | null;
 };
 
-export const ProductDetail: React.FC = () => {
+export const ProductDetail: React.FC<Readonly<TProductDetailProps>> = ({
+  product,
+}) => {
+  const collectionTags =
+    product?.collections.map((coll) => ({ content: coll.name })) || [];
+  const postTags =
+    product?.blogposts.map((post) => ({ content: post.title })) || [];
+
   const rows: TDetailTableRow[] = [
     {
       id: "name",
       header: "Name",
-      content: MOCK_PRODUCT.name,
+      content: product?.name,
     },
     {
       id: "description",
       header: "Description",
-      content: MOCK_PRODUCT.description,
+      content: product?.description,
     },
     {
       id: "createdAt",
       header: "Created At",
-      content: MOCK_PRODUCT.createdAt,
+      content: product?.createdAt,
     },
     {
       id: "updatedAt",
       header: "Updated At",
-      content: MOCK_PRODUCT.updatedAt,
+      content: product?.updatedAt,
     },
     {
       id: "collectionIds",
       header: "Related Collections",
-      content: MOCK_PRODUCT.collectionIds,
+      content: <TagList tags={collectionTags} />,
     },
     {
       id: "blogpostIds",
       header: "Related Posts",
-      content: MOCK_PRODUCT.blogpostIds,
+      content: <TagList tags={postTags} />,
     },
   ];
 
@@ -87,7 +75,7 @@ export const ProductDetail: React.FC = () => {
         <Button variant={EButtonType.outline}>Add</Button>
       </div>
 
-      <VariantsTable variants={MOCK_VARIANTS} />
+      <VariantsTable variants={product?.variants || []} />
     </>
   );
 };

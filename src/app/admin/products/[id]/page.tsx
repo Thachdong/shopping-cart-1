@@ -1,5 +1,16 @@
 import { ProductDetail } from "@/components/pages/admin/product-detail";
+import { getProductDetailService } from "@/services/product-services";
 
-export default async function ProductDetailPage() {
-  return <ProductDetail />;
+type TProductDetailPageProps = {
+  params: { id: string };
+};
+
+export default async function ProductDetailPage({
+  params,
+}: TProductDetailPageProps) {
+  const productId = (await params).id;
+
+  const productDetail = await getProductDetailService(Number(productId));
+
+  return <ProductDetail product={productDetail} />;
 }
