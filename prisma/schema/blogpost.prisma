@@ -6,6 +6,7 @@ model Blogpost {
     title       String
     description String
     post        String
+    publishDate DateTime @default(now())
 
     // RELATIONSHIP: 
     // COMMENT

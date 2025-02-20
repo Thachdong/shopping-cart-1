@@ -21,11 +21,10 @@ export async function createBlogpostService(
     ...rest
   } = data || {};
 
-  console.log(publishDate);
-
   await blogpostRepository.create({
     data: {
       ...rest,
+      publishDate: new Date(publishDate),
       products: {
         connect: productIds.map((id) => ({ id })),
       },
@@ -34,4 +33,48 @@ export async function createBlogpostService(
       },
     },
   });
+}
+
+export async function getBlogpostsTableService(): Promise<TBlogpost[]> {
+  const blogposts = await blogpostRepository.findMany({
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      publishDate: true,
+      products: {
+        select: {
+          product: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+      collections: {
+        select: {
+          collection: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return blogposts.map((blogpost) => ({
+    ...blogpost,
+    publishDate: blogpost.publishDate.toISOString(),
+    products: blogpost.products.map(({ product }) => ({
+      id: product.id,
+      name: product.name,
+    })),
+    collections: blogpost.collections.map(({ collection }) => ({
+      id: collection.id,
+      name: collection.name,
+    })),
+  }));
 }

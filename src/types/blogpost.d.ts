@@ -26,8 +26,8 @@ type TBlogpost = {
   title: string;
   description: string;
   publishDate: string;
-  relatedProducts: { id: number; name: string }[];
-  relatedCollections: { id: number; name: string }[];
+  products: { id: number; name: string }[];
+  collections: { id: number; name: string }[];
 };
 
 type TCreateBlogpost = {
