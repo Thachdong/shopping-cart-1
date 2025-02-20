@@ -43,7 +43,7 @@ type TBlogpostDetail = {
   id: number;
   title: string;
   description: string;
-  content: string;
+  post: string;
   publishDate: string;
   products: { id: number; name: string }[];
   collections: { id: number; name: string }[];

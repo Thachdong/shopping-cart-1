@@ -35,6 +35,17 @@ export async function createBlogpostService(
   });
 }
 
+/**
+ * Fetches and returns a list of blog posts with selected fields.
+ *
+ * This service retrieves blog posts from the repository and includes
+ * the following fields: id, title, description, publishDate, products,
+ * and collections. The publishDate is converted to an ISO string format.
+ * The products and collections fields are nested objects that include
+ * the id and name of each product and collection respectively.
+ *
+ * @returns {Promise<TBlogpost[]>} A promise that resolves to an array of blog posts.
+ */
 export async function getBlogpostsTableService(): Promise<TBlogpost[]> {
   const blogposts = await blogpostRepository.findMany({
     select: {
@@ -77,4 +88,74 @@ export async function getBlogpostsTableService(): Promise<TBlogpost[]> {
       name: collection.name,
     })),
   }));
+}
+
+/**
+ * Retrieves a blog post by its ID.
+ *
+ * @param id - The unique identifier of the blog post.
+ * @returns A promise that resolves to the blog post details if found, otherwise null.
+ *
+ * The returned blog post details include:
+ * - `id`: The unique identifier of the blog post.
+ * - `title`: The title of the blog post.
+ * - `description`: The description of the blog post.
+ * - `post`: The content of the blog post.
+ * - `publishDate`: The publish date of the blog post in ISO string format.
+ * - `products`: An array of associated products, each containing:
+ *   - `id`: The unique identifier of the product.
+ *   - `name`: The name of the product.
+ * - `collections`: An array of associated collections, each containing:
+ *   - `id`: The unique identifier of the collection.
+ *   - `name`: The name of the collection.
+ */
+export async function getBlogpostByIdService(
+  id: number,
+): Promise<TBlogpostDetail | null> {
+  const post = await blogpostRepository.findFirst({
+    where: { id },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      post: true,
+      publishDate: true,
+      products: {
+        select: {
+          product: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+      collections: {
+        select: {
+          collection: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (post) {
+    return {
+      ...post,
+      publishDate: post.publishDate.toISOString(),
+      products: post.products.map(({ product }) => ({
+        id: product.id,
+        name: product.name,
+      })),
+      collections: post.collections.map(({ collection }) => ({
+        id: collection.id,
+        name: collection.name,
+      })),
+    };
+  }
+  return null;
 }
