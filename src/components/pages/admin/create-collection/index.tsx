@@ -54,6 +54,8 @@ export const CreateCollection: React.FC = () => {
       const { success, data: result } = await createCollectionAction(payload);
 
       if (success) {
+        reFetchResource("/admin/collections");
+
         addToast({
           type: EToastType.success,
           message: "Create collection success!",
@@ -61,8 +63,6 @@ export const CreateCollection: React.FC = () => {
 
         router.back();
       } else {
-        reFetchResource("/admin/collections");
-
         addToast({ type: EToastType.error, message: result as string });
       }
     },

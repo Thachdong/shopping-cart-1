@@ -33,8 +33,8 @@ type TBlogpost = {
 type TCreateBlogpost = {
   title: string;
   description: string;
-  content: string;
   publishDate: string;
+  post: string;
   productIds: number[];
   collectionIds: number[];
 };

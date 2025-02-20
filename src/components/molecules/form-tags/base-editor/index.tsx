@@ -59,7 +59,8 @@ export const BaseEditor: React.FC<TBaseEditor> = ({
   const editorRef = React.useRef<TinyMCEEditor | null>(null);
 
   const forcusEditor = useCallback(() => {
-    editorRef.current?.focus();
+    console.log(editorRef.current);
+    editorRef.current?.focus?.();
   }, []);
 
   return (
