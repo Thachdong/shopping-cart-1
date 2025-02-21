@@ -7,3 +7,9 @@ type TModal = {
   backdropClassName?: string;
   modalClassName?: string;
 };
+
+type TModalHook = {
+  open: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+};
