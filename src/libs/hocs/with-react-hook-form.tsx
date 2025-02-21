@@ -5,8 +5,6 @@ import { BaseSelect } from "@/components/molecules/form-tags/base-select";
 import { BaseTextarea } from "@/components/molecules/form-tags/base-textarea";
 import { BaseUpload } from "@/components/molecules/form-tags/base-upload";
 import { UploadAvatar } from "@/components/molecules/form-tags/upload-avatar";
-import { UploadBanner } from "@/components/molecules/form-tags/upload-banner";
-import { UploadDisplayImage } from "@/components/molecules/form-tags/upload-display-image";
 import { UploadThumbnails } from "@/components/molecules/form-tags/upload-thumbnails";
 import {
   IWithHookFormProps,
@@ -16,8 +14,6 @@ import {
   TBaseTextarea,
   TBaseUpload,
   TUploadAvatar,
-  TUploadBanner,
-  TUploadDisplayImg,
   TUploadThumbnails,
 } from "@/types/form";
 import { ComponentType } from "react";
@@ -73,14 +69,6 @@ export function createFormUpload<T extends FieldValues>() {
 
 export function createFormUploadAvatar<T extends FieldValues>() {
   return withHookForm<T, TUploadAvatar>(UploadAvatar);
-}
-
-export function createFormUploadBanner<T extends FieldValues>() {
-  return withHookForm<T, TUploadBanner>(UploadBanner);
-}
-
-export function createFormUploadDisplayImage<T extends FieldValues>() {
-  return withHookForm<T, TUploadDisplayImg>(UploadDisplayImage);
 }
 
 export function createFormUploadThumbnails<T extends FieldValues>() {

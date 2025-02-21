@@ -1,4 +1,5 @@
 import { prisma } from "@/database/prisma-client";
+import { TSelectOption } from "@/types/form";
 
 const blogpostRepository = prisma.blogpost;
 
@@ -158,4 +159,28 @@ export async function getBlogpostByIdService(
     };
   }
   return null;
+}
+
+/**
+ * Fetches a list of blog posts and transforms them into select options.
+ *
+ * @returns {Promise<TSelectOption[]>} A promise that resolves to an array of select options,
+ * where each option contains the `id` as the value and the `title` as the label.
+ *
+ * @throws {Error} If there is an issue fetching the blog posts from the repository.
+ */
+export async function getPostOptionsService(): Promise<TSelectOption[]> {
+  const posts = await blogpostRepository.findMany({
+    select: {
+      id: true,
+      title: true,
+    },
+  });
+
+  const options: TSelectOption[] = posts.map((pst) => ({
+    value: pst.id,
+    label: pst.title,
+  }));
+
+  return options;
 }

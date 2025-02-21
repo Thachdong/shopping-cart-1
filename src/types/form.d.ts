@@ -36,9 +36,10 @@ type TSelectOption = {
   label: string;
 };
 
-type TBaseSelect = Omit<SelectProps, "options" | "isMulti"> & {
+type TBaseSelect = Omit<SelectProps, "options" | "onChange"> & {
   label: string;
   options: TSelectOption[];
+  onChange?: (value: string | number | (string | number)[]) => void;
   error?: string;
 };
 

@@ -7,7 +7,6 @@ import {
   TAdminCollectionDetail,
   TCreateCollection,
 } from "@/types/collections";
-import { assetServices } from "./asset";
 import { copyS3FileService, deleteS3FileService } from "./s3-services";
 
 const collectionRepository = prisma.collection;
@@ -110,25 +109,33 @@ export async function createCollectionService(
     throw new Error("Banner is required!");
   }
 
-  // CREATE BANNER ASSET
-  const bannerId = await assetServices.create({
-    filename,
-    folder: ES3Folder.COLLECTION,
-    variantId: null,
-    userId: null,
-  });
-
   // CREATE COLLECTION
-  const payload = { ...rest, bannerId };
-
   await collectionRepository.create({
     data: {
-      ...payload,
+      ...rest,
       products: {
-        connect: productIds?.map((productId) => ({ id: productId })) || [],
+        create: productIds.map((id) => ({
+          product: {
+            connect: {
+              id,
+            },
+          },
+        })),
       },
       blogposts: {
-        connect: blogpostIds?.map((blogpostId) => ({ id: blogpostId })) || [],
+        create: blogpostIds.map((id) => ({
+          blogpost: {
+            connect: { id },
+          },
+        })),
+      },
+      banner: {
+        create: {
+          filename,
+          folder: ES3Folder.COLLECTION,
+          variantId: null,
+          userId: null,
+        },
       },
     },
   });

@@ -6,7 +6,7 @@ export const withServerAction = <
 ) => {
   return async function (
     ...params: Parameters<TAction>
-  ): Promise<IServerActionResponse<ReturnType<TAction> | string>> {
+  ): Promise<IServerActionResponse<string | Awaited<ReturnType<TAction>>>> {
     try {
       const result = await action(...params);
 

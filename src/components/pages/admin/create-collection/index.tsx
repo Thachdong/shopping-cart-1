@@ -18,6 +18,9 @@ import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { reFetchResource } from "@/server-actions/cache";
+import { useOptions } from "@/libs/hooks/useOptions";
+import { getProductOptionsAction } from "@/server-actions/product";
+import { getPostOptionsAction } from "@/server-actions/blogpost";
 
 const FormInput = createFormInput<TCreateCollectionForm>();
 const FormSelect = createFormSelect<TCreateCollectionForm>();
@@ -33,6 +36,8 @@ export const CreateCollection: React.FC = () => {
   const { addToast } = useToast();
   const router = useRouter();
   const { action, uploadedFile, removeSingleFile } = useRcUpload();
+  const { options: productOptions } = useOptions(getProductOptionsAction);
+  const { options: postOptions } = useOptions(getPostOptionsAction);
 
   const { control, handleSubmit } = useForm<TCreateCollectionForm>({
     resolver: zodResolver(createCollectionSchema),
@@ -83,16 +88,18 @@ export const CreateCollection: React.FC = () => {
             control={control}
             name="productIds"
             id="productIds"
-            options={[]}
+            options={productOptions}
             label="Products"
+            isMulti
           />
 
           <FormSelect
             control={control}
             name="blogpostIds"
             id="blogpostIds"
-            options={[]}
+            options={postOptions}
             label="Blogposts"
+            isMulti
           />
         </div>
 
