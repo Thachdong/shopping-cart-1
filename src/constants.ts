@@ -31,6 +31,7 @@ export enum EIconName {
   users = "users",
   upload = "upload",
   enter = "enter",
+  "date-picker-icon" = "date-picker-icon",
 }
 
 export enum EToastType {

@@ -9,6 +9,7 @@ import {
   TUpdateCollGeneralInfo,
 } from "@/types/collections";
 import { copyS3FileService, deleteS3FileService } from "./s3-services";
+import { TProductTable } from "@/types/product";
 
 const collectionRepository = prisma.collection;
 
@@ -200,4 +201,224 @@ export async function updateCollGeneralInfoService(
       data: rest,
     });
   }
+}
+
+/**
+ * find all products belong to collection
+ *
+ * @param id: number -- collection id
+ * @returns products: Promise<TProductTable[]> -- list of products
+ */
+export async function getProductsByCollIdService(
+  id: number,
+): Promise<TProductTable[]> {
+  const collection = await collectionRepository.findFirst({
+    where: { id },
+    select: {
+      products: {
+        select: {
+          product: {
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              createdAt: true,
+              variants: {
+                select: {
+                  id: true,
+                  variantName: true,
+                  price: true,
+                  stock: true,
+                  percentOff: true,
+                  createdAt: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const products =
+    collection?.products.map(({ product }) => ({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      createdAt: product.createdAt.toISOString(),
+      variants: product.variants.map((variant) => ({
+        ...variant,
+        createdAt: variant.createdAt.toISOString(),
+      })),
+    })) || [];
+
+  return products;
+}
+
+/**
+ * find all posts belong to collection
+ *
+ * @param id: number -- collection id
+ * @returns posts: Promise<TBlogpost[]> -- list of posts
+ */
+export async function getPostsByCollIdService(
+  id: number,
+): Promise<TBlogpost[]> {
+  const collection = await collectionRepository.findFirst({
+    where: { id },
+    select: {
+      blogposts: {
+        select: {
+          blogpost: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              publishDate: true,
+              products: {
+                select: {
+                  product: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
+                  },
+                },
+              },
+              collections: {
+                select: {
+                  collection: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const posts =
+    collection?.blogposts.map(({ blogpost }) => ({
+      id: blogpost.id,
+      title: blogpost.title,
+      description: blogpost.description,
+      publishDate: blogpost.publishDate.toISOString(),
+      products: blogpost.products.map(({ product }) => ({
+        id: product.id,
+        name: product.name,
+      })),
+      collections: blogpost.collections.map(({ collection }) => ({
+        id: collection.id,
+        name: collection.name,
+      })),
+    })) || [];
+
+  return posts;
+}
+
+/**
+ * Add products to collection
+ *
+ * @param id: number -- collection id
+ * @param productIds: number -- list of product id
+ * @returns Promise<void>
+ */
+export async function addProductsToCollService(
+  id: number,
+  productIds: number[],
+): Promise<void> {
+  await collectionRepository.update({
+    where: { id },
+    data: {
+      products: {
+        create: productIds.map((productId) => ({
+          product: {
+            connect: { id: productId },
+          },
+        })),
+      },
+    },
+  });
+}
+
+/**
+ * Add posts to collection
+ *
+ * @param id: number -- collection id
+ * @param postIds: number -- list of post id
+ * @returns Promise<void>
+ */
+export async function addPostsToCollService(
+  id: number,
+  postIds: number[],
+): Promise<void> {
+  await collectionRepository.update({
+    where: {
+      id,
+    },
+    data: {
+      blogposts: {
+        create: postIds.map((id) => ({
+          blogpost: {
+            connect: { id },
+          },
+        })),
+      },
+    },
+  });
+}
+
+/**
+ * Remove Product out of collection
+ *
+ * @param id: number -- collection id
+ * @param productId: number -- product id
+ * @returns Promise<void>
+ */
+export async function removeCollProductService(
+  id: number,
+  productId: number,
+): Promise<void> {
+  await collectionRepository.update({
+    where: {
+      id,
+    },
+    data: {
+      products: {
+        deleteMany: {
+          productId,
+        },
+      },
+    },
+  });
+}
+
+/**
+ * Remove Post out of collection
+ *
+ * @param id: number -- collection id
+ * @param blogpostId: number -- post id
+ * @returns Promise<void>
+ */
+export async function removeCollPostService(
+  id: number,
+  blogpostId: number,
+): Promise<void> {
+  await collectionRepository.update({
+    where: {
+      id,
+    },
+    data: {
+      blogposts: {
+        deleteMany: {
+          blogpostId,
+        },
+      },
+    },
+  });
 }

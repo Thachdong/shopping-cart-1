@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 
 const Select = dynamic(() => import("react-select"), { ssr: false });
 
-const DEFAULT_CLASSNAME = "flex flex-col gap-2";
+const DEFAULT_CLASSNAME = "flex flex-col gap-2 relative z-[1001]";
 const DEFAULT_INPUT_CLASSNAME = "rounded h-9";
 
 export const BaseSelect: React.FC<Readonly<TBaseSelect>> = ({
@@ -44,8 +44,6 @@ export const BaseSelect: React.FC<Readonly<TBaseSelect>> = ({
     }
   }, [value, options, isMulti]);
 
-  console.log(value);
-
   return (
     <label className={joinClass(DEFAULT_CLASSNAME, className)} htmlFor={id}>
       {label}
@@ -56,6 +54,10 @@ export const BaseSelect: React.FC<Readonly<TBaseSelect>> = ({
         value={selectedOption}
         options={options}
         isMulti={true}
+        menuPortalTarget={document.body}
+        styles={{
+          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+        }}
         {...selectProps}
       />
       {error && <ErrorMessage className="-mt-1" message={error} />}

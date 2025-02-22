@@ -4,6 +4,7 @@ import { InitOptions } from "@tinymce/tinymce-react/lib/cjs/main/ts/components/E
 import { Control, FieldValues, Path } from "react-hook-form";
 import { ReactNode } from "react";
 import { RcFile } from "rc-upload/lib/interface";
+import { DatePickerProps } from "react-datepicker";
 
 type TBaseInput = Omit<
   React.DetailedHTMLProps<
@@ -111,4 +112,25 @@ type TUploadedFile = {
 type TUseRcUploadParams<T = TUploadedFile> = {
   isMulti?: boolean;
   defaultValue?: T;
+  isTempOnly?: boolean;
 };
+
+type TDatePickerProps = DatePickerProps & {
+  label: React.ReactNode;
+  id: string;
+};
+
+// #region -- useError
+type TError = {
+  key: string;
+  message: string;
+};
+
+type TUseErrorResponse = {
+  errors: TError[];
+  addError: (error: TError) => void;
+  removeError: (errKey: string) => void;
+  clearError: () => void;
+  getError: (key: string) => string;
+};
+// #endregion

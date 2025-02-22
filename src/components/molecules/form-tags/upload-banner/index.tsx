@@ -48,6 +48,7 @@ export const UploadBanner: React.FC<Readonly<TUploadBanner>> = ({
     >
       <BaseUpload
         className={joinClass(styles["base-upload"], className)}
+        disabled={!!url}
         {...uploadProps}
       >
         {children || <Icon name={EIconName["upload-img"]} />}

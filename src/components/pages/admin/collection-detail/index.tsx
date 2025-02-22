@@ -1,15 +1,15 @@
-import { Button } from "@/components/atoms/button";
 import { Header } from "@/components/atoms/header";
 import { S3Image } from "@/components/atoms/s3-image";
 import { DetailTable } from "@/components/molecules/detail-table";
-import { EButtonType } from "@/constants";
 import { TAdminCollectionDetailProps } from "@/types/collections";
 import { TDetailTableRow } from "@/types/table";
 import { EditGeneralButton } from "./edit-general-button";
+import { CollectionProducts } from "./collection-products";
+import { CollectionPosts } from "./collection-posts";
 
-export const CollectionDetail: React.FC<TAdminCollectionDetailProps> = ({
-  collection,
-}) => {
+export const CollectionDetail: React.FC<
+  Readonly<TAdminCollectionDetailProps>
+> = ({ collection }) => {
   const rows: TDetailTableRow[] = [
     { id: "1", header: "Name", content: collection?.name },
     { id: "2", header: "Description", content: collection?.description },
@@ -48,20 +48,10 @@ export const CollectionDetail: React.FC<TAdminCollectionDetailProps> = ({
       <DetailTable rows={rows} headerClassName="!w-20" />
 
       {/* Products */}
-      <div className="flex items-center gap-4 mb-4">
-        <Header className="!mb-0" level={4}>
-          II. Products
-        </Header>
-        <Button variant={EButtonType.outline}>Add Products</Button>
-      </div>
+      <CollectionProducts />
 
       {/* Blog posts */}
-      <div className="flex items-center gap-4 mb-4">
-        <Header className="!mb-0" level={4}>
-          III. Blog posts
-        </Header>
-        <Button variant={EButtonType.outline}>Add Posts</Button>
-      </div>
+      <CollectionPosts />
     </div>
   );
 };
