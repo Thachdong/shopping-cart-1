@@ -6,6 +6,7 @@ import {
   TAdminCollection,
   TAdminCollectionDetail,
   TCreateCollection,
+  TUpdateCollGeneralInfo,
 } from "@/types/collections";
 import { copyS3FileService, deleteS3FileService } from "./s3-services";
 
@@ -145,4 +146,58 @@ export async function createCollectionService(
 
   // REMOVE TEMP BANNER FILE
   await deleteS3FileService([folder, filename].join("/"));
+}
+
+/**
+ * Updates the general information of a collection.
+ *
+ * @param {TUpdateCollGeneralInfo} data - The data to update the collection with.
+ * @param {string} data.id - The ID of the collection to update.
+ * @param {object} [data.banner] - The banner information to update.
+ * @param {string} data.banner.filename - The filename of the banner.
+ * @param {string} data.banner.folder - The folder where the banner is stored.
+ * @param {object} rest - The rest of the collection data to update.
+ *
+ * @throws {Error} If the banner filename is not provided.
+ *
+ * @returns {Promise<void>} A promise that resolves when the update is complete.
+ */
+export async function updateCollGeneralInfoService(
+  data: TUpdateCollGeneralInfo,
+) {
+  const { id, banner, ...rest } = data;
+
+  if (banner) {
+    const { filename, folder } = banner;
+
+    if (!filename) {
+      throw new Error("Banner filename is required!");
+    }
+
+    // Update banner
+    await collectionRepository.update({
+      where: { id },
+      data: {
+        ...rest,
+        banner: {
+          update: {
+            filename,
+            folder: ES3Folder.COLLECTION,
+          },
+        },
+      },
+    });
+
+    // MOVE BANNER TO /COLLECTION FOLDER
+    await copyS3FileService(filename, ES3Folder.TMP, ES3Folder.COLLECTION);
+
+    // REMOVE TEMP BANNER FILE
+    await deleteS3FileService([folder, filename].join("/"));
+  } else {
+    // Update collection without banner
+    await collectionRepository.update({
+      where: { id },
+      data: rest,
+    });
+  }
 }

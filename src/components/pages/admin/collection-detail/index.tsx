@@ -5,6 +5,7 @@ import { DetailTable } from "@/components/molecules/detail-table";
 import { EButtonType } from "@/constants";
 import { TAdminCollectionDetailProps } from "@/types/collections";
 import { TDetailTableRow } from "@/types/table";
+import { EditGeneralButton } from "./edit-general-button";
 
 export const CollectionDetail: React.FC<TAdminCollectionDetailProps> = ({
   collection,
@@ -37,7 +38,11 @@ export const CollectionDetail: React.FC<TAdminCollectionDetailProps> = ({
         <Header className="!mb-0" level={4}>
           I. Generals
         </Header>
-        <Button variant={EButtonType.outline}>Edit</Button>
+        <EditGeneralButton
+          name={collection?.name || ""}
+          description={collection?.description || ""}
+          banner={collection?.banner || undefined}
+        />
       </div>
 
       <DetailTable rows={rows} headerClassName="!w-20" />

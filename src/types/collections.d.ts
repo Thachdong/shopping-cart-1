@@ -52,3 +52,18 @@ type TAdminCollectionDetailProps = {
   collection: TAdminCollectionDetail | null;
 };
 // #endrigion
+
+// #region -- EditGeneralButton
+type TEditGeneralButtonProps = {
+  name: string;
+  description: string;
+  banner?: TUploadedFile;
+};
+
+type TUpdateCollGeneralInfo = {
+  id: number;
+  name?: string;
+  description?: string;
+  banner?: TUploadedFile;
+};
+// #endregion

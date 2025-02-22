@@ -28,12 +28,13 @@ async function uploadFile(file: RcFile): Promise<string | void> {
 }
 
 export const useRcUpload = <T = TUploadedFile,>(
-  params?: Readonly<TUseRcUploadParams<T>>,
+  params: Readonly<TUseRcUploadParams<T>> = {},
 ) => {
   const [queue, setQueue] = useState<RcFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<T>();
 
+  const { isMulti, isTempOnly = true, defaultValue } = params;
   /**
    * @param
    * @returns UploadedFile || void
@@ -54,7 +55,7 @@ export const useRcUpload = <T = TUploadedFile,>(
           id: new Date().getTime(),
         } as unknown as T;
 
-        if (params?.isMulti) {
+        if (isMulti) {
           const files = Array.isArray(prev) ? [...prev] : [];
           return [...files, newFile] as unknown as T;
         } else {
@@ -66,7 +67,7 @@ export const useRcUpload = <T = TUploadedFile,>(
     setQueue((prev) => prev.slice(1));
 
     setIsProcessing(false);
-  }, [params?.isMulti, queue]);
+  }, [isMulti, queue]);
 
   /**
    * Adds a file to the upload queue.
@@ -88,21 +89,22 @@ export const useRcUpload = <T = TUploadedFile,>(
    * @function
    * @name removeSingleFile
    */
-  const removeSingleFile = useCallback(() => {
-    if (!params?.isMulti) {
+  const removeSingleFile = useCallback(async () => {
+    if (!isMulti) {
       const file = uploadedFile as TUploadedFile;
 
-      console.log(file);
+      if (!file) {
+        throw new Error("File does not exist!");
+      }
 
-      try {
-        if (file) {
-          deleteS3FileAction([file.folder, file.filename].join("/"));
-        }
-      } catch {}
-
-      setUploadedFile(undefined);
+      if (isTempOnly && file.folder !== ES3Folder.TMP) {
+        setUploadedFile(undefined);
+      } else {
+        await deleteS3FileAction([file.folder, file.filename].join("/"));
+        setUploadedFile(undefined);
+      }
     }
-  }, [params?.isMulti, uploadedFile]);
+  }, [isMulti, uploadedFile, isTempOnly]);
 
   /**
    * Removes a file from the uploaded files list by its ID.
@@ -142,10 +144,10 @@ export const useRcUpload = <T = TUploadedFile,>(
   }, [queue, isProcessing, processQueue]);
 
   useEffect(() => {
-    if (params?.defaultValue) {
-      setUploadedFile(params?.defaultValue);
+    if (defaultValue) {
+      setUploadedFile(defaultValue);
     }
-  }, [params?.defaultValue]);
+  }, [defaultValue]);
 
   return {
     isProcessing,
