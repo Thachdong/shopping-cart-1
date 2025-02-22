@@ -107,3 +107,20 @@ type TProductDetail = {
   variants: TProductDetailVariant[];
 };
 // #endregion
+
+type TUpdateProductGeneralInfoServiceParam = {
+  name?: string;
+  description?: string;
+  collectionIds?: number[];
+  blogpostIds?: number[];
+};
+
+type TCreateVariantServiceParams = {
+  variantName: string;
+  color: string;
+  size: string;
+  price: number;
+  stock: number;
+  percentOff: number;
+  thumbnails: TUploadedFile[];
+};

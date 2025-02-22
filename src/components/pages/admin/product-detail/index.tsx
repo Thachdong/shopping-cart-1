@@ -3,10 +3,10 @@ import { DetailTable } from "@/components/molecules/detail-table";
 import { TDetailTableRow } from "@/types/table";
 import React from "react";
 import { VariantsTable } from "./variants-table";
-import { Button } from "@/components/atoms/button";
-import { EButtonType } from "@/constants";
 import { TProductDetail } from "@/types/product";
 import { TagList } from "@/components/molecules/tag-list";
+import { EditGeneralButton } from "./edit-general-button";
+import { AddVariantButton } from "./add-variant-button";
 
 type TProductDetailProps = {
   product: TProductDetail | null;
@@ -15,11 +15,6 @@ type TProductDetailProps = {
 export const ProductDetail: React.FC<Readonly<TProductDetailProps>> = ({
   product,
 }) => {
-  const collectionTags =
-    product?.collections.map((coll) => ({ content: coll.name })) || [];
-  const postTags =
-    product?.blogposts.map((post) => ({ content: post.title })) || [];
-
   const rows: TDetailTableRow[] = [
     {
       id: "name",
@@ -44,12 +39,24 @@ export const ProductDetail: React.FC<Readonly<TProductDetailProps>> = ({
     {
       id: "collectionIds",
       header: "Related Collections",
-      content: <TagList tags={collectionTags} />,
+      content: (
+        <TagList
+          tags={
+            product?.collections.map((coll) => ({ content: coll.name })) || []
+          }
+        />
+      ),
     },
     {
       id: "blogpostIds",
       header: "Related Posts",
-      content: <TagList tags={postTags} />,
+      content: (
+        <TagList
+          tags={
+            product?.blogposts.map((post) => ({ content: post.title })) || []
+          }
+        />
+      ),
     },
   ];
 
@@ -62,7 +69,14 @@ export const ProductDetail: React.FC<Readonly<TProductDetailProps>> = ({
         <Header className="!mb-0" level={4}>
           I. General
         </Header>
-        <Button variant={EButtonType.outline}>Edit</Button>
+        <EditGeneralButton
+          generalData={{
+            name: product?.name || "",
+            description: product?.description || "",
+            collectionIds: product?.collections.map((coll) => coll.id) || [],
+            blogpostIds: product?.blogposts.map((post) => post.id) || [],
+          }}
+        />
       </div>
 
       <DetailTable rows={rows} headerClassName="!w-44" />
@@ -72,7 +86,7 @@ export const ProductDetail: React.FC<Readonly<TProductDetailProps>> = ({
         <Header className="!mb-0" level={4}>
           II. Variants
         </Header>
-        <Button variant={EButtonType.outline}>Add</Button>
+        <AddVariantButton />
       </div>
 
       <VariantsTable variants={product?.variants || []} />

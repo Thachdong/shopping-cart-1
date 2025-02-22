@@ -27,10 +27,18 @@ export async function createBlogpostService(
       ...rest,
       publishDate: new Date(publishDate),
       products: {
-        connect: productIds.map((id) => ({ id })),
+        create: productIds.map((id) => ({
+          product: {
+            connect: { id },
+          },
+        })),
       },
       collections: {
-        connect: collectionIds.map((id) => ({ id })),
+        create: collectionIds.map((id) => ({
+          collection: {
+            connect: { id },
+          },
+        })),
       },
     },
   });

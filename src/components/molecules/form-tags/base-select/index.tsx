@@ -37,8 +37,10 @@ export const BaseSelect: React.FC<Readonly<TBaseSelect>> = ({
   );
 
   const selectedOption = useMemo(() => {
-    if (isMulti && Array.isArray(value)) {
-      return options.filter((opt) => value?.includes(opt.value));
+    if (isMulti) {
+      const listVal = Array.isArray(value) ? value : [];
+
+      return options.filter((opt) => listVal?.includes(opt.value));
     } else {
       return options.find((opt) => opt.value === value);
     }
@@ -53,11 +55,11 @@ export const BaseSelect: React.FC<Readonly<TBaseSelect>> = ({
         onChange={handleChange}
         value={selectedOption}
         options={options}
-        isMulti={true}
         menuPortalTarget={document.body}
         styles={{
           menuPortal: (base) => ({ ...base, zIndex: 9999 }),
         }}
+        isMulti={isMulti}
         {...selectProps}
       />
       {error && <ErrorMessage className="-mt-1" message={error} />}

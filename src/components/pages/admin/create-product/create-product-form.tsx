@@ -19,6 +19,9 @@ import { useToast } from "@/libs/contexts/toast-context";
 import { reFetchResource } from "@/server-actions/cache";
 import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@/components/atoms/error-message";
+import { useOptions } from "@/libs/hooks/useOptions";
+import { getCollOptionsAction } from "@/server-actions/collection";
+import { getPostOptionsAction } from "@/server-actions/blogpost";
 
 const FormInput = createFormInput<TCreateProductForm>();
 const FormSelect = createFormSelect<TCreateProductForm>();
@@ -27,6 +30,8 @@ export const CreateProductForm: React.FC = () => {
   const [error, setError] = useState("");
   const { addToast } = useToast();
   const router = useRouter();
+  const { options: collOptions } = useOptions(getCollOptionsAction);
+  const { options: postOptions } = useOptions(getPostOptionsAction);
 
   const {
     action: displayImageAction,
@@ -61,6 +66,8 @@ export const CreateProductForm: React.FC = () => {
       });
 
       if (success) {
+        reFetchResource("/admin/products");
+
         addToast({
           type: EToastType.success,
           message: "Create collection success!",
@@ -68,8 +75,6 @@ export const CreateProductForm: React.FC = () => {
 
         router.back();
       } else {
-        reFetchResource("/admin/products");
-
         addToast({ type: EToastType.error, message: result as string });
       }
     },
@@ -93,17 +98,19 @@ export const CreateProductForm: React.FC = () => {
         />
         <FormSelect
           control={control}
-          options={[]}
+          options={collOptions}
           name="collectionIds"
           label="Collections"
           placeholder="Select collections"
+          isMulti
         />
         <FormSelect
           control={control}
-          options={[]}
+          options={postOptions}
           name="blogpostIds"
           label="Blogposts"
           placeholder="Select posts"
+          isMulti
         />
         <FormInput
           control={control}

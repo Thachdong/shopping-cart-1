@@ -1,33 +1,26 @@
 import { prisma } from "@/database/prisma-client";
 import { TSelectOption } from "@/types/form";
-import { TCreateProduct, TProductDetail, TProductTable } from "@/types/product";
-import { assetServices } from "./asset";
+import {
+  TCreateProduct,
+  TCreateVariantServiceParams,
+  TProductDetail,
+  TProductTable,
+  TUpdateProductGeneralInfoServiceParam,
+} from "@/types/product";
 import { ES3Folder } from "@/constants";
 import { copyS3FileService, deleteS3FileService } from "./s3-services";
 
 const productRepository = prisma.product;
-const variantRepository = prisma.variant;
 
 /**
  * Creates a new product along with its associated assets and variants.
  *
- * This function performs the following steps:
- * 1. Creates assets for the display image and thumbnails.
- * 2. Creates a new product in the product repository.
- * 3. Creates a variant for the product with the associated thumbnails.
- * 4. Copies the S3 files from the temporary folder to the product folder.
- * 5. Removes the temporary S3 files.
- *
- * @param data - The data required to create a new product, including:
- *   - collectionIds: The IDs of the collections the product belongs to.
- *   - blogpostIds: The IDs of the blog posts associated with the product.
- *   - thumbnails: An array of thumbnail files.
- *   - displayImage: The display image file.
- *   - name: The name of the product.
- *   - description: The description of the product.
- *   - variant: Additional variant data.
- *
- * @returns A promise that resolves when the product creation process is complete.
+ * @param productData -- name, description
+ * @param displayImage -- uploaded file
+ * @param variant -- variant data
+ * @param collectionIds -- connect to collections
+ * @param blogpostIds -- connect to blogposts
+ * @returns Promise<void>
  */
 export async function createProductService(
   data: TCreateProduct,
@@ -42,71 +35,64 @@ export async function createProductService(
     ...variant
   } = data;
 
-  // CREATE ASSETS
-  const displayImageId = await assetServices.create({
-    filename: displayImage.filename,
-    folder: ES3Folder.PRODUCT,
-    variantId: null,
-    userId: null,
-  });
-
-  const thumbnailIds = await Promise.all(
-    thumbnails.map((file) =>
-      assetServices.create({
-        filename: file.filename,
-        folder: ES3Folder.PRODUCT,
-        variantId: null,
-        userId: null,
-      }),
-    ),
-  );
-
-  // CREATE PRODUCT
-  const product = await productRepository.create({
+  await productRepository.create({
     data: {
       name,
       description,
-      displayImageId,
+      displayImage: {
+        create: {
+          filename: displayImage.filename,
+          folder: ES3Folder.PRODUCT,
+        },
+      },
+      variants: {
+        create: [
+          {
+            ...variant,
+            thumbnails: {
+              create: thumbnails.map((thmb) => ({
+                filename: thmb.filename,
+                folder: ES3Folder.PRODUCT,
+              })),
+            },
+          },
+        ],
+      },
       collections: {
-        connect: collectionIds.map((collId) => ({ id: collId })),
+        create: collectionIds.map((id) => ({
+          collection: {
+            connect: { id },
+          },
+        })),
       },
       blogposts: {
-        connect: blogpostIds.map((postId) => ({ id: postId })),
+        create: blogpostIds.map((id) => ({
+          blogpost: {
+            connect: { id },
+          },
+        })),
       },
-    },
-  });
-
-  // CREATE VARIANT
-  console.log(thumbnailIds);
-  await variantRepository.create({
-    data: {
-      ...variant,
-      thumbnails: {
-        connect: thumbnailIds.map((thumbId) => ({ id: thumbId })),
-      },
-      productId: product.id,
     },
   });
 
   // UPDATE S3 FILES
-  await copyS3FileService(
+  copyS3FileService(
     displayImage.filename,
     ES3Folder.TMP,
     ES3Folder.PRODUCT,
-  );
+  ).then(() => {
+    deleteS3FileService([displayImage.folder, displayImage.filename].join("/"));
+  });
 
-  await Promise.all(
+  Promise.all(
     thumbnails.map((file) =>
       copyS3FileService(file.filename, ES3Folder.TMP, ES3Folder.PRODUCT),
     ),
-  );
-
-  // REMOVE TEMP FILE
-  deleteS3FileService([displayImage.folder, displayImage.filename].join("/"));
-
-  thumbnails.map((file) =>
-    deleteS3FileService([file.folder, file.filename].join("/")),
-  );
+  ).then(() => {
+    thumbnails.map((file) =>
+      deleteS3FileService([file.folder, file.filename].join("/")),
+    );
+  });
 }
 
 /**
@@ -290,4 +276,132 @@ export async function getProductDetailService(
     };
   }
   return null;
+}
+
+/**
+ * Update product general data: name, description, related collections, related blogposts
+ *
+ * @param id number -- collection id
+ * @param data -- general data
+ * @returns Promise<void>
+ */
+export async function updateProductGeneralInfoService(
+  id: number,
+  data: TUpdateProductGeneralInfoServiceParam,
+) {
+  const { collectionIds, blogpostIds, ...rest } = data || {};
+
+  await productRepository.update({
+    where: { id },
+    data: {
+      ...rest,
+      ...(Array.isArray(collectionIds) && {
+        collections: {
+          set: collectionIds.map((collectionId) => ({ id: collectionId })),
+        },
+      }),
+      ...(Array.isArray(blogpostIds) && {
+        blogposts: {
+          set: blogpostIds.map((blogpostId) => ({ id: blogpostId })),
+        },
+      }),
+    },
+  });
+}
+
+/**
+ * Create and add variant for a Product
+ * 1. Create variant and add it to product
+ * 2. Update and cleanup temp files
+ *
+ * @param id number -- product id
+ * @param data variant name, price, color, stock, size, percent off, thumnails
+ * @returns Promise<void>
+ */
+export async function createVariantService(
+  id: number,
+  data: TCreateVariantServiceParams,
+) {
+  const { thumbnails, ...rest } = data || {};
+
+  await productRepository.update({
+    where: { id },
+    data: {
+      variants: {
+        create: [
+          {
+            ...rest,
+            thumbnails: {
+              create: thumbnails.map((thb) => ({
+                filename: thb.filename,
+                folder: ES3Folder.PRODUCT,
+              })),
+            },
+          },
+        ],
+      },
+    },
+  });
+
+  // UPDATE THUMBNAILS FOLDER
+  Promise.all(
+    thumbnails.map((thb) =>
+      copyS3FileService(thb.filename, ES3Folder.TMP, ES3Folder.PRODUCT),
+    ),
+  ).then(() => {
+    thumbnails.map((thb) =>
+      deleteS3FileService([thb.folder, thb.filename].join("/")),
+    );
+  });
+}
+
+/**
+ * Remove variant
+ * 1. get product
+ * 2. remove and delete variant
+ * 3. cleanup thumnails
+ *
+ * @param id number -- product id
+ * @param variantId number -- variant id
+ * @returns Promise<void>
+ */
+export async function removeVariantService(
+  id: number,
+  variantId: number,
+): Promise<void> {
+  // Fetch the variant to get its thumbnails
+  const product = await productRepository.findFirst({
+    where: { id, variants: { some: { id: variantId } } },
+    select: {
+      variants: {
+        where: { id: variantId },
+        select: {
+          id: true,
+          thumbnails: true,
+        },
+      },
+    },
+  });
+
+  if (product) {
+    // Delete the variant
+    await productRepository.update({
+      where: { id },
+      data: {
+        variants: {
+          delete: { id: variantId },
+        },
+      },
+    });
+
+    // Delete associated thumbnails from S3
+    const thumbnailFiles =
+      product.variants.find((v) => v.id === variantId)?.thumbnails || [];
+
+    Promise.all(
+      thumbnailFiles.map(({ filename, folder }) =>
+        deleteS3FileService([folder, filename].join("/")),
+      ),
+    );
+  }
 }
