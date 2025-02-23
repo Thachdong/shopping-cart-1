@@ -1,51 +1,45 @@
-import { Icon } from "@/components/atoms/icon";
-import { EIconName } from "@/constants";
+"use client";
+import { ErrorMessage } from "@/components/atoms/error-message";
 import { TDatePickerProps } from "@/types/form";
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import DatePicker from "react-datepicker";
-
-const CustomInput = React.forwardRef<
-  HTMLButtonElement,
-  { value: string; onClick: () => void; id: string }
->(({ value, onClick, id }, ref) => (
-  <button
-    type="button"
-    className="w-full border border-gray-300 h-9 rounded flex items-center justify-between px-2"
-    onClick={onClick}
-    ref={ref}
-    id={id}
-  >
-    {value || <span className="text-gray-500">Select date</span>}
-    <Icon
-      className="text-primary-100 ml-2"
-      name={EIconName["date-picker-icon"]}
-    />
-  </button>
-));
-
-CustomInput.displayName = "CustomInput";
 
 export const BaseDatePicker: React.FC<Readonly<TDatePickerProps>> = ({
   label,
   id,
+  onChange,
+  value,
+  error,
   ...pickerProps
 }) => {
+  const handleChange = useCallback(
+    (date: Date | null) => {
+      if (date) {
+        onChange?.(date.toISOString());
+      }
+    },
+    [onChange],
+  );
+
+  const selected = useMemo(() => {
+    const date = new Date(value as string);
+
+    return isNaN(date.getTime()) ? null : date;
+  }, [value]);
   return (
-    <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col gap-y-2 w-full">
       <label htmlFor={id}>{label}</label>
+      {/* @ts-expect-error: ignore unknow check */}
       <DatePicker
-        customInput={
-          <CustomInput
-            value={""}
-            onClick={function (): void {
-              throw new Error("Function not implemented.");
-            }}
-            id={""}
-          />
-        }
         id={id}
+        popperClassName="z-50"
+        className="w-full border border-gray-300 rounded leading-[38px] px-2"
+        selected={selected}
+        onChange={handleChange}
         {...pickerProps}
       />
+
+      <ErrorMessage message={error ?? ""} />
     </div>
   );
 };

@@ -48,3 +48,11 @@ type TBlogpostDetail = {
   products: { id: number; name: string }[];
   collections: { id: number; name: string }[];
 };
+
+type TBlogpostGeneralInfo = {
+  title: string;
+  description: string;
+  publishDate: string;
+  productIds: number[];
+  collectionIds: number[];
+};

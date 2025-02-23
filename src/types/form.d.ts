@@ -55,6 +55,9 @@ type TBaseEditor = {
   error?: string;
   initialValue?: string;
   init?: InitOptions;
+  value?: string;
+  onChange?: (val: string) => void;
+  disabled?: boolean;
 };
 
 type TUploadAvatar = TBaseUpload & {
@@ -115,9 +118,11 @@ type TUseRcUploadParams<T = TUploadedFile> = {
   isTempOnly?: boolean;
 };
 
-type TDatePickerProps = DatePickerProps & {
+type TDatePickerProps = Omit<DatePickerProps, "onChange"> & {
   label: React.ReactNode;
   id: string;
+  onChange?: (val: string) => void;
+  error?: string;
 };
 
 // #region -- useError

@@ -55,7 +55,9 @@ export const BaseSelect: React.FC<Readonly<TBaseSelect>> = ({
         onChange={handleChange}
         value={selectedOption}
         options={options}
-        menuPortalTarget={document.body}
+        menuPortalTarget={
+          typeof document !== "undefined" ? document.body : null
+        }
         styles={{
           menuPortal: (base) => ({ ...base, zIndex: 9999 }),
         }}

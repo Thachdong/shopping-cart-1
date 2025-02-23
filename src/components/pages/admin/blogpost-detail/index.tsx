@@ -1,10 +1,11 @@
-import { Button } from "@/components/atoms/button";
 import { Header } from "@/components/atoms/header";
 import { DetailTable } from "@/components/molecules/detail-table";
 import { TagList } from "@/components/molecules/tag-list";
-import { EButtonType } from "@/constants";
 import { TDetailTableRow } from "@/types/table";
 import React from "react";
+import { EditGeneralButton } from "./edit-general-button";
+import { EditBlogpostButton } from "./edit-blopost-button";
+import { BaseEditor } from "@/components/molecules/form-tags/base-editor";
 
 type TBlogpostDetailProps = {
   blogpost: TBlogpostDetail | null;
@@ -47,7 +48,15 @@ export const BlogpostDetail: React.FC<Readonly<TBlogpostDetailProps>> = ({
         <Header className="!mb-0" level={4}>
           I. Generals
         </Header>
-        <Button variant={EButtonType.outline}>Edit</Button>
+        <EditGeneralButton
+          defaultData={{
+            title: blogpost?.title || "",
+            description: blogpost?.description || "",
+            publishDate: blogpost?.publishDate || "",
+            productIds: blogpost?.products?.map((prd) => prd.id) || [],
+            collectionIds: blogpost?.collections?.map((coll) => coll.id) || [],
+          }}
+        />
       </div>
 
       <DetailTable rows={rows} headerClassName="w-1/4" />
@@ -57,10 +66,10 @@ export const BlogpostDetail: React.FC<Readonly<TBlogpostDetailProps>> = ({
         <Header className="!mb-0" level={4}>
           II. Blogpost Content
         </Header>
-        <Button variant={EButtonType.outline}>Edit</Button>
+        <EditBlogpostButton defaultData={{ post: blogpost?.post || "" }} />
       </div>
 
-      {blogpost?.post}
+      <BaseEditor value={blogpost?.post} disabled={true} />
     </>
   );
 };

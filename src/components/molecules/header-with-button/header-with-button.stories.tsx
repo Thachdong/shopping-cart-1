@@ -7,7 +7,7 @@ export default {
   args: {
     children: "Header",
     level: 1,
-    // @ts-ignore
+    // @ts-expect-error: ignore ts check in storiesbook
     button: <Button variant="primary">Button</Button>,
   },
 };

@@ -1,4 +1,5 @@
 "use client";
+import { BaseDatePicker } from "@/components/molecules/form-tags/base-date-picker";
 import { BaseEditor } from "@/components/molecules/form-tags/base-editor";
 import { BaseInput } from "@/components/molecules/form-tags/base-input";
 import { BaseSelect } from "@/components/molecules/form-tags/base-select";
@@ -13,6 +14,7 @@ import {
   TBaseSelect,
   TBaseTextarea,
   TBaseUpload,
+  TDatePickerProps,
   TUploadAvatar,
   TUploadThumbnails,
 } from "@/types/form";
@@ -26,7 +28,7 @@ export function withHookForm<T extends FieldValues, K>(
     const { control, name, defaultValue, rules, ...componentProps } = props;
 
     const {
-      field: { value = "", ...restField },
+      field: { value = "", ref, ...restField }, // eslint-disable-line @typescript-eslint/no-unused-vars
       fieldState: { error },
     } = useController({
       control,
@@ -73,4 +75,8 @@ export function createFormUploadAvatar<T extends FieldValues>() {
 
 export function createFormUploadThumbnails<T extends FieldValues>() {
   return withHookForm<T, TUploadThumbnails>(UploadThumbnails);
+}
+
+export function createFormDatePicker<T extends FieldValues>() {
+  return withHookForm<T, TDatePickerProps>(BaseDatePicker);
 }

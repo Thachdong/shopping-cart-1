@@ -192,3 +192,53 @@ export async function getPostOptionsService(): Promise<TSelectOption[]> {
 
   return options;
 }
+
+/**
+ * Update general info of blogpost
+ *
+ * @param id: number -- blogpost id
+ * @param data: title, description, publishDate, related collections, related products
+ * @returns Promise<void>
+ */
+export async function updatePostGeneralInfoService(
+  id: number,
+  data: Partial<TBlogpostGeneralInfo>,
+): Promise<void> {
+  const { productIds, collectionIds, ...rest } = data || {};
+
+  await blogpostRepository.update({
+    where: { id },
+    data: {
+      ...rest,
+      ...(Array.isArray(collectionIds) && {
+        collections: {
+          set: collectionIds.map((id) => ({ id })),
+        },
+      }),
+      ...(Array.isArray(productIds) && {
+        products: {
+          set: productIds.map((id) => ({ id })),
+        },
+      }),
+    },
+  });
+}
+
+/**
+ * Update Post
+ *
+ * @param id: number -- blogpost id
+ * @param post: string
+ * @returns Promise<void>
+ */
+export async function updatePostService(
+  id: number,
+  post: string,
+): Promise<void> {
+  await blogpostRepository.update({
+    where: { id },
+    data: {
+      post,
+    },
+  });
+}
