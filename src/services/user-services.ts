@@ -63,6 +63,52 @@ export async function createUserService(data: TRegister): Promise<void> {
 }
 
 /**
+ * Authorize User
+ *
+ * @param username string
+ * @param password string
+ * @returns Promise<TUser | null>
+ */
+export async function authorizeUserService(
+  username: string,
+  password: string,
+): Promise<TUser | null> {
+  const user = await userRepository.findFirst({
+    where: {
+      username,
+    },
+    select: {
+      id: true,
+      username: true,
+      phoneNumber: true,
+      email: true,
+      birthday: true,
+      password: true,
+      createdAt: true,
+    },
+  });
+
+  if (!user) {
+    return null;
+  }
+
+  const isPasswordMatch = await comparePasswordService(password, user.password);
+
+  if (!isPasswordMatch) {
+    return null;
+  }
+
+  return {
+    id: user.id,
+    username: user.username,
+    phoneNumber: user.phoneNumber,
+    email: user.email ?? undefined,
+    birthday: user.birthday?.toISOString(),
+    createdAt: user.createdAt?.toISOString(),
+  };
+}
+
+/**
  * Find User By Email
  *
  * @param email: string

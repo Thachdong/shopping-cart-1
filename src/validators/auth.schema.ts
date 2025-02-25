@@ -1,7 +1,7 @@
 import { object, string } from "zod";
 
 export const loginSchema = object({
-  emailOrPhone: string().min(5),
+  username: string().min(5),
   password: string().min(5),
 });
 

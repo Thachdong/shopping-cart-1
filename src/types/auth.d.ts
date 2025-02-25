@@ -1,5 +1,5 @@
 type TLoginForm = {
-  emailOrPhone: string;
+  username: string;
   password: string;
 };
 
