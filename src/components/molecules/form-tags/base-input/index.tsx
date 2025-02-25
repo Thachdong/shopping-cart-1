@@ -9,7 +9,6 @@ const DEFAULT_INPUT_CLASSNAME = "border border-gray-300 rounded h-9 px-2";
 
 export const BaseInput: React.FC<Readonly<TBaseInput>> = ({
   label,
-  id,
   className,
   inputClassName,
   error,
@@ -35,13 +34,13 @@ export const BaseInput: React.FC<Readonly<TBaseInput>> = ({
     [onChange, type, value],
   );
   return (
-    <label className={joinClass(DEFAULT_CLASSNAME, className)} htmlFor={id}>
+    <label className={joinClass(DEFAULT_CLASSNAME, className)}>
       {label}
       <input
         className={joinClass(DEFAULT_INPUT_CLASSNAME, inputClassName)}
-        id={id}
         value={value}
         onChange={customOnChange}
+        type={type}
         {...inputProps}
       />
       {error && <ErrorMessage className="-mt-1" message={error} />}

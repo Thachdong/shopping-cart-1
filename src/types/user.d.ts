@@ -36,3 +36,8 @@ type TUserDetail = Omit<TUser, "address"> & {
   addresses: string[];
   orders: TUserOrder[];
 };
+
+type TLoginCredentials = {
+  username: string;
+  password: string;
+};

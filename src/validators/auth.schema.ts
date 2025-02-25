@@ -6,7 +6,20 @@ export const loginSchema = object({
 });
 
 export const registerSchema = object({
-  email: string().email(),
-  phone: string().min(5),
+  username: string().min(5),
+  phoneNumber: string().min(5),
   password: string().min(5),
+  email: string().email().optional(),
+  birthday: string()
+    .optional()
+    .refine(
+      (val) => {
+        if (!val) return true;
+
+        return new Date(val).getTime() < new Date().getTime();
+      },
+      {
+        message: "Birthday must be in the past",
+      },
+    ),
 });

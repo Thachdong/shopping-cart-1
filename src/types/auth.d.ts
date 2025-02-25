@@ -3,8 +3,10 @@ type TLoginForm = {
   password: string;
 };
 
-type TResterForm = {
-  email: string;
-  phone: string;
+type TRegister = {
+  username: string;
+  phoneNumber: string;
   password: string;
+  email?: string;
+  birthday?: string;
 };

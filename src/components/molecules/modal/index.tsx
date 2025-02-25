@@ -31,7 +31,7 @@ export const Modal: React.FC<TModal> = ({
     rootModalRef.current = modalRootEl as HTMLDivElement;
   }, []);
 
-  if (!open || !rootModalRef.current) return null;
+  if (!open) return null;
 
   return ReactDOM.createPortal(
     <div className={joinClass(DEFAULT_CLASSNAME.backdrop, backdropClassName)}>
@@ -51,6 +51,6 @@ export const Modal: React.FC<TModal> = ({
         {footer}
       </div>
     </div>,
-    rootModalRef.current
+    document.getElementById("modal-root") as Element,
   );
 };
