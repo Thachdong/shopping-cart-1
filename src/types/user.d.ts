@@ -3,6 +3,7 @@ type TUser = {
   createdAt: string;
   username: string;
   phoneNumber: string;
+  roles: string[];
   email?: string;
   birthday?: string;
   address?: string;

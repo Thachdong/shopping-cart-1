@@ -85,6 +85,7 @@ export async function authorizeUserService(
       birthday: true,
       password: true,
       createdAt: true,
+      roles: true,
     },
   });
 
@@ -105,6 +106,7 @@ export async function authorizeUserService(
     email: user.email ?? undefined,
     birthday: user.birthday?.toISOString(),
     createdAt: user.createdAt?.toISOString(),
+    roles: user.roles,
   };
 }
 

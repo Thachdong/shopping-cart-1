@@ -4,6 +4,7 @@ import { LinkAsButton } from "@/components/molecules/link-as-button";
 import { ProductCard } from "@/components/molecules/product-card";
 import { EButtonType } from "@/constants";
 import { joinClass } from "@/helpers/style";
+import { TProductList } from "@/types/product";
 import React from "react";
 
 const CONTAINER_CLASSNAME = "flex flex-col gap-y-2 P-4";
