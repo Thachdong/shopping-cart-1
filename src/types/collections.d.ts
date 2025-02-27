@@ -1,3 +1,6 @@
+import { TUploadedFile } from "./form";
+
+// #region -- component props
 type TCollectionList = {
   collections: TCollectionCard[];
   className?: string;
@@ -21,11 +24,17 @@ type TCollectionListPageProps = {
 type TCollectionDetailPageProps = {
   collection: TCollectionCard;
 };
+// #endregion
 
-type TCreateCollection = {
+// #region -- data type
+type TCreateCollectionForm = {
   name: string;
   description: string;
-  bannerId: number;
+  productIds: number[];
+  blogpostIds: number[];
+};
+type TCreateCollection = TCreateCollectionForm & {
+  banner: TUploadedFile;
 };
 
 type TAdminCollection = {
@@ -34,3 +43,27 @@ type TAdminCollection = {
   description: string;
   createdAt: string;
 };
+
+type TAdminCollectionDetail = TAdminCollection & {
+  banner: TUploadedFile;
+};
+
+type TAdminCollectionDetailProps = {
+  collection: TAdminCollectionDetail | null;
+};
+// #endrigion
+
+// #region -- EditGeneralButton
+type TEditGeneralButtonProps = {
+  name: string;
+  description: string;
+  banner?: TUploadedFile;
+};
+
+type TUpdateCollGeneralInfo = {
+  id: number;
+  name?: string;
+  description?: string;
+  banner?: TUploadedFile;
+};
+// #endregion

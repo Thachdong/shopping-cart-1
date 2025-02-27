@@ -13,7 +13,7 @@ export const FormPassword: React.FC<Readonly<TFormPassword>> = ({
 
       <Icon
         onClick={setType}
-        iconClassName="absolute bottom-[18px] right-2 translate-y-1/2"
+        iconClassName="absolute bottom-[18px] right-2 top-[2.5rem]"
         name={EIconName[type === "text" ? "eyes" : "eyes-slash"]}
       />
     </div>

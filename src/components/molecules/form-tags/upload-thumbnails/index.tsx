@@ -2,10 +2,10 @@
 import { joinClass } from "@/helpers/style";
 import { TUploadThumbnails } from "@/types/form";
 import React, { useMemo } from "react";
-import Image from "next/image";
 import { BaseUpload } from "../base-upload";
 import { Icon } from "@/components/atoms/icon";
 import { EIconName } from "@/constants";
+import { S3Image } from "@/components/atoms/s3-image";
 
 const DEFAULT_HEIGHT = 175;
 const DEFAULT_WIDTH = 125;
@@ -19,13 +19,13 @@ const DEFAULT_CLASSNAME = {
 };
 
 export const UploadThumbnails: React.FC<Readonly<TUploadThumbnails>> = ({
-  value = [],
   width,
   height,
   imgClassName,
   thumbnailsClassName,
   children,
   onDelete,
+  uploadedFile,
   ...uploadProps
 }) => {
   const style = useMemo((): React.CSSProperties => {
@@ -39,10 +39,10 @@ export const UploadThumbnails: React.FC<Readonly<TUploadThumbnails>> = ({
   }, [width, height]);
 
   const thumbnails = useMemo(() => {
-    return value?.map?.((img) => (
-      <div className="relative" key={img}>
-        <Image
-          src={img}
+    return uploadedFile?.map?.((img) => (
+      <div className="relative" key={img.id}>
+        <S3Image
+          image={img}
           alt="Thumbnail"
           width={width || DEFAULT_WIDTH}
           height={height || DEFAULT_HEIGHT}
@@ -52,11 +52,11 @@ export const UploadThumbnails: React.FC<Readonly<TUploadThumbnails>> = ({
         <Icon
           className={DEFAULT_CLASSNAME.deleteIcon}
           name={EIconName.trash}
-          onClick={() => onDelete?.(img)}
+          onClick={() => onDelete?.(img.id)}
         />
       </div>
     ));
-  }, [value, width, height, onDelete]);
+  }, [uploadedFile, width, height, onDelete, imgClassName]);
   return (
     <div
       className={joinClass(DEFAULT_CLASSNAME.container, thumbnailsClassName)}
@@ -71,7 +71,7 @@ export const UploadThumbnails: React.FC<Readonly<TUploadThumbnails>> = ({
         className={joinClass(DEFAULT_CLASSNAME.upload, imgClassName)}
         style={style}
       >
-        <BaseUpload {...uploadProps}>
+        <BaseUpload {...uploadProps} multiple>
           {children || (
             <div className="flex flex-col justify-center items-center">
               <Icon name={EIconName["upload-img"]} />

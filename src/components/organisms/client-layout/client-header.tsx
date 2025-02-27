@@ -5,6 +5,7 @@ import { EIconName, EPath } from "@/constants";
 import { LinkAsButton } from "@/components/molecules/link-as-button";
 import Link from "next/link";
 import { genPath } from "@/helpers/router";
+import { SignOutButton } from "./sign-out-button";
 
 const ITEMS = [
   { id: "1", label: "Home", url: "/" },
@@ -17,7 +18,7 @@ const CLASS_NAMES = {
   menu: "border-b border-gray-300 grid grid-cols-[auto_1fr_auto] items-center",
 };
 
-export const ClientHeader: React.FC = () => {
+export const ClientHeader: React.FC = async () => {
   return (
     <div className={CLASS_NAMES.menu}>
       {/* logo */}
@@ -51,6 +52,8 @@ export const ClientHeader: React.FC = () => {
         >
           Register
         </LinkAsButton>
+
+        <SignOutButton />
       </div>
     </div>
   );

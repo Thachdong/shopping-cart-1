@@ -3,6 +3,8 @@ import { UploadProps } from "rc-upload";
 import { InitOptions } from "@tinymce/tinymce-react/lib/cjs/main/ts/components/Editor";
 import { Control, FieldValues, Path } from "react-hook-form";
 import { ReactNode } from "react";
+import { RcFile } from "rc-upload/lib/interface";
+import { DatePickerProps } from "react-datepicker";
 
 type TBaseInput = Omit<
   React.DetailedHTMLProps<
@@ -35,19 +37,27 @@ type TSelectOption = {
   label: string;
 };
 
-type TBaseSelect = Omit<SelectProps, "options" | "isMulti"> & {
+type TBaseSelect = Omit<SelectProps, "options" | "onChange"> & {
   label: string;
   options: TSelectOption[];
+  onChange?: (value: string | number | (string | number)[]) => void;
   error?: string;
 };
 
-type TBaseUpload = UploadProps;
+type TBaseUpload = UploadProps & {
+  onChange?: (value: string | string[]) => void;
+  validate?: (file: RcFile) => boolean;
+  uploadedFile?: TUploadedFile | TUploadedFile[];
+};
 
 type TBaseEditor = {
   label?: string;
   error?: string;
   initialValue?: string;
   init?: InitOptions;
+  value?: string;
+  onChange?: (val: string) => void;
+  disabled?: boolean;
 };
 
 type TUploadAvatar = TBaseUpload & {
@@ -57,27 +67,30 @@ type TUploadAvatar = TBaseUpload & {
   onDelete?: () => void;
 };
 
-type TUploadDisplayImg = TBaseUpload & {
+type TUploadDisplayImg = Omit<TBaseUpload, "uploadedFile"> & {
   width?: number;
   height?: number;
   displayClassName?: string;
   onDelete?: () => void;
+  uploadedFile?: TUploadedFile;
 };
 
-type TUploadBanner = TBaseUpload & {
+type TUploadBanner = Omit<TBaseUpload, "uploadedFile"> & {
   width?: number;
   height?: number;
   bannerClassName?: string;
   onDelete?: () => void;
+  uploadedFile?: TUploadedFile;
 };
 
-type TUploadThumbnails = Omit<TBaseUpload, "value"> & {
+type TUploadThumbnails = Omit<TBaseUpload, "uploadedFile"> & {
   value?: string[];
   width?: number;
   height?: number;
   imgClassName?: string;
   thumbnailsClassName?: string;
-  onDelete?: (img: string) => void;
+  onDelete?: (id: number) => void;
+  uploadedFile: TUploadedFile[];
 };
 
 interface IWithHookFormProps<T extends FieldValues> {
@@ -92,3 +105,37 @@ type TFormPassword = {
   type: "text" | "password";
   setType: () => void;
 };
+
+type TUploadedFile = {
+  filename: string;
+  folder: string;
+  id: number;
+};
+
+type TUseRcUploadParams<T = TUploadedFile> = {
+  isMulti?: boolean;
+  defaultValue?: T;
+  isTempOnly?: boolean;
+};
+
+type TDatePickerProps = Omit<DatePickerProps, "onChange"> & {
+  label: React.ReactNode;
+  id: string;
+  onChange?: (val: string) => void;
+  error?: string;
+};
+
+// #region -- useError
+type TError = {
+  key: string;
+  message: string;
+};
+
+type TUseErrorResponse = {
+  errors: TError[];
+  addError: (error: TError) => void;
+  removeError: (errKey: string) => void;
+  clearError: () => void;
+  getError: (key: string) => string;
+};
+// #endregion

@@ -1,5 +1,8 @@
 import { Blogposts } from "@/components/pages/admin/blogposts";
+import { getBlogpostsTableService } from "@/services/blogpost-services";
 
 export default async function BlogpostsPage() {
-  return <Blogposts />;
+  const blogposts = await getBlogpostsTableService();
+
+  return <Blogposts blogposts={blogposts} />;
 }

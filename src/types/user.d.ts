@@ -3,9 +3,9 @@ type TUser = {
   createdAt: string;
   username: string;
   phoneNumber: string;
-  email: string;
-  birthday: string;
-  address: string;
+  email?: string;
+  birthday?: string;
+  address?: string;
 };
 
 type TUsersTableProps = {
@@ -35,4 +35,9 @@ type TUserOrder = {
 type TUserDetail = Omit<TUser, "address"> & {
   addresses: string[];
   orders: TUserOrder[];
+};
+
+type TLoginCredentials = {
+  username: string;
+  password: string;
 };

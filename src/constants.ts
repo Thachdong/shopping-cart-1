@@ -31,6 +31,7 @@ export enum EIconName {
   users = "users",
   upload = "upload",
   enter = "enter",
+  "date-picker-icon" = "date-picker-icon",
 }
 
 export enum EToastType {
@@ -53,7 +54,7 @@ export enum ECurrency {
   "USD" = "$",
 }
 
-export const PAGE_SIZE = 30;
+export const MAX_PAGE_SIZE = 30;
 export const CURRENT_PAGE = 1;
 export const TOAST_TIMEOUT = 5000; // 5S
 export enum EToastPositions {
@@ -80,4 +81,11 @@ export const enum EPath {
   adminAssetManagement = "admin/asset-management",
   adminSettings = "admin/settings",
   adminUsers = "admin/users",
+}
+
+export enum ES3Folder {
+  TMP = "tmp",
+  COLLECTION = "collection",
+  PRODUCT = "product",
+  SETTING = "setting",
 }

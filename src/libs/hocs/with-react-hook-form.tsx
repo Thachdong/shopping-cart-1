@@ -1,12 +1,11 @@
 "use client";
+import { BaseDatePicker } from "@/components/molecules/form-tags/base-date-picker";
 import { BaseEditor } from "@/components/molecules/form-tags/base-editor";
 import { BaseInput } from "@/components/molecules/form-tags/base-input";
 import { BaseSelect } from "@/components/molecules/form-tags/base-select";
 import { BaseTextarea } from "@/components/molecules/form-tags/base-textarea";
 import { BaseUpload } from "@/components/molecules/form-tags/base-upload";
 import { UploadAvatar } from "@/components/molecules/form-tags/upload-avatar";
-import { UploadBanner } from "@/components/molecules/form-tags/upload-banner";
-import { UploadDisplayImage } from "@/components/molecules/form-tags/upload-display-image";
 import { UploadThumbnails } from "@/components/molecules/form-tags/upload-thumbnails";
 import {
   IWithHookFormProps,
@@ -15,9 +14,8 @@ import {
   TBaseSelect,
   TBaseTextarea,
   TBaseUpload,
+  TDatePickerProps,
   TUploadAvatar,
-  TUploadBanner,
-  TUploadDisplayImg,
   TUploadThumbnails,
 } from "@/types/form";
 import { ComponentType } from "react";
@@ -30,7 +28,7 @@ export function withHookForm<T extends FieldValues, K>(
     const { control, name, defaultValue, rules, ...componentProps } = props;
 
     const {
-      field: { value = "", ...restField },
+      field: { value = "", ref, ...restField }, // eslint-disable-line @typescript-eslint/no-unused-vars
       fieldState: { error },
     } = useController({
       control,
@@ -75,14 +73,10 @@ export function createFormUploadAvatar<T extends FieldValues>() {
   return withHookForm<T, TUploadAvatar>(UploadAvatar);
 }
 
-export function createFormUploadBanner<T extends FieldValues>() {
-  return withHookForm<T, TUploadBanner>(UploadBanner);
-}
-
-export function createFormUploadDisplayImage<T extends FieldValues>() {
-  return withHookForm<T, TUploadDisplayImg>(UploadDisplayImage);
-}
-
 export function createFormUploadThumbnails<T extends FieldValues>() {
   return withHookForm<T, TUploadThumbnails>(UploadThumbnails);
+}
+
+export function createFormDatePicker<T extends FieldValues>() {
+  return withHookForm<T, TDatePickerProps>(BaseDatePicker);
 }

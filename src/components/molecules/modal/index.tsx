@@ -3,6 +3,8 @@
 import { Icon } from "@/components/atoms/icon";
 import { EIconName } from "@/constants";
 import { joinClass } from "@/helpers/style";
+import { useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
 
 const DEFAULT_CLASSNAME = {
   backdrop:
@@ -21,26 +23,34 @@ export const Modal: React.FC<TModal> = ({
   modalClassName,
   onClose,
 }) => {
-  if (open)
-    return (
-      <div className={joinClass(DEFAULT_CLASSNAME.backdrop, backdropClassName)}>
-        <div className={joinClass(DEFAULT_CLASSNAME.modal, modalClassName)}>
-          <div className={DEFAULT_CLASSNAME.header}>
-            {header}
-            <Icon
-              iconClassName={DEFAULT_CLASSNAME.closeIcon}
-              onClick={onClose}
-              name={EIconName.close}
-              className="cursor-pointer"
-            />
-          </div>
+  const rootModalRef = useRef<HTMLDivElement>();
 
-          {children}
+  useEffect(() => {
+    const modalRootEl = document.getElementById("modal-root");
 
-          {footer}
+    rootModalRef.current = modalRootEl as HTMLDivElement;
+  }, []);
+
+  if (!open) return null;
+
+  return ReactDOM.createPortal(
+    <div className={joinClass(DEFAULT_CLASSNAME.backdrop, backdropClassName)}>
+      <div className={joinClass(DEFAULT_CLASSNAME.modal, modalClassName)}>
+        <div className={DEFAULT_CLASSNAME.header}>
+          {header}
+          <Icon
+            iconClassName={DEFAULT_CLASSNAME.closeIcon}
+            onClick={onClose}
+            name={EIconName.close}
+            className="cursor-pointer"
+          />
         </div>
-      </div>
-    );
 
-  return null;
+        {children}
+
+        {footer}
+      </div>
+    </div>,
+    document.getElementById("modal-root") as Element,
+  );
 };

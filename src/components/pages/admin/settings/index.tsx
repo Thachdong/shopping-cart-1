@@ -39,7 +39,7 @@ export const Settings: React.FC = () => {
         - ADDRESS
         - RELATED LINKS
       */}
-      <DetailTable rows={profileRows} headerClassName="w-32" />
+      <DetailTable rows={profileRows} headerClassName="w-30" />
 
       <div className="flex items-center gap-4 mb-4">
         <Header className="!mb-0" level={4}>

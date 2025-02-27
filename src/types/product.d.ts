@@ -1,3 +1,5 @@
+import { TUploadedFile } from "./form";
+
 type TCardThumbnails = {
   thumbnails: string[];
   className?: string;
@@ -50,34 +52,75 @@ type TAdminProductsPageProps = {
   products: TAdminProduct[];
 };
 
-type TCreateProductVariant = {
+// #region -- create product
+type TCreateProductForm = {
+  name: string;
+  description: string;
+  collectionIds: number[];
+  blogpostIds: number[];
+  variantName: string;
   color: string;
   size: string;
   price: number;
   stock: number;
   percentOff: number;
-  thumbnails: number[];
 };
 
-type TCreateProductForm = TCreateProductVariant & {
+type TCreateProduct = TCreateProductForm & {
+  thumbnails: TUploadedFile[];
+  displayImage: TUploadedFile;
+};
+// #endregion
+
+// #region -- products table
+type TProductVariant = {
+  id: number;
+  variantName: string; // product name + variant name
+  price: number;
+  stock: number;
+  percentOff: number;
+  createdAt: string;
+};
+
+type TProductTable = {
+  id: number;
   name: string;
   description: string;
-  displayImageId: number;
-  collectionIds: number[];
-  blogpostIds: number[];
+  createdAt: string;
+  variants: TProductVariant[];
 };
+// #endregion
 
-type TProductVariant = TCreateProductVariant & {
-  id: number;
+// #region -- product detail
+type TProductDetailVariant = TProductVariant & {
+  thumbnails: TUploadedFile[];
 };
 
 type TProductDetail = {
   id: number;
   name: string;
   description: string;
-  collectionIds: number[];
-  blogpostIds: number[];
-  variants: TProductVariant[];
   createdAt: string;
   updatedAt: string;
+  collections: { id: number; name: string }[];
+  blogposts: { id: number; title: string }[];
+  variants: TProductDetailVariant[];
+};
+// #endregion
+
+type TUpdateProductGeneralInfoServiceParam = {
+  name?: string;
+  description?: string;
+  collectionIds?: number[];
+  blogpostIds?: number[];
+};
+
+type TCreateVariantServiceParams = {
+  variantName: string;
+  color: string;
+  size: string;
+  price: number;
+  stock: number;
+  percentOff: number;
+  thumbnails: TUploadedFile[];
 };

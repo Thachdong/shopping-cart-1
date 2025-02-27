@@ -1,11 +1,19 @@
+enum ERoles {
+    CUSTOMER
+    ADMIN
+    SELLER
+}
+
 model User {
     id        Int      @id @default(autoincrement())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
     username    String
-    phoneNumber String
-    email       String?
+    phoneNumber String    @unique
+    password    String
+    roles       ERoles[]  @default([CUSTOMER])
+    email       String?   @unique
     birthday    DateTime?
 
     // RELATIONSHIP:
@@ -14,7 +22,7 @@ model User {
     // REVIEW
     reviews   Review[]
     // CART
-    cartId    Int
+    cartId    Int?
     cart      Cart?
     // ORDERS
     orders    Order[]

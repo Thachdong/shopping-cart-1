@@ -26,15 +26,15 @@ type TBlogpost = {
   title: string;
   description: string;
   publishDate: string;
-  relatedProducts: { id: number; name: string }[];
-  relatedCollections: { id: number; name: string }[];
+  products: { id: number; name: string }[];
+  collections: { id: number; name: string }[];
 };
 
 type TCreateBlogpost = {
   title: string;
   description: string;
-  content: string;
   publishDate: string;
+  post: string;
   productIds: number[];
   collectionIds: number[];
 };
@@ -43,8 +43,16 @@ type TBlogpostDetail = {
   id: number;
   title: string;
   description: string;
-  content: string;
+  post: string;
   publishDate: string;
   products: { id: number; name: string }[];
   collections: { id: number; name: string }[];
+};
+
+type TBlogpostGeneralInfo = {
+  title: string;
+  description: string;
+  publishDate: string;
+  productIds: number[];
+  collectionIds: number[];
 };

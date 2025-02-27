@@ -4,7 +4,13 @@ import { genPath } from "@/helpers/router";
 import React from "react";
 import { BlogpostsTable } from "./blogposts-table";
 
-export const Blogposts: React.FC = () => {
+type TBlogpostsProps = {
+  blogposts: TBlogpost[];
+};
+
+export const Blogposts: React.FC<Readonly<TBlogpostsProps>> = ({
+  blogposts,
+}) => {
   return (
     <>
       {/* Header */}
@@ -13,7 +19,7 @@ export const Blogposts: React.FC = () => {
         pathName={genPath(EPath.adminBlogposts, "create")}
       />
 
-      <BlogpostsTable />
+      <BlogpostsTable blogposts={blogposts} />
     </>
   );
 };
