@@ -1,11 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
-import {
-  AuthOptions,
-  DefaultUser,
-} from "./../../node_modules/next-auth/core/types.d";
+import { AuthOptions, getServerSession as getSvSession } from "next-auth";
 import { authorizeUserService } from "@/services/user-services";
-
-type TAuthUser = DefaultUser & TUser;
 
 const credentialsProvider = CredentialsProvider({
   name: "Credentials",
@@ -29,33 +24,52 @@ const credentialsProvider = CredentialsProvider({
       return null;
     }
 
-    console.log(user, "user =====");
-
-    return user as TAuthUser;
+    return {
+      id: user.id.toString(),
+      username: user.username,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      birthday: user.birthday,
+      address: user.address,
+      createdAt: user.createdAt,
+      roles: user.roles,
+    };
   },
 });
 
 export const authOptions: AuthOptions = {
   providers: [credentialsProvider],
   secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
-    maxAge: 7 * 24 * 60 * 60, // 7 days
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+  },
+  callbacks: {
+    async session({ session, token }) {
+      session.user = token.user as {
+        id: number;
+        createdAt: string;
+        username: string;
+        phoneNumber: string;
+        roles: string[];
+        email?: string;
+        birthday?: string;
+        address?: string;
+      };
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
   },
   pages: {
     signIn: "/auth/login",
+    error: "/auth/login",
   },
-  callbacks: {
-    session({ session, user, token }) {
-      console.log(session, user, token);
+};
 
-      return {
-        ...session,
-        user,
-        expires:
-          session.expires ||
-          new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-      };
-    },
-  },
+export const getServerSession = async () => {
+  return await getSvSession(authOptions);
 };

@@ -89,3 +89,9 @@ export enum ES3Folder {
   PRODUCT = "product",
   SETTING = "setting",
 }
+
+export enum EUserRoles {
+  CUSTOMER = "CUSTOMER",
+  ADMIN = "ADMIN",
+  SELLER = "SELLER",
+}
