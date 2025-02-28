@@ -2,6 +2,7 @@ import { Header } from "@/components/atoms/header";
 import { FilterBox } from "@/components/organisms/filter-box";
 import { ProductList } from "@/components/organisms/product-list";
 import { SearchAndSortBox } from "@/components/organisms/search-and-sort-box";
+import { TProductListPageProps } from "@/types/product";
 import React from "react";
 
 export const ProductListPage: React.FC<Readonly<TProductListPageProps>> = ({

@@ -2,6 +2,7 @@ import { CollectionCard } from "@/components/molecules/collection-card";
 import { joinClass } from "@/helpers/style";
 import React from "react";
 import { ProductList } from "../product-list";
+import { TCollectionList } from "@/types/collections";
 
 const LIST_CLASSNAME = "flex flex-col gap-y-4";
 

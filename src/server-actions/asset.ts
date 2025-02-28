@@ -2,13 +2,11 @@
 
 import { withServerAction } from "@/libs/hocs/with-server-action";
 import { assetServices } from "@/services/asset";
-import { Asset } from "@prisma/client";
 
-export const createAssetAction = withServerAction<
-  TPrismaCreateData<Asset>,
-  void
->(assetServices.create);
+export const createAssetAction = withServerAction<typeof assetServices.create>(
+  assetServices.create,
+);
 
-export const getAllAssetAction = withServerAction<undefined, Asset[]>(
+export const getAllAssetAction = withServerAction<typeof assetServices.getAll>(
   assetServices.getAll,
 );

@@ -4,6 +4,7 @@ import { CardThumbnails } from "@/components/molecules/card-thumbnails";
 import { SaleBox } from "@/components/molecules/sale-box";
 import { Tab } from "@/components/molecules/tab";
 import { EButtonType, ECurrency } from "@/constants";
+import { TProductDetailPageProps } from "@/types/product";
 
 export const ProductDetail: React.FC<Readonly<TProductDetailPageProps>> = ({
   product,

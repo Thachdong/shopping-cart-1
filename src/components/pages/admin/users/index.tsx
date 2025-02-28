@@ -3,6 +3,7 @@ import { EPath } from "@/constants";
 import { genPath } from "@/helpers/router";
 import React from "react";
 import { UsersTable } from "./users-table";
+import { ERoles } from "@prisma/client";
 
 const MOCK_USERS: TUser[] = [];
 
@@ -15,6 +16,7 @@ for (let i = 1; i <= 15; i++) {
     email: `user${i}@example.com`,
     birthday: `1990-01-${i.toString().padStart(2, "0")}`,
     address: `Address ${i}`,
+    roles: [ERoles.CUSTOMER],
   });
 }
 
