@@ -3,19 +3,18 @@ import { LinkAsButton } from "@/components/molecules/link-as-button";
 import { ProductCard } from "@/components/molecules/product-card";
 import { Slider } from "@/components/molecules/slider";
 import { EButtonType } from "@/constants";
+import { TProductCard } from "@/types/product";
 import { ISlider } from "@/types/slider";
 import React from "react";
 
-type TProduct = Pick<TProductCard, "product">;
-
 const HEADER_CLASSNAME = "flex justify-between items-center";
 
-export const ProductSlider: React.FC<Readonly<ISlider<TProduct>>> = ({
+export const ProductSlider: React.FC<Readonly<ISlider<TProductCard>>> = ({
   items,
   title,
   detailLink,
 }) => {
-  const productCards = items.map(({ product }) => (
+  const productCards = items.map((product) => (
     <ProductCard key={product.id} product={product} />
   ));
   return (

@@ -5,6 +5,7 @@ import { useBgImage } from "@/libs/hooks/useBgImage";
 import { joinClass } from "@/helpers/style";
 import { genPath } from "@/helpers/router";
 import { EPath } from "@/constants";
+import { TCollectionCard } from "@/types/collections";
 
 const DEFAULT_CLASSNAME =
   "flex flex-col items-center justify-center gap-4 p-4 border border-gray-200 rounded-lg text-primary-100";
