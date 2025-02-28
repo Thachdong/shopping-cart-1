@@ -1,3 +1,6 @@
+import { TCollectionCard } from "@/types/collections";
+import { TProductCard } from "@/types/product";
+
 const thumbnails = [
   "/mock-images/product-1.jpeg",
   "/mock-images/product-2.webp",
