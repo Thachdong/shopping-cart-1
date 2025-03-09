@@ -14,8 +14,8 @@ import { InitOptions } from "@tinymce/tinymce-react/lib/cjs/main/ts/components/E
 import "./index.scss";
 import dynamic from "next/dynamic";
 
-//@ts-expect-error: ignore unknow error
 const Editor = dynamic(
+  //@ts-expect-error: ignore unknow error
   () => import("@tinymce/tinymce-react").then((mod) => mod.Editor),
   {
     ssr: false,

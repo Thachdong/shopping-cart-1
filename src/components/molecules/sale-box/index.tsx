@@ -2,6 +2,7 @@ import { Icon } from "@/components/atoms/icon";
 import { PriceBox } from "@/components/atoms/price-box";
 import { EIconName } from "@/constants";
 import { joinClass } from "@/helpers/style";
+import { TSaleBox } from "@/types/sale-box";
 import React from "react";
 
 const DEFAULT_STYLE = "flex gap-2 items-center";

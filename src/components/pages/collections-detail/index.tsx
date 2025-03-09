@@ -2,6 +2,7 @@ import { CollectionList } from "@/components/organisms/collection-list";
 import { Header } from "@/components/atoms/header";
 import { SearchAndSortBox } from "@/components/organisms/search-and-sort-box";
 import React from "react";
+import { TCollectionDetailPageProps } from "@/types/collections";
 
 export const CollectionsDetail: React.FC<
   Readonly<TCollectionDetailPageProps>

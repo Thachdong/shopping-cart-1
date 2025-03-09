@@ -25,7 +25,7 @@ const credentialsProvider = CredentialsProvider({
     }
 
     return {
-      id: user.id.toString(),
+      id: user.id,
       username: user.username,
       email: user.email,
       phoneNumber: user.phoneNumber,

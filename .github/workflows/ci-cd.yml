@@ -1,0 +1,47 @@
+name: APP CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          rm -rf node_modules
+          npm install
+
+      - name: Run type checking
+        run: npm tsCheck
+      
+      - name: Run lint
+        run: npm run lint
+
+      - name: SSH to EC2 and deploy
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+        run: |
+          ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $EC2_USER@$EC2_HOST << 'EOF'
+            cd shopping-cart-1/
+            git pull origin main
+            npm install
+            npm run build
+            pm2 restart shopping-cart
+          EOF

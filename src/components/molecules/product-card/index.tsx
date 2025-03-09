@@ -23,10 +23,7 @@ export const ProductCard: React.FC<Readonly<TProductCardProps>> = ({
       className={joinClass(className, DEFAULT_CLASSNAME.card)}
     >
       {/* thumbnails */}
-      <CardThumbnails
-        imageClassName="!rounded-lg"
-        thumbnails={product.thumbnails}
-      />
+      <CardThumbnails thumbnails={product.thumbnails} />
 
       {/* product infomation */}
       <div className={joinClass(DEFAULT_CLASSNAME.body)}>

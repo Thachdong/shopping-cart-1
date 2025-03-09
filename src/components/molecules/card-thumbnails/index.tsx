@@ -1,5 +1,6 @@
 "use client";
 import { ImageGallery } from "@/components/atoms/image-gallery";
+import { TCardThumbnails } from "@/types/product";
 import React from "react";
 import { ReactImageGalleryItem } from "react-image-gallery";
 

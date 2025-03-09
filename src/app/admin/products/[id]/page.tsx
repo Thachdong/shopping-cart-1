@@ -2,7 +2,7 @@ import { ProductDetail } from "@/components/pages/admin/product-detail";
 import { getProductDetailService } from "@/services/product-services";
 
 type TProductDetailPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function ProductDetailPage({

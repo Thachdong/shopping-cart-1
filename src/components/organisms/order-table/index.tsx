@@ -15,6 +15,7 @@ const productsInCart: TProductInCart[] = [
     discountPercent: 10,
     discountPrice: 90000,
     quantity: 10,
+    total: 900000,
   },
   {
     id: 2,
@@ -23,6 +24,7 @@ const productsInCart: TProductInCart[] = [
     discountPercent: 10,
     discountPrice: 90000,
     quantity: 10,
+    total: 900000,
   },
   {
     id: 3,
@@ -31,6 +33,7 @@ const productsInCart: TProductInCart[] = [
     discountPercent: 10,
     discountPrice: 90000,
     quantity: 10,
+    total: 900000,
   },
   {
     id: 4,
@@ -39,6 +42,7 @@ const productsInCart: TProductInCart[] = [
     discountPercent: 10,
     discountPrice: 90000,
     quantity: 10,
+    total: 900000,
   },
 ];
 

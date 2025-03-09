@@ -56,7 +56,7 @@ export const OrdersTable: React.FC<OrderTableProps> = ({ orders }) => {
         ),
       },
     ],
-    [],
+    [renderProductTags],
   );
 
   return <Table data={orders} columns={columns} />;

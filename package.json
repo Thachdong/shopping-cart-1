@@ -9,7 +9,10 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "tsCheck": "tsc --noEmit",
+    "sonar-scan:windows": "sonar-scanner.bat -D\"sonar.projectKey=demo-sonarqube\" -D\"sonar.sources=.\" -D\"sonar.host=http://localhost:9000\" -D\"sonar.token=sqp_aa21e12aa1f76a940dfa9f1ac52dde4da2206dcb\"",
+    "sonar-scan:mac": "npx sonar-scanner -D\"sonar.projectKey=demo-sonarqube\" -D\"sonar.sources=.\" -D\"sonar.host=http://localhost:9000\" -D\"sonar.token=sqp_aa21e12aa1f76a940dfa9f1ac52dde4da2206dcb\""
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.735.0",

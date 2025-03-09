@@ -2,7 +2,7 @@ import { BlogpostDetail } from "@/components/pages/admin/blogpost-detail";
 import { getBlogpostByIdService } from "@/services/blogpost-services";
 
 type TBlogpostDetailPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 export default async function BlogpostDetailPage({
   params,
