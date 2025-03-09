@@ -11,3 +11,16 @@ type TProductInCart = {
 type TProductCartProps = {
   products: TProductInCart[];
 };
+
+// #region -- Cart context
+type TCartContext = {
+  products: TProductInCart[];
+  addProduct: (product: TProductInCart) => void;
+  removeProduct: (productId: number) => void;
+  updateProduct: (productId: number, quantity: number) => void;
+};
+
+type TCartProvider = {
+  children: React.ReactNode;
+};
+// #endregion

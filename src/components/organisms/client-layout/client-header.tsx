@@ -1,12 +1,9 @@
 import { Menu } from "@/components/molecules/menu";
 import { Header } from "@/components/atoms/header";
-import { LinkAsButton } from "@/components/molecules/link-as-button";
-import { SignOutButton } from "./sign-out-button";
-import Link from "next/link";
-import { Icon } from "@/components/atoms/icon";
-import { genPath } from "@/helpers/router";
-import { EIconName, EPath } from "@/constants";
 import { getServerSession } from "@/libs/auth";
+import { UserBox } from "./user-box";
+import { UnAuthenButtons } from "./unauthen-buttons";
+import { CartButton } from "./cart-button";
 
 const ITEMS = [
   { id: "1", label: "Home", url: "/" },
@@ -30,39 +27,19 @@ export const ClientHeader: React.FC = async () => {
       >
         moni.sh
       </Header>
+
       {/* menu */}
       <Menu direction="vertical" items={ITEMS} />
 
       <div className="flex gap-2 items-center">
         {/* cart */}
-        <Link href={genPath(EPath.cart)}>
-          <Icon name={EIconName.cart} />
-        </Link>
+        <CartButton />
 
         {/* profile */}
         {session?.user ? (
-          <div className="flex gap-2 items-center">
-            <span>{session.user?.username}</span>
-            <SignOutButton />
-          </div>
+          <UserBox username={session?.user?.username} />
         ) : (
-          <>
-            <LinkAsButton
-              id="login-button"
-              buttonProps={{ className: "!p-0" }}
-              href={"/auth/login#login-button"}
-            >
-              Login
-            </LinkAsButton>
-            <span>/</span>
-            <LinkAsButton
-              id="register-button"
-              buttonProps={{ className: "!p-0" }}
-              href={"/auth/register#register-button"}
-            >
-              Register
-            </LinkAsButton>
-          </>
+          <UnAuthenButtons />
         )}
       </div>
     </div>

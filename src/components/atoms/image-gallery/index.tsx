@@ -1,3 +1,4 @@
+"use client";
 import { TImageGallery } from "@/types/image-gallery";
 import React from "react";
 import Gallery from "react-image-gallery";
@@ -10,8 +11,10 @@ export const ImageGallery: React.FC<Readonly<TImageGallery>> = ({
 }) => {
   return (
     <Gallery
-      autoPlay={true}
       additionalClass={joinClass("my-image-gallery", additionalClass)}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
       {...props}
     />
   );

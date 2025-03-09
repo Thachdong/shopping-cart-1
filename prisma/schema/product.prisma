@@ -20,8 +20,6 @@ model Product {
     blogposts      Blogpost_Product[]
     // COLLECTION
     collections    Product_Collection[]
-    // CART
-    carts          Product_Cart[]
     // ORDER
     orders         Product_Order[]
 }
