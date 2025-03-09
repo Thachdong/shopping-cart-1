@@ -3,7 +3,7 @@
 import { Icon } from "@/components/atoms/icon";
 import { EIconName } from "@/constants";
 import { joinClass } from "@/helpers/style";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 
 const DEFAULT_CLASSNAME = {
@@ -24,14 +24,17 @@ export const Modal: React.FC<TModal> = ({
   onClose,
 }) => {
   const rootModalRef = useRef<HTMLDivElement>();
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    const modalRootEl = document.getElementById("modal-root");
+    setIsClient(true);
+
+    const modalRootEl = document?.getElementById("modal-root");
 
     rootModalRef.current = modalRootEl as HTMLDivElement;
   }, []);
 
-  if (!open) return null;
+  if (!open || !isClient) return null;
 
   return ReactDOM.createPortal(
     <div className={joinClass(DEFAULT_CLASSNAME.backdrop, backdropClassName)}>

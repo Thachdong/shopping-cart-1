@@ -92,7 +92,7 @@ export const EditGeneralButton: React.FC<Readonly<TEditGeneralButtonProps>> = ({
         addError({ key: "submit", message: responseData as string });
       }
     },
-    [uploadedFile, id],
+    [uploadedFile, id, addError, addToast, onClose, detailData, removeError],
   );
   return (
     <>

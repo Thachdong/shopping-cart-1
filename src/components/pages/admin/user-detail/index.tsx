@@ -5,6 +5,7 @@ import { EButtonType } from "@/constants";
 import { TDetailTableRow } from "@/types/table";
 import { OrdersTable } from "../orders/orders-table";
 import { ProductsCartTable } from "./products-cart-table";
+import Image from "next/image";
 
 const MOCK_ORDERS: TOrder[] = [];
 const MOCK_PRODUCT_IN_CART: TProductInCart[] = [];
@@ -59,7 +60,16 @@ export const UserDetail: React.FC = () => {
     {
       id: "0",
       header: "Avatar",
-      content: MOCK_USER.avatar ? <img src={MOCK_USER.avatar} /> : "",
+      content: MOCK_USER.avatar ? (
+        <Image
+          src={MOCK_USER.avatar}
+          width={75}
+          height={75}
+          alt={MOCK_USER.username}
+        />
+      ) : (
+        ""
+      ),
     },
     { id: "1", header: "Username", content: MOCK_USER.username },
     { id: "2", header: "Phone Number", content: MOCK_USER.phoneNumber },
