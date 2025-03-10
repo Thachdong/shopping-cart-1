@@ -13,7 +13,7 @@ const cartRepository = prisma.cart;
  * @returns list of products in cart
  */
 export async function getCartByUserIdService(
-  userId: number
+  userId: number,
 ): Promise<TProductInCart[]> {
   const cart = await cartRepository.findFirst({
     where: {
@@ -38,7 +38,18 @@ export async function getCartByUserIdService(
   });
 
   if (cart === null) {
-    throw new Error("Cart not found");
+    console.log("create cart", userId);
+    await cartRepository.create({
+      data: {
+        products: {
+          create: [],
+        },
+        userId,
+      },
+    });
+    console.log("create cart end");
+
+    return [];
   }
 
   const products = cart.products.map(({ quantity, product }) => {
@@ -74,7 +85,7 @@ export async function getCartByUserIdService(
 export async function addProductToCartService(
   userId: number,
   productId: number,
-  quantity: number
+  quantity: number,
 ): Promise<void> {
   await cartRepository.update({
     where: {
@@ -105,7 +116,7 @@ export async function addProductToCartService(
  */
 export async function removeProductFromCartService(
   userId: number,
-  productId: number
+  productId: number,
 ): Promise<void> {
   await cartRepository.update({
     where: {
@@ -137,7 +148,7 @@ export async function removeProductFromCartService(
 export async function updateProductQuantityService(
   userId: number,
   productId: number,
-  quantity: number
+  quantity: number,
 ): Promise<void> {
   await cartRepository.update({
     where: {

@@ -1,7 +1,7 @@
 "use client";
 
 import { ELOCALSTORAGE_KEYS } from "@/constants";
-import { getItem } from "@/helpers/local-storage";
+import { getItem, setItem } from "@/helpers/local-storage";
 import {
   addProductToCartAction,
   getCartAction,
@@ -29,7 +29,7 @@ export const CartProvider: React.FC<Readonly<TCartProvider>> = ({
 
   const isAuthenticated = useMemo(
     () => session?.status === "authenticated",
-    [session]
+    [session],
   );
 
   //   #region -- Callbacks
@@ -50,6 +50,15 @@ export const CartProvider: React.FC<Readonly<TCartProvider>> = ({
     }
   }, [isAuthenticated]);
 
+  const handleServerAction = useCallback(
+    async (cb: () => Promise<void>) => {
+      if (isAuthenticated) {
+        await cb();
+      }
+    },
+    [isAuthenticated],
+  );
+
   const addProduct = useCallback(
     async (product: TProductInCart) => {
       const productIndex = products.findIndex((p) => p.id === product.id);
@@ -57,9 +66,9 @@ export const CartProvider: React.FC<Readonly<TCartProvider>> = ({
       if (productIndex === -1) {
         setProducts((prev) => [...prev, product]);
 
-        if (isAuthenticated) {
+        await handleServerAction(async () => {
           await addProductToCartAction(product.id, product.quantity);
-        }
+        });
       } else {
         setProducts((prev) =>
           prev.map((p) => {
@@ -72,26 +81,26 @@ export const CartProvider: React.FC<Readonly<TCartProvider>> = ({
             }
 
             return p;
-          })
+          }),
         );
 
-        if (isAuthenticated) {
+        await handleServerAction(async () => {
           await updateProductQuantityAction(product.id, product.quantity);
-        }
+        });
       }
     },
-    [products, isAuthenticated]
+    [products, handleServerAction],
   );
 
   const removeProduct = useCallback(
     async (productId: number) => {
       setProducts((prev) => prev.filter((p) => p.id !== productId));
 
-      if (isAuthenticated) {
+      await handleServerAction(async () => {
         await removeProductFromCartAction(productId);
-      }
+      });
     },
-    [isAuthenticated]
+    [handleServerAction],
   );
 
   const updateProduct = useCallback(
@@ -107,14 +116,14 @@ export const CartProvider: React.FC<Readonly<TCartProvider>> = ({
           }
 
           return p;
-        })
+        }),
       );
 
-      if (isAuthenticated) {
+      await handleServerAction(async () => {
         await updateProductQuantityAction(productId, quantity);
-      }
+      });
     },
-    [isAuthenticated]
+    [handleServerAction],
   );
   //   #endregion
 
@@ -122,9 +131,16 @@ export const CartProvider: React.FC<Readonly<TCartProvider>> = ({
     initialProducts();
   }, [initialProducts]);
 
+  useEffect(() => {
+    if (products) {
+      setItem<TProductInCart[]>(ELOCALSTORAGE_KEYS.CART, products);
+    }
+  }, [products]);
+
   return (
     <CartContext.Provider
       value={{
+        count: products.length,
         products,
         addProduct,
         removeProduct,

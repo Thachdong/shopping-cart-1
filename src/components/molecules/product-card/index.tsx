@@ -9,7 +9,7 @@ import { TProductCardProps } from "@/types/product";
 import Link from "next/link";
 
 const DEFAULT_CLASSNAME = {
-  card: "border border-gray-300 rounded-bl-lg rounded-br-lg hover:border-secondary-200",
+  card: "border border-gray-300 hover:border-secondary-200 hover:-translate-y-1 hover:shadow-xl transition duration-350",
   body: "flex flex-col gap-2 p-2",
 };
 

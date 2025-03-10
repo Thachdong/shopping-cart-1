@@ -9,49 +9,13 @@ import Link from "next/link";
 import React, { useMemo } from "react";
 import styles from "@/components/molecules/table/table.module.scss";
 import { LinkAsButton } from "@/components/molecules/link-as-button";
-
-const productsInCart: TProductInCart[] = [
-  {
-    id: 1,
-    name: "Classic White T-Shirt",
-    price: 100000,
-    discountPercent: 10,
-    discountPrice: 90000,
-    quantity: 10,
-    total: 900000,
-  },
-  {
-    id: 2,
-    name: "Blue Denim Jeans",
-    price: 100000,
-    discountPercent: 10,
-    discountPrice: 90000,
-    quantity: 10,
-    total: 900000,
-  },
-  {
-    id: 3,
-    name: "Black Leather Jacket",
-    price: 100000,
-    discountPercent: 10,
-    discountPrice: 90000,
-    quantity: 10,
-    total: 900000,
-  },
-  {
-    id: 4,
-    name: "Red Summer Dress",
-    price: 100000,
-    discountPercent: 10,
-    discountPrice: 90000,
-    quantity: 10,
-    total: 900000,
-  },
-];
+import { useCart } from "@/libs/contexts/cart-context";
 
 export const CartTable: React.FC = () => {
+  const { products, removeProduct, updateProduct } = useCart();
+
   const tableContent = useMemo(() => {
-    return productsInCart.map((prd) => (
+    return products.map((prd) => (
       <tr key={prd.id}>
         <td>
           <Link href={genPath(EPath.products, prd.id.toString())}>
@@ -73,8 +37,14 @@ export const CartTable: React.FC = () => {
           <div className="flex justify-center">
             <QuantityBox
               quantity={prd.quantity}
-              increaseQuantity={() => {}}
-              decreaseQuantity={() => {}}
+              increaseQuantity={() => {
+                updateProduct(prd.id, prd.quantity + 1);
+              }}
+              decreaseQuantity={() => {
+                if (prd.quantity > 1) {
+                  updateProduct(prd.id, prd.quantity - 1);
+                }
+              }}
             />
           </div>
         </td>
@@ -85,13 +55,29 @@ export const CartTable: React.FC = () => {
 
         <td>
           <Icon
+            onClick={() => {
+              removeProduct(prd.id);
+            }}
             name={EIconName.trash}
             className="text-red-500 mx-auto cursor-pointer"
           />
         </td>
       </tr>
     ));
-  }, []);
+  }, [products, removeProduct, updateProduct]);
+
+  const cartPrice = useMemo(() => {
+    return products.reduce(
+      (prv, cur) => ({
+        raw: prv.raw + cur.price * cur.quantity,
+        discount: prv.discount + (cur.price - cur.discountPrice) * cur.quantity,
+      }),
+      {
+        raw: 0,
+        discount: 0,
+      },
+    );
+  }, [products]);
 
   return (
     <table className={joinClass(styles["table-border"], "w-full")}>
@@ -112,17 +98,17 @@ export const CartTable: React.FC = () => {
 
         <tr className="!border-0">
           <td className="!border-0" colSpan={3}></td>
-          <td className="font-bold">Total Discount</td>
+          <td className="font-bold">Total Before Discount</td>
           <td colSpan={3}>
-            <PriceBox price={0} />
+            <PriceBox price={cartPrice.raw} />
           </td>
         </tr>
 
         <tr className="!border-0">
           <td className="!border-0" colSpan={3}></td>
-          <td className="font-bold">Total Before Discount</td>
+          <td className="font-bold">Total Discount</td>
           <td colSpan={3}>
-            <PriceBox price={0} />
+            <PriceBox price={cartPrice.discount} />
           </td>
         </tr>
 
@@ -130,7 +116,7 @@ export const CartTable: React.FC = () => {
           <td className="!border-0" colSpan={3}></td>
           <td className="font-bold">Total</td>
           <td colSpan={3}>
-            <PriceBox price={0} />
+            <PriceBox price={cartPrice.raw - cartPrice.discount} />
           </td>
         </tr>
 

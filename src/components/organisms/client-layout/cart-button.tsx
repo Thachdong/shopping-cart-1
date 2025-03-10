@@ -2,6 +2,7 @@
 import { Icon } from "@/components/atoms/icon";
 import { EIconName, EPath } from "@/constants";
 import { genPath } from "@/helpers/router";
+import { useCart } from "@/libs/contexts/cart-context";
 import Link from "next/link";
 
 const CLASS_NAMES = {
@@ -11,10 +12,11 @@ const CLASS_NAMES = {
 };
 
 export const CartButton: React.FC = () => {
+  const { count } = useCart();
   return (
     <Link className={CLASS_NAMES.link} href={genPath(EPath.cart)}>
       <Icon name={EIconName.cart} />
-      <div className={CLASS_NAMES.cartCount}>9</div>
+      {count > 0 && <div className={CLASS_NAMES.cartCount}>{count}</div>}
     </Link>
   );
 };

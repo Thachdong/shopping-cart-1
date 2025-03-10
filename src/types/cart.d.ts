@@ -14,6 +14,7 @@ type TProductCartProps = {
 
 // #region -- Cart context
 type TCartContext = {
+  count: number;
   products: TProductInCart[];
   addProduct: (product: TProductInCart) => void;
   removeProduct: (productId: number) => void;

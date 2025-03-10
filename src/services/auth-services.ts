@@ -1,11 +1,11 @@
-import { getServerSession } from "next-auth";
+import { getServerSession } from "@/libs/auth";
 
 export async function getAuthenticatedUser() {
-    const session = await getServerSession();
+  const session = await getServerSession();
 
-    if (!session?.user) {
-        throw new Error("Unauthorized");
-    }
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
 
-    return session.user;
+  return session.user;
 }

@@ -10,7 +10,7 @@ const thumbnails = [
 
 export const bestProducts: TProductCard[] = [
   {
-    id: "1",
+    id: 1,
     name: "Classic White T-Shirt",
     description: "A timeless white t-shirt.",
     thumbnails,
@@ -20,7 +20,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "2",
+    id: 2,
     name: "Blue Denim Jeans",
     description: "Comfortable blue denim jeans.",
     thumbnails,
@@ -30,7 +30,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "3",
+    id: 3,
     name: "Black Leather Jacket",
     description: "Stylish black leather jacket.",
     thumbnails,
@@ -40,7 +40,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "4",
+    id: 4,
     name: "Red Summer Dress",
     description: "Light and breezy red dress.",
     thumbnails,
@@ -50,7 +50,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "5",
+    id: 5,
     name: "White Sneakers",
     description: "Comfortable white sneakers.",
     thumbnails,
@@ -60,7 +60,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "6",
+    id: 6,
     name: "Black Dress Pants",
     description: "Elegant black dress pants.",
     thumbnails,
@@ -70,7 +70,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "7",
+    id: 7,
     name: "Grey Hoodie",
     description: "Cozy grey hoodie.",
     thumbnails,
@@ -80,7 +80,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "8",
+    id: 8,
     name: "Blue Baseball Cap",
     description: "Casual blue baseball cap.",
     thumbnails,
@@ -90,7 +90,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "9",
+    id: 9,
     name: "Black Sunglasses",
     description: "Stylish black sunglasses.",
     thumbnails,
@@ -100,7 +100,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "10",
+    id: 10,
     name: "Brown Leather Belt",
     description: "Durable brown leather belt.",
     thumbnails,
@@ -110,7 +110,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "11",
+    id: 11,
     name: "White Dress Shirt",
     description: "Formal white dress shirt.",
     thumbnails,
@@ -120,7 +120,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "12",
+    id: 12,
     name: "Blue Striped Tie",
     description: "Elegant blue striped tie.",
     thumbnails,
@@ -130,7 +130,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "13",
+    id: 13,
     name: "Black Ankle Boots",
     description: "Stylish black ankle boots.",
     thumbnails,
@@ -140,7 +140,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "14",
+    id: 14,
     name: "Green Cargo Pants",
     description: "Comfortable green cargo pants.",
     thumbnails,
@@ -150,7 +150,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "15",
+    id: 15,
     name: "Yellow Raincoat",
     description: "Bright yellow raincoat.",
     thumbnails,
@@ -160,7 +160,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "16",
+    id: 16,
     name: "Black Beanie",
     description: "Warm black beanie.",
     thumbnails,
@@ -170,7 +170,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "17",
+    id: 17,
     name: "White Tennis Skirt",
     description: "Sporty white tennis skirt.",
     thumbnails,
@@ -180,7 +180,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "18",
+    id: 18,
     name: "Blue Swim Trunks",
     description: "Comfortable blue swim trunks.",
     thumbnails,
@@ -190,7 +190,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "19",
+    id: 19,
     name: "Black Running Shoes",
     description: "Durable black running shoes.",
     thumbnails,
@@ -200,7 +200,7 @@ export const bestProducts: TProductCard[] = [
     stock: 10,
   },
   {
-    id: "20",
+    id: 20,
     name: "Red Wool Scarf",
     description: "Warm red wool scarf.",
     thumbnails,
@@ -217,42 +217,42 @@ export const MOCK_DATA = {
 
 export const popularCollections: TCollectionCard[] = [
   {
-    id: "1",
+    id: 1,
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
     products: bestProducts.slice(8),
   },
   {
-    id: "2",
+    id: 2,
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
     products: bestProducts.slice(8, 16),
   },
   {
-    id: "3",
+    id: 3,
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
     products: bestProducts.slice(8, 16),
   },
   {
-    id: "4",
+    id: 4,
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
     products: bestProducts.slice(9, 17),
   },
   {
-    id: "5",
+    id: 5,
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
     products: bestProducts.slice(9, 17),
   },
   {
-    id: "6",
+    id: 6,
     title: "Best seller",
     description: "Best seller description",
     banner: "/mock-images/home-banner.jpg",
@@ -262,42 +262,42 @@ export const popularCollections: TCollectionCard[] = [
 
 export const popularBlogposts: TBlogpostCard[] = [
   {
-    id: "1",
+    id: 1,
     title: "Blogpost title",
     description: "Blogpost description",
     image: "/mock-images/product-1.jpeg",
     publishDate: "02/01/2025",
   },
   {
-    id: "2",
+    id: 2,
     title: "Blogpost title",
     description: "Blogpost description",
     image: "/mock-images/product-1.jpeg",
     publishDate: "02/01/2025",
   },
   {
-    id: "3",
+    id: 3,
     title: "Blogpost title",
     description: "Blogpost description",
     image: "/mock-images/product-1.jpeg",
     publishDate: "02/01/2025",
   },
   {
-    id: "4",
+    id: 4,
     title: "Blogpost title",
     description: "Blogpost description",
     image: "/mock-images/product-1.jpeg",
     publishDate: "02/01/2025",
   },
   {
-    id: "5",
+    id: 5,
     title: "Blogpost title",
     description: "Blogpost description",
     image: "/mock-images/product-1.jpeg",
     publishDate: "02/01/2025",
   },
   {
-    id: "6",
+    id: 6,
     title: "Blogpost title",
     description: "Blogpost description",
     image: "/mock-images/product-1.jpeg",
