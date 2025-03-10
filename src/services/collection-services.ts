@@ -229,7 +229,7 @@ export async function getProductsByCollIdService(
                   variantName: true,
                   price: true,
                   stock: true,
-                  percentOff: true,
+                  discountPercent: true,
                   createdAt: true,
                 },
               },

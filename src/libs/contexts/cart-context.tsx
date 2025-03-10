@@ -2,13 +2,19 @@
 
 import { ELOCALSTORAGE_KEYS } from "@/constants";
 import { getItem } from "@/helpers/local-storage";
-import { getCartByUserIdAction } from "@/server-actions/cart";
+import {
+  addProductToCartAction,
+  getCartAction,
+  removeProductFromCartAction,
+  updateProductQuantityAction,
+} from "@/server-actions/cart";
 import { useSession } from "next-auth/react";
 import {
   createContext,
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -21,17 +27,18 @@ export const CartProvider: React.FC<Readonly<TCartProvider>> = ({
 
   const session = useSession();
 
+  const isAuthenticated = useMemo(
+    () => session?.status === "authenticated",
+    [session]
+  );
+
   //   #region -- Callbacks
   const initialProducts = useCallback(async () => {
     // CHECK IS USER LOGGED IN
     // IF YES, FETCH CART DATA
     // ELSE, FETCH CART DATA FROM LOCAL STORAGE
-    const { status, data } = session || {};
-
-    const user = data?.user;
-
-    if (status === "authenticated" && !!user) {
-      const { data, success } = await getCartByUserIdAction(user.id);
+    if (isAuthenticated) {
+      const { data, success } = await getCartAction();
 
       if (success && Array.isArray(data)) {
         setProducts(data);
@@ -41,14 +48,18 @@ export const CartProvider: React.FC<Readonly<TCartProvider>> = ({
 
       setProducts(cartData);
     }
-  }, [session]);
+  }, [isAuthenticated]);
 
   const addProduct = useCallback(
-    (product: TProductInCart) => {
+    async (product: TProductInCart) => {
       const productIndex = products.findIndex((p) => p.id === product.id);
 
       if (productIndex === -1) {
         setProducts((prev) => [...prev, product]);
+
+        if (isAuthenticated) {
+          await addProductToCartAction(product.id, product.quantity);
+        }
       } else {
         setProducts((prev) =>
           prev.map((p) => {
@@ -61,32 +72,50 @@ export const CartProvider: React.FC<Readonly<TCartProvider>> = ({
             }
 
             return p;
-          }),
+          })
         );
+
+        if (isAuthenticated) {
+          await updateProductQuantityAction(product.id, product.quantity);
+        }
       }
     },
-    [products],
+    [products, isAuthenticated]
   );
 
-  const removeProduct = useCallback((productId: number) => {
-    setProducts((prev) => prev.filter((p) => p.id !== productId));
-  }, []);
+  const removeProduct = useCallback(
+    async (productId: number) => {
+      setProducts((prev) => prev.filter((p) => p.id !== productId));
 
-  const updateProduct = useCallback((productId: number, quantity: number) => {
-    setProducts((prev) =>
-      prev.map((p) => {
-        if (p.id === productId) {
-          return {
-            ...p,
-            quantity,
-            total: p.price * quantity,
-          };
-        }
+      if (isAuthenticated) {
+        await removeProductFromCartAction(productId);
+      }
+    },
+    [isAuthenticated]
+  );
 
-        return p;
-      }),
-    );
-  }, []);
+  const updateProduct = useCallback(
+    async (productId: number, quantity: number) => {
+      setProducts((prev) =>
+        prev.map((p) => {
+          if (p.id === productId) {
+            return {
+              ...p,
+              quantity,
+              total: p.price * quantity,
+            };
+          }
+
+          return p;
+        })
+      );
+
+      if (isAuthenticated) {
+        await updateProductQuantityAction(productId, quantity);
+      }
+    },
+    [isAuthenticated]
+  );
   //   #endregion
 
   useEffect(() => {

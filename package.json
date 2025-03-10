@@ -70,5 +70,8 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "volta": {
+    "node": "20.18.3"
   }
 }

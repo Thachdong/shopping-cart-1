@@ -3,13 +3,13 @@ model Variant {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    variantName   String
-    color         String
-    size          String
-    price         Int
-    stock         Int
-    discountPercent    Int
-    discountPrice Int
+    variantName     String
+    color           String
+    size            String
+    price           Int
+    stock           Int
+    discountPercent Int
+    discountPrice   Int
 
     // RELATIONSHIP:
     thumbnails Asset[]

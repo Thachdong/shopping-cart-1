@@ -26,7 +26,7 @@ const schema = object({
   size: string(),
   price: number(),
   stock: number(),
-  percentOff: number().optional(),
+  discountPercent: number().optional(),
 });
 
 const FormInput = createFormInput<TCreateVariantServiceParams>();
@@ -112,7 +112,7 @@ export const AddVariantButton: React.FC = () => {
           />
           <FormInput
             control={control}
-            name="percentOff"
+            name="discountPercent"
             label="Percent Off"
             type="number"
           />

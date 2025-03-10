@@ -147,7 +147,7 @@ export const CreateProductForm: React.FC = () => {
         />
         <FormInput
           control={control}
-          name="percentOff"
+          name="discountPercent"
           label="Percent Off"
           type="number"
           placeholder="Percent off ..."

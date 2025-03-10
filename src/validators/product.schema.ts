@@ -10,5 +10,5 @@ export const createProductSchema = object({
   size: string(),
   price: number(),
   stock: number(),
-  percentOff: number().optional(),
+  discountPercent: number().optional(),
 });
