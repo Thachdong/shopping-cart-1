@@ -23,7 +23,9 @@ export const UploadBanner: React.FC<Readonly<TUploadBanner>> = ({
   uploadedFile,
   ...uploadProps
 }) => {
-  const url = useFetchPresignedUrlFromAsset(uploadedFile);
+  const [url] = useFetchPresignedUrlFromAsset(
+    uploadedFile ? [uploadedFile] : [],
+  );
 
   const bgImageStyle = useBgImage(url);
 

@@ -1,7 +1,7 @@
 import { TUploadedFile } from "./form";
 
 type TCardThumbnails = {
-  thumbnails: string[];
+  thumbnails: TUploadedFile[];
   className?: string;
 };
 
@@ -13,7 +13,7 @@ type TProductCard = {
   discountPercent: number;
   discountPrice: number;
   stock: number;
-  thumbnails: string[];
+  thumbnails: TUploadedFile[];
 };
 
 type TProductCardProps = {

@@ -1,6 +1,6 @@
+"use client";
 import { ECurrency, EPath } from "@/constants";
 import React from "react";
-import { CardThumbnails } from "../card-thumbnails";
 import { Header } from "@/components/atoms/header";
 import { joinClass } from "@/helpers/style";
 import { SaleBox } from "../sale-box";
@@ -20,11 +20,11 @@ export const ProductCard: React.FC<Readonly<TProductCardProps>> = ({
   return (
     <div className={joinClass(className, DEFAULT_CLASSNAME.card)}>
       {/* thumbnails */}
-      <CardThumbnails thumbnails={product.thumbnails} />
+      {/* <CardThumbnails thumbnails={product.thumbnails} /> */}
 
       {/* product infomation */}
       <Link
-        href={genPath(EPath.products, product.id)}
+        href={genPath(EPath.products, product.id.toString())}
         className={joinClass(DEFAULT_CLASSNAME.body)}
       >
         <Header className="truncate" level={6}>

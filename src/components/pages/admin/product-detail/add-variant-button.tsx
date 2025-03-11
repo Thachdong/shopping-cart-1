@@ -113,7 +113,7 @@ export const AddVariantButton: React.FC = () => {
           <FormInput
             control={control}
             name="discountPercent"
-            label="Percent Off"
+            label="Discount Percent"
             type="number"
           />
           <div>

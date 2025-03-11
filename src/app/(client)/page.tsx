@@ -1,18 +1,15 @@
 import { HeroBanner } from "@/components/molecules/hero-banner";
 import { ProductList } from "@/components/organisms/product-list";
-import {
-  bestProducts,
-  MOCK_DATA,
-  popularBlogposts,
-  popularCollections,
-} from "./data";
+import { MOCK_DATA, popularBlogposts, popularCollections } from "./data";
 import { CollectionList } from "@/components/organisms/collection-list";
 import { HeaderWithButton } from "@/components/molecules/header-with-button";
 import { LinkAsButton } from "@/components/molecules/link-as-button";
 import { EButtonType } from "@/constants";
 import { BlogPostList } from "@/components/organisms/blogpost-list";
+import { getClientProductByCollId } from "@/services/collection-services";
 
 export default async function Home() {
+  const bestProducts = await getClientProductByCollId(2);
   return (
     <div className="flex flex-col gap-4">
       {/* herro banner */}

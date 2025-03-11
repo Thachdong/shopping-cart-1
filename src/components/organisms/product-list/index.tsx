@@ -22,6 +22,7 @@ export const ProductList: React.FC<Readonly<TProductList>> = ({
   loadMoreAction,
   viewAllPath,
 }) => {
+  console.log(products);
   const button = viewAllPath ? (
     <LinkAsButton
       buttonProps={{ variant: EButtonType.outline }}

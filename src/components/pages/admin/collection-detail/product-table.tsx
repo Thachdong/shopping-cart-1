@@ -65,7 +65,7 @@ export const ProductTable: React.FC<Readonly<TProductTableProps>> = ({
         cell: ({ row }) => row.original.variants[0]?.stock,
       },
       {
-        header: "Percent Off",
+        header: "Discount Percent",
         accessorKey: "",
         cell: ({ row }) => row.original.variants[0]?.discountPercent,
       },
