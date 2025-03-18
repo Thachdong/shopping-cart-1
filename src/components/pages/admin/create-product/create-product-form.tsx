@@ -50,7 +50,7 @@ export const CreateProductForm: React.FC = () => {
   });
 
   const onSubmit = useCallback(
-    async (data: TCreateProductForm) => {
+    async ({ discountPercent, price, ...data }: TCreateProductForm) => {
       if (!displayImage) {
         setError("Diplay image is required!");
 
@@ -61,6 +61,9 @@ export const CreateProductForm: React.FC = () => {
 
       const { data: result, success } = await createProductAction({
         ...data,
+        discountPrice: price - ((discountPercent || 0) / price) * 100,
+        discountPercent: discountPercent || 0,
+        price,
         displayImage,
         thumbnails,
       });
@@ -147,10 +150,10 @@ export const CreateProductForm: React.FC = () => {
         />
         <FormInput
           control={control}
-          name="percentOff"
-          label="Percent Off"
+          name="discountPercent"
+          label="Discount Percent"
           type="number"
-          placeholder="Percent off ..."
+          placeholder="Discount percent ..."
         />
       </div>
 

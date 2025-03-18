@@ -95,3 +95,7 @@ export enum EUserRoles {
   ADMIN = "ADMIN",
   SELLER = "SELLER",
 }
+
+export enum ELOCALSTORAGE_KEYS {
+  CART = "cart",
+}

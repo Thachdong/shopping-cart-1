@@ -3,15 +3,9 @@ model Cart {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    discount       Int
-    address        String
-    shippingVender String
-    shippingFee    Int
-    total          Int
-
     // RELATIONSHIP:
     // PRODUCTS
-    products Product_Cart[]
+    products Variant_Cart[]
     // USER
     userId   Int            @unique
     user     User           @relation(fields: [userId], references: [id])

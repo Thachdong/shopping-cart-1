@@ -66,7 +66,7 @@ export const VariantsTable: React.FC<TVariantsTable> = ({ variants }) => {
       },
       {
         header: "Percent Off (%)",
-        accessorKey: "percentOff",
+        accessorKey: "discountPercent",
       },
       {
         header: "Thumnails",

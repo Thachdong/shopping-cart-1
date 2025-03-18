@@ -48,7 +48,14 @@ const Table = <T extends RowData>({
   const tableBody = useMemo(() => {
     const rows = reactTable.getRowModel().rows;
 
-    if (rows.length === 0) return <></>;
+    if (rows.length === 0)
+      return (
+        <tr>
+          <td colSpan={999} className="text-center text-sm italic">
+            No data
+          </td>
+        </tr>
+      );
 
     return rows.map((row) => (
       <tr key={row.id}>

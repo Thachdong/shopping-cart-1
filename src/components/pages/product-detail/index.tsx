@@ -1,10 +1,10 @@
-import { Button } from "@/components/atoms/button";
 import { Header } from "@/components/atoms/header";
 import { CardThumbnails } from "@/components/molecules/card-thumbnails";
 import { SaleBox } from "@/components/molecules/sale-box";
 import { Tab } from "@/components/molecules/tab";
-import { EButtonType, ECurrency } from "@/constants";
+import { ECurrency } from "@/constants";
 import { TProductDetailPageProps } from "@/types/product";
+import { AddToCartButton } from "./add-to-cart-button";
 
 export const ProductDetail: React.FC<Readonly<TProductDetailPageProps>> = ({
   product,
@@ -31,7 +31,7 @@ export const ProductDetail: React.FC<Readonly<TProductDetailPageProps>> = ({
             currency={ECurrency.VND}
           />
 
-          <Button variant={EButtonType.primary}>ADD TO CART</Button>
+          <AddToCartButton product={product} />
         </div>
       </div>
 

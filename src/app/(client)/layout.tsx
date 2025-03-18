@@ -1,5 +1,6 @@
 import { ClientFooter } from "@/components/organisms/client-layout/client-footer";
 import { ClientHeader } from "@/components/organisms/client-layout/client-header";
+import { CartProvider } from "@/libs/contexts/cart-context";
 
 export default async function ClientLayout({
   children,
@@ -10,15 +11,17 @@ export default async function ClientLayout({
 }) {
   return (
     <section className="max-w-[1366px] mx-auto min-h-screen grid grid-cols-1 grid-rows-[auto_1fr_auto]">
-      <div className="sticky top-0 z-50 bg-white hover:shadow-xl">
-        <ClientHeader />
-      </div>
+      <CartProvider>
+        <div className="sticky top-0 z-50 bg-white hover:shadow-xl">
+          <ClientHeader />
+        </div>
 
-      {children}
+        {children}
 
-      {modals}
+        {modals}
 
-      <ClientFooter />
+        <ClientFooter />
+      </CartProvider>
     </section>
   );
 }

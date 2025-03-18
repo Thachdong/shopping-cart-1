@@ -1,19 +1,19 @@
 import { TUploadedFile } from "./form";
 
 type TCardThumbnails = {
-  thumbnails: string[];
+  thumbnails: TUploadedFile[];
   className?: string;
 };
 
 type TProductCard = {
-  id: string;
+  id: number;
   name: string;
   description: string;
   price: number;
   discountPercent: number;
   discountPrice: number;
   stock: number;
-  thumbnails: string[];
+  thumbnails: TUploadedFile[];
 };
 
 type TProductCardProps = {
@@ -44,7 +44,7 @@ type TAdminProduct = {
   description: string;
   price: number;
   stock: number;
-  percentOff: number;
+  discountPercent: number;
   createAt: string;
 };
 
@@ -63,7 +63,8 @@ type TCreateProductForm = {
   size: string;
   price: number;
   stock: number;
-  percentOff: number;
+  discountPercent: number;
+  discountPrice: number;
 };
 
 type TCreateProduct = TCreateProductForm & {
@@ -78,7 +79,7 @@ type TProductVariant = {
   variantName: string; // product name + variant name
   price: number;
   stock: number;
-  percentOff: number;
+  discountPercent: number;
   createdAt: string;
 };
 
@@ -121,6 +122,7 @@ type TCreateVariantServiceParams = {
   size: string;
   price: number;
   stock: number;
-  percentOff: number;
+  discountPercent: number;
   thumbnails: TUploadedFile[];
+  discountPrice: number;
 };

@@ -9,7 +9,7 @@ import {
   TUpdateCollGeneralInfo,
 } from "@/types/collections";
 import { copyS3FileService, deleteS3FileService } from "./s3-services";
-import { TProductTable } from "@/types/product";
+import { TProductCard, TProductTable } from "@/types/product";
 
 const collectionRepository = prisma.collection;
 
@@ -229,8 +229,10 @@ export async function getProductsByCollIdService(
                   variantName: true,
                   price: true,
                   stock: true,
-                  percentOff: true,
+                  discountPercent: true,
                   createdAt: true,
+                  discountPrice: true,
+                  thumbnails: true,
                 },
               },
             },
@@ -421,4 +423,55 @@ export async function removeCollPostService(
       },
     },
   });
+}
+
+/**
+ * Get product by collection id
+ *
+ * @param id: number -- collection id
+ *
+ *  @returns products list
+ */
+export async function getClientProductByCollId(
+  id: number,
+): Promise<TProductCard[]> {
+  const collection = await collectionRepository.findFirst({
+    where: { id },
+    select: {
+      products: {
+        select: {
+          product: {
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              variants: {
+                select: {
+                  price: true,
+                  discountPercent: true,
+                  discountPrice: true,
+                  stock: true,
+                  thumbnails: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const products =
+    collection?.products.map(({ product }) => ({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.variants[0]?.price || 0,
+      discountPercent: product.variants[0]?.discountPercent || 0,
+      discountPrice: product.variants[0]?.discountPrice || 0,
+      stock: product.variants[0]?.stock || 0,
+      thumbnails: product.variants[0]?.thumbnails,
+    })) || [];
+
+  return products;
 }

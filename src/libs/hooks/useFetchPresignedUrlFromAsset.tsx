@@ -3,26 +3,29 @@ import { getFetchUrlAction } from "@/server-actions/s3-actions";
 import { TUploadedFile } from "@/types/form";
 import { useCallback, useEffect, useState } from "react";
 
-export const useFetchPresignedUrlFromAsset = (uploadedFile?: TUploadedFile) => {
-  const [url, setUrl] = useState("");
+export const useFetchPresignedUrlFromAsset = (
+  uploadedFiles: TUploadedFile[],
+) => {
+  const [urls, setUrls] = useState<string[]>([]);
 
   const fetchPresignedUrl = useCallback(async () => {
-    if (uploadedFile) {
-      const { success, data } = await getFetchUrlAction(
-        [uploadedFile.folder, uploadedFile.filename].join("/"),
-      );
+    const promises = await Promise.all(
+      uploadedFiles.map((file) =>
+        getFetchUrlAction([file.folder, file.filename].join("/")),
+      ),
+    );
 
-      if (success) {
-        setUrl(data as string);
-      }
-    } else {
-      setUrl("");
-    }
-  }, [uploadedFile]);
+    const presignUrls = promises
+      .filter((result) => result.success)
+      .map((result) => result.data)
+      .filter((url): url is string => typeof url === "string");
+
+    setUrls((prv) => [...prv, ...presignUrls]);
+  }, [uploadedFiles]);
 
   useEffect(() => {
     fetchPresignedUrl();
   }, [fetchPresignedUrl]);
 
-  return url;
+  return [...urls];
 };

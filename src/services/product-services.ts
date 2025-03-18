@@ -49,6 +49,7 @@ export async function createProductService(
         create: [
           {
             ...variant,
+            discountPrice: variant.discountPrice,
             thumbnails: {
               create: thumbnails.map((thmb) => ({
                 filename: thmb.filename,
@@ -165,7 +166,7 @@ export async function getProductsTable(): Promise<TProductTable[]> {
           variantName: true,
           price: true,
           stock: true,
-          percentOff: true,
+          discountPercent: true,
           createdAt: true,
         },
       },
@@ -248,7 +249,7 @@ export async function getProductDetailService(
           color: true,
           price: true,
           stock: true,
-          percentOff: true,
+          discountPercent: true,
           createdAt: true,
           thumbnails: true,
         },

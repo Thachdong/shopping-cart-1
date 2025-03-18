@@ -3,16 +3,19 @@ model Variant {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    variantName String
-    color       String
-    size        String
-    price       Int
-    stock       Int
-    percentOff  Int
+    variantName     String
+    color           String
+    size            String
+    price           Int
+    stock           Int
+    discountPercent Int
+    discountPrice   Int
 
     // RELATIONSHIP:
     thumbnails Asset[]
     // PRODUCT
     productId  Int
-    product    Product @relation(fields: [productId], references: [id])
+    product    Product        @relation(fields: [productId], references: [id])
+    // CART
+    cart       Variant_Cart[]
 }

@@ -24,7 +24,9 @@ export const UploadDisplayImage: React.FC<Readonly<TUploadDisplayImg>> = ({
   uploadedFile,
   ...uploadProps
 }) => {
-  const url = useFetchPresignedUrlFromAsset(uploadedFile);
+  const [url] = useFetchPresignedUrlFromAsset(
+    uploadedFile ? [uploadedFile] : [],
+  );
 
   const bgImageStyle = useBgImage(url);
 
